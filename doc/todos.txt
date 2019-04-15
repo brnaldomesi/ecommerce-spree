@@ -1,0 +1,48 @@
+#####################################################
+# User
+
+===================================
+Abilities
+
+[ ] Add new user type Spree::PermissionSets::SellerUser allowing to manage products, own store
+[ ] Add new record into spree_roles name: 'seller_user'
+
+#####################################################
+# Stores
+
+Admin/management ==============================
+
+[ ] Add user_id column to spree_stores
+[ ] whenever seller user creates a store
+  [ ] set user_id accordingly
+  [ ] create entries in spree_roles_users
+
+[ ] Different side w/ limited features compared to SuperUser/admin
+  [ ] think of whether to change links not to be prefixed w/ '/admin'
+
+#####################################################
+# Products
+
+Connect to a store =============================
+[ ] add store_id to spree_products
+
+Migrate scraped products =======================
+[ ] copy over Retail::Product & its classes over
+[ ] add separate secondary DB connection config & set specifically for Retail::Product
+[ ] populate more taxon options
+  [ ] construct some sets of values for popular spec names
+  [ ] add those values into spree_products_taxons
+
+Implement search w/ ElasticSearch =======================
+[ ] Check out gem solidus_elastic_product
+[ ] Install gem and setup its background indexing
+[ ] Replace Spree::ProductsController actions w/ Elastic search
+[ ] Replace side bar's filter list that uses spree_taxons w/ Elastic search
+
+#####################################################
+# Categories
+
+[ ] Copy over Category and OtherSiteCategory classes over
+[ ] set that secondary DB connection to them
+[ ] Migrate categories hierachy into spree_products_taxons
+[ ] Write method to only query for top categories

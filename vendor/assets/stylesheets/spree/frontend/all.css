@@ -6,4 +6,6 @@
  *= require spree/frontend
  *= require_self
  *= require_tree .
+ *= require spree/frontend/solidus_marketplace
+ *= require spree/frontend/solidus_reports
 */

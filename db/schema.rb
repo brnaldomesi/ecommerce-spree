@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_12_155629) do
+ActiveRecord::Schema.define(version: 2019_04_12_214229) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -371,8 +371,11 @@ ActiveRecord::Schema.define(version: 2019_04_12_155629) do
     t.string "number"
     t.string "cvv_response_code"
     t.string "cvv_response_message"
+    t.integer "payable_id"
+    t.string "payable_type"
     t.index ["number"], name: "index_spree_payments_on_number", unique: true
     t.index ["order_id"], name: "index_spree_payments_on_order_id"
+    t.index ["payable_id", "payable_type"], name: "index_spree_payments_on_payable_id_and_payable_type"
     t.index ["payment_method_id"], name: "index_spree_payments_on_payment_method_id"
     t.index ["source_id", "source_type"], name: "index_spree_payments_on_source_id_and_source_type"
   end
@@ -733,6 +736,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_155629) do
     t.decimal "additional_tax_total", precision: 10, scale: 2, default: "0.0"
     t.decimal "promo_total", precision: 10, scale: 2, default: "0.0"
     t.decimal "included_tax_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "supplier_commission", precision: 8, scale: 2, default: "0.0", null: false
     t.index ["deprecated_address_id"], name: "index_spree_shipments_on_deprecated_address_id"
     t.index ["number"], name: "index_shipments_on_number"
     t.index ["order_id"], name: "index_spree_shipments_on_order_id"
@@ -864,8 +868,10 @@ ActiveRecord::Schema.define(version: 2019_04_12_155629) do
     t.boolean "fulfillable", default: true, null: false
     t.string "code"
     t.boolean "check_stock_on_transfer", default: true
+    t.integer "supplier_id"
     t.index ["country_id"], name: "index_spree_stock_locations_on_country_id"
     t.index ["state_id"], name: "index_spree_stock_locations_on_state_id"
+    t.index ["supplier_id"], name: "index_spree_stock_locations_on_supplier_id"
   end
 
   create_table "spree_stock_movements", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -977,6 +983,38 @@ ActiveRecord::Schema.define(version: 2019_04_12_155629) do
     t.string "available_locales"
     t.index ["code"], name: "index_spree_stores_on_code"
     t.index ["default"], name: "index_spree_stores_on_default"
+  end
+
+  create_table "spree_supplier_variants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "supplier_id"
+    t.integer "variant_id"
+    t.decimal "cost", precision: 10
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["supplier_id"], name: "index_spree_supplier_variants_on_supplier_id"
+    t.index ["variant_id"], name: "index_spree_supplier_variants_on_variant_id"
+  end
+
+  create_table "spree_suppliers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.boolean "active", default: false, null: false
+    t.integer "address_id"
+    t.decimal "commission_flat_rate", precision: 8, scale: 2, default: "0.0", null: false
+    t.float "commission_percentage", default: 0.0, null: false
+    t.string "email"
+    t.string "name"
+    t.string "url"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "tax_id"
+    t.string "token"
+    t.string "slug"
+    t.string "paypal_email"
+    t.index ["active"], name: "index_spree_suppliers_on_active"
+    t.index ["address_id"], name: "index_spree_suppliers_on_address_id"
+    t.index ["deleted_at"], name: "index_spree_suppliers_on_deleted_at"
+    t.index ["slug"], name: "index_spree_suppliers_on_slug", unique: true
+    t.index ["token"], name: "index_spree_suppliers_on_token"
   end
 
   create_table "spree_tax_categories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -1105,9 +1143,11 @@ ActiveRecord::Schema.define(version: 2019_04_12_155629) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.integer "supplier_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
     t.index ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
+    t.index ["supplier_id"], name: "index_spree_users_on_supplier_id"
   end
 
   create_table "spree_variant_property_rule_conditions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
