@@ -77,3 +77,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'solidus'
 gem 'solidus_auth_devise'
+gem 'solidus_reports', github: 'solidusio-contrib/solidus_reports'
+gem 'solidus_marketplace'
