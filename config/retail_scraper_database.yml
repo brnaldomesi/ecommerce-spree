@@ -1,0 +1,35 @@
+development:
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
+  reconnect: false
+  host: localhost
+  database: retail_scraper_dev
+  pool: 5
+  username: scraper
+  password: test
+  socket: /tmp/mysql.sock
+
+test:
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
+  reconnect: true
+  host: localhost
+  database: retail_scraper_test
+  pool: 5
+  username: scraper
+  password: test
+  socket: /tmp/mysql.sock
+
+production:
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
+  reconnect: true
+  host: localhost
+  database: retail_scraper_prod
+  pool: 5
+  username: scraper
+  password: test
+  socket: /tmp/mysql.sock

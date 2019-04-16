@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_12_214229) do
+ActiveRecord::Schema.define(version: 2019_04_16_170422) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -1054,6 +1054,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_214229) do
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.integer "position", default: 0
+    t.index ["name"], name: "index_spree_taxonomies_on_name"
     t.index ["position"], name: "index_spree_taxonomies_on_position"
   end
 
@@ -1077,6 +1078,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_214229) do
     t.string "meta_keywords"
     t.integer "depth"
     t.index ["lft"], name: "index_spree_taxons_on_lft"
+    t.index ["name"], name: "index_spree_taxons_on_name"
     t.index ["parent_id"], name: "index_taxons_on_parent_id"
     t.index ["permalink"], name: "index_taxons_on_permalink"
     t.index ["position"], name: "index_spree_taxons_on_position"

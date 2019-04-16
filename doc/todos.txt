@@ -48,5 +48,5 @@ Change product forms ===============================
 
 [ ] Copy over Category and OtherSiteCategory classes over
 [ ] set that secondary DB connection to them
-[ ] Migrate categories hierachy into spree_products_taxons
+[ ] Migrate categories hierarchy into spree_products_taxons
 [ ] Write method to only query for top categories
