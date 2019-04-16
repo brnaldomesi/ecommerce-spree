@@ -7,10 +7,8 @@ module Spree
     # except the removal of 'select(cols)' calls to query scope.
     def taxon_preview(taxon, max = 4)
       price_scope = Spree::Price.where(current_pricing_options.search_arguments)
-      products = taxon.active_products.joins(:prices).select("DISTINCT spree_products.*, spree_products_taxons.position").limit(max)
-
-      logger.info "| tax_preview: #{products.to_sql}"
-      if false && products.size < max # TODO:
+      products = taxon.active_products.joins(:prices).select('DISTINCT spree_products.*, spree_products_taxons.position').limit(max)
+      if products.size < max # TODO:
         products_arel = Spree::Product.arel_table
         taxon.descendants.each do |descendent_taxon|
           to_get = max - products.length
