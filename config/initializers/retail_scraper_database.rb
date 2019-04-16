@@ -1,0 +1,1 @@
+RETAIL_SCRAPER_DB = YAML.load_file(File.join(Rails.root, 'config', 'retail_scraper_database.yml'))[Rails.env.to_s]
