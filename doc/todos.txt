@@ -39,6 +39,10 @@ Implement search w/ ElasticSearch =======================
 [ ] Replace Spree::ProductsController actions w/ Elastic search
 [ ] Replace side bar's filter list that uses spree_taxons w/ Elastic search
 
+Change product forms ===============================
+[ ] change create product's requirement of slug
+[ ] change to pre-select Default option for Shipping Category and Tax Category
+
 #####################################################
 # Categories
 
