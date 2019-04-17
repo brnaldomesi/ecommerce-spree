@@ -41,7 +41,7 @@ class Category < ApplicationRecord
                 permalink: second_taxon.permalink + '/' + convert_name_to_link_value(third_cat.name) )
             third_taxon.move_to_child_of( second_taxon )
           end
-          puts '%30s \\ %20s \\%s' % ['', '', third_taxon.name]
+          puts '%30s \\ %20s \\ %s' % ['', '', third_taxon.name]
         end
       end
     end
