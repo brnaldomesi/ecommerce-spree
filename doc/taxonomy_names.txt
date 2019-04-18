@@ -1,0 +1,180 @@
+age
+age group
+age range
+alarm type
+categories
+arming type
+asian size
+audio input
+audio output
+author
+back counter type
+back design
+back style
+back type
+bag fabrics
+bag shape
+band material type
+band mode
+band thickness
+band type
+base style
+battery capacity
+battery charge time
+battery type
+bluetooth distance
+boot opening
+boot type
+bottom style
+brand
+bust
+button style
+cake tools type
+camera type
+capacity
+case material
+case shape
+case thickness
+category
+categories
+charging interface
+charging port
+charging time
+charging voltage
+chest size
+chipset
+cloth season
+cloth style
+cloth type
+clothing grade
+clothing pattern
+collar style
+collar type
+condition
+costume style
+costume type
+country
+cup
+delivery method
+delivery time
+diameter
+dimensions
+element
+eu size
+euro size
+fabric
+fit type
+fit-style
+focal length
+focus
+frame rate
+frame type
+frequency
+frequency response
+gender
+grade
+hair types
+half sleeve
+hat size
+headphone plug type
+heel type
+hole size
+input
+input current
+input voltage
+knit type
+language
+layout
+lens
+location
+lumbar type
+made in
+manufacturer
+manufactures
+material
+materials
+memory
+metal
+mode
+model
+net weight
+origin
+pacakage
+pants style
+pants type
+pattern
+payment method
+power
+power source
+power supply
+power type
+ppi
+price grade
+price range
+primary color
+print style
+quality
+region
+resolution
+resolutions
+revision
+ring diameter
+ring inner diameter
+ring inside diameter
+ring size
+season
+sensor size
+sensor type
+sex
+ship from
+shipment
+shipping
+shirt style
+shirt type
+shoe size
+shoe width
+shoulder width
+size
+sleeve length
+source
+sport type
+standby time
+storage capacity
+stretch
+style
+suit type
+supply
+supported mobile systems
+supported operating systems
+supported platforms
+supported protocols
+theme
+thickness
+type
+uk size
+us size
+video compression format
+video compression standard
+video frame rate
+video interface
+video streams
+view
+view angle
+viewing angle
+waist height
+waist line
+waist type
+wash method
+wear quality
+weight
+width
+wireless
+wireless charging
+wireless lan
+wireless lan frequency
+wireless lan security
+wireless profile
+wireless protocols
+wireless standard
+wireless type
+wrappage

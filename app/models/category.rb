@@ -1,6 +1,5 @@
 # Attributes: name, level, order_index, parent_category_id, full_path,
-class Category < ApplicationRecord
-  establish_connection RETAIL_SCRAPER_DB
+class Category < RetailScraperRecord
 
   belongs_to :parent, class_name:'Category', foreign_key:'parent_category_id', optional: true
 
