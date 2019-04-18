@@ -1,5 +1,5 @@
-# frozen_string_literal: true
-
+##
+# Copied over codes and patched from original source.  If version updated, do change accordingly.
 module Spree
   class TaxonsController < Spree::StoreController
 

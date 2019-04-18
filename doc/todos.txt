@@ -26,6 +26,10 @@ Admin/management ==============================
 Connect to a store =============================
 [ ] add store_id to spree_products
 
+Migrate product specs as taxons ====================
+[ ] group synonymous or related spec names into one, such as 'available color' and 'color'
+[ ] make unique taxon value entry if spec value has delimited multiple values in one
+
 Migrate scraped products =======================
 [ ] copy over Retail::Product & its classes over
 [ ] add separate secondary DB connection config & set specifically for Retail::Product
@@ -46,7 +50,7 @@ Change product forms ===============================
 #####################################################
 # Categories
 
-[ ] Copy over Category and OtherSiteCategory classes over
-[ ] set that secondary DB connection to them
-[ ] Migrate categories hierarchy into spree_products_taxons
+[x] Copy over Category and OtherSiteCategory classes over
+[x] set that secondary DB connection to them
+[x] Migrate categories hierarchy into spree_products_taxons
 [ ] Write method to only query for top categories
