@@ -1,6 +1,7 @@
 ##
 # Attributes: site_name, name, other_site_category_id, level, order_index, parent_category_id, full_path, category_id
 class OtherSiteCategory < RetailScraperRecord
+  self.table_name = 'other_site_categories'
 
   attr_accessor :newly_created
 
