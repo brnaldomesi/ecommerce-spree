@@ -1,5 +1,6 @@
 # Attributes: name, level, order_index, parent_category_id, full_path,
 class Category < RetailScraperRecord
+  self.table_name = 'categories'
 
   belongs_to :parent, class_name:'Category', foreign_key:'parent_category_id', optional: true
 
