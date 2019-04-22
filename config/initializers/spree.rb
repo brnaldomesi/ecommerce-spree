@@ -58,4 +58,6 @@ Spree::Api::Config.configure do |config|
   config.requires_authentication = true
 end
 
-Spree.user_class = "Spree::LegacyUser"
+Spree.user_class = 'Spree::LegacyUser'
+
+Spree::Config.roles.assign_permissions(:default, ['Spree::PermissionSets::SellerUser'] )
