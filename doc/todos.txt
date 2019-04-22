@@ -7,6 +7,12 @@ Abilities
 [ ] Add new user type Spree::PermissionSets::SellerUser allowing to manage products, own store
 [ ] Add new record into spree_roles name: 'seller_user'
 
+===================================
+Registration
+
+[ ] Add username and display name
+[ ] Automate generation of confirmation token and send email
+
 #####################################################
 # Stores
 
