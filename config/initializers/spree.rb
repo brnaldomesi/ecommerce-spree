@@ -61,3 +61,4 @@ end
 Spree.user_class = 'Spree::LegacyUser'
 
 Spree::Config.roles.assign_permissions(:default, ['Spree::PermissionSets::SellerUser'] )
+Spree::Config.generate_api_key_for_all_roles = true
