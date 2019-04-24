@@ -75,10 +75,10 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
+  gem 'pry-rails'
 
   # gem 'webrat'
   gem 'byebug'
-  gem 'mechanize'
 
   # gem 'rails_best_practices'
 end
