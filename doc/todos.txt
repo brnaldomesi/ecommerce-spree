@@ -4,8 +4,8 @@
 ===================================
 Abilities
 
-[ ] Add new user type Spree::PermissionSets::SellerUser allowing to manage products, own store
-[ ] Add new record into spree_roles name: 'seller_user'
+[x] Add new user type Spree::PermissionSets::SellerUser allowing to manage products, own store
+[-] Add new record into spree_roles name: 'seller_user' <= simply overriding default
 
 ===================================
 Registration
@@ -37,10 +37,10 @@ Migrate product specs as taxons ====================
 [ ] make unique taxon value entry if spec value has delimited multiple values in one
 
 Migrate scraped products =======================
-[ ] copy over Retail::Product & its classes over
-[ ] add separate secondary DB connection config & set specifically for Retail::Product
+[x] copy over Retail::Product & its classes over
+[x] add separate secondary DB connection config & set specifically for Retail::Product
 [ ] populate more taxon options
-  [ ] construct some sets of values for popular spec names
+  [x] construct some sets of values for popular spec names
   [ ] add those values into spree_products_taxons
 
 Implement search w/ ElasticSearch =======================
