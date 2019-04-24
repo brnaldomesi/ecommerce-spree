@@ -30,7 +30,7 @@ Admin/management ==============================
 # Products
 
 Connect to a store =============================
-[ ] add store_id to spree_products
+[-] add store_id to spree_products
 
 Migrate product specs as taxons ====================
 [ ] group synonymous or related spec names into one, such as 'available color' and 'color'
