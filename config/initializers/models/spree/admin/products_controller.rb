@@ -22,6 +22,7 @@ module Spree
             page(params[:page]).
             per(Spree::Config[:admin_products_per_page])
         @collection = @collection.where(user_id: spree_current_user.try(:id) ) if spree_current_user
+        @collection
       end
 
     end # eval
