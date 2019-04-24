@@ -50,8 +50,12 @@ Implement search w/ ElasticSearch =======================
 [ ] Replace side bar's filter list that uses spree_taxons w/ Elastic search
 
 Change product forms ===============================
-[ ] change create product's requirement of slug
-[ ] change to pre-select Default option for Shipping Category and Tax Category
+[x] change create product's requirement of slug => removed the field
+[x] change to pre-select Default option for Shipping Category and Tax Category
+
+Products admin =====================================
+[x] index page /admin/products should only query owner's self products
+
 
 #####################################################
 # Categories
