@@ -18,7 +18,7 @@ module Spree
     ]
 
     def self.included(klass)
-      if klass.new.respond_to?(:product)
+      if [Spree::Price].include?(klass) == false && klass.new.respond_to?(:product)
         klass.delegate :user_id, to: :product
       end
     end
