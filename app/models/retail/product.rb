@@ -13,8 +13,6 @@ class Retail::Product < ::RetailScraperRecord
 
   belongs_to :retail_site, class_name: 'Retail::Site', foreign_key: :retail_site_id
   belongs_to :retail_store, class_name: 'Retail::Store', foreign_key: :retail_store_id, optional: true
-  belongs_to :page, class_name: 'Scraper::Page', foreign_key: :scraper_page_id, optional: true
-  alias_method :scraper_page, :page
 
   has_many :product_specs, class_name: 'Retail::ProductSpec', foreign_key: :retail_product_id, dependent: :delete_all
   alias_method :specs, :product_specs
