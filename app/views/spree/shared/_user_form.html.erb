@@ -1,0 +1,25 @@
+<p>
+  <%= f.label :email, I18n.t('spree.email') %><br />
+  <%= f.email_field :email, class: 'title form-control' %>
+</p>
+<p>
+  <%= f.label :username, I18n.t('spree.username') %> (optional) <br />
+  <%= f.text_field :username, class: 'title form-control', placeholder: I18n.t('spree.username_format') %>
+</p>
+<p>
+  <%= f.label :display_name, I18n.t('spree.display_name') %> (optional)<br />
+  <%= f.text_field :display_name, class: 'title form-control' %>
+</p>
+<div id="password-credentials">
+  <p>
+    <%= f.label :password, I18n.t('spree.password') %><br />
+    <%= f.password_field :password, class: 'title form-control' %>
+  </p>
+
+  <p>
+    <%= f.label :password_confirmation, I18n.t('spree.confirm_password') %><br />
+    <%= f.password_field :password_confirmation, class: 'title form-control' %>
+  </p>
+</div>
+
+<div data-hook="signup_below_password_fields"></div>

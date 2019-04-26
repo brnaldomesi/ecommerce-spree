@@ -9,3 +9,4 @@ module ActiveRecord
 end
 
 ActiveRecord::Relation.class_eval { include ActiveRecord::RelationExtension }
+ActiveRecord::Base.logger.level = Logger::INFO

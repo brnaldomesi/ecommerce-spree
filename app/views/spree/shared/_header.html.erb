@@ -17,7 +17,7 @@
 								<a href="index.html">Home</a>
 							</li>
 
-							<li class="active-menu"
+							<li class="active-menu">
 								<a href="product.html">Shop</a>
 							</li>
 
@@ -48,6 +48,12 @@
 						<div class="flex-c-m h-full p-lr-19">
 							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
 								<i class="zmdi zmdi-menu"></i>
+                <% if signed_in? -%>
+                  <%= spree_current_user.username || spree_current_user.email -%> &nbsp;|&nbsp;
+                  <%= link_to('Sign Out', logout_path) %>
+                <% else -%>
+                  <%= link_to('Sign In', new_spree_user_session_path) %>
+                <% end # signed_in? -%>
 							</div>
 						</div>
 					</div>
