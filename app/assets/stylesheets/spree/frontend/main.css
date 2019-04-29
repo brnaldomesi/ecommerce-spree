@@ -41,37 +41,37 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../fonts/Poppins/Poppins-Regular.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
   font-family: Poppins-Light;
-  src: url('../fonts/Poppins/Poppins-Light.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-Light.ttf');
 }
 
 @font-face {
   font-family: Poppins-ExtraLight;
-  src: url('../fonts/Poppins/Poppins-ExtraLight.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-ExtraLight.ttf');
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/Poppins/Poppins-Medium.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-Medium.ttf');
 }
 
 @font-face {
   font-family: Poppins-Italic;
-  src: url('../fonts/Poppins/Poppins-Italic.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-Italic.ttf');
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/Poppins/Poppins-Bold.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-Bold.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/Poppins/Poppins-SemiBold.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-SemiBold.ttf');
 }
 
 
@@ -352,7 +352,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .main-menu {
   list-style-type: none;
   margin: 0;
-
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
