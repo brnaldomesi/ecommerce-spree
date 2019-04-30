@@ -34,67 +34,67 @@ Paragrap        : 18px/1.6 '', Arial, sans-serif;
 Input, textarea : 14px/1.6 '', Arial, sans-serif;
 -------------------------------------------------------------------*/
 
-
+@import 'font-awesome';
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('/assets/fonts/Poppins/Poppins-Regular.ttf');
+  src: url('/assets/Poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
   font-family: Poppins-Light;
-  src: url('/assets/fonts/Poppins/Poppins-Light.ttf');
+  src: url('/assets/Poppins/Poppins-Light.ttf');
 }
 
 @font-face {
   font-family: Poppins-ExtraLight;
-  src: url('/assets/fonts/Poppins/Poppins-ExtraLight.ttf');
+  src: url('/assets/Poppins/Poppins-ExtraLight.ttf');
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('/assets/fonts/Poppins/Poppins-Medium.ttf');
+  src: url('/assets/Poppins/Poppins-Medium.ttf');
 }
 
 @font-face {
   font-family: Poppins-Italic;
-  src: url('/assets/fonts/Poppins/Poppins-Italic.ttf');
+  src: url('/assets/Poppins/Poppins-Italic.ttf');
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('/assets/fonts/Poppins/Poppins-Bold.ttf');
+  src: url('/assets/Poppins/Poppins-Bold.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('/assets/fonts/Poppins/Poppins-SemiBold.ttf');
+  src: url('/assets/Poppins/Poppins-SemiBold.ttf');
 }
 
 
 /*---------------------------------------------*/
 @font-face {
   font-family: PlayfairDisplay-Regular;
-  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf');
+  src: url('/assets/PlayfairDisplay/PlayfairDisplay-Regular.ttf');
 }
 
 @font-face {
   font-family: PlayfairDisplay-Bold;
-  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf');
+  src: url('/assets/PlayfairDisplay/PlayfairDisplay-Bold.ttf');
 }
 
 /*---------------------------------------------*/
 @font-face {
   font-family: Montserrat-Regular;
-  src: url('../fonts/Montserrat/Montserrat-Regular.ttf');
+  src: url('/assets/Montserrat/Montserrat-Regular.ttf');
 }
 
 @font-face {
   font-family: Montserrat-Bold;
-  src: url('../fonts/Montserrat/Montserrat-Bold.ttf');
+  src: url('/assets/Montserrat/Montserrat-Bold.ttf');
 }
 
 
@@ -112,9 +112,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 /*------------------------------------------------------------------
 [ Slick2 ]*/
 .slick-slide {outline: none !important;}
-
-
-
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -287,7 +284,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .header-v2 .wrap-menu-desktop {
-  background-color: #fff;
+  background-color: #fafafa;
   top: 0;
 }
 
@@ -314,8 +311,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   background-color: transparent;
 }
 
-
-
 /*------------------------------------------------------------------
 [ Logo ]*/
 .logo {
@@ -333,8 +328,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   max-width: 100%;
   max-height: 100%;
 }
-
-
 
 /*------------------------------------------------------------------
 [ Menu ]*/
@@ -367,9 +360,10 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   margin: 0px 4px 0px 14px;
 }
 
+/* This controls the top buttons on the left of the header*/
 .main-menu > li > a {
   font-family: Poppins-Medium;
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
   padding: 5px 0px;
   transition: all 0.4s;
@@ -493,7 +487,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 /*---------------------------------------------*/
 .icon-header-noti::after {
   content: attr(data-notify);
-  font-family: Poppins-Regular;
+  /*font-family: Poppins-Regular;*/
   font-size: 12px;
   color: #fff;
   line-height: 15px;
