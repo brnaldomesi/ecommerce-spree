@@ -13,9 +13,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 # Enable the asset pipeline
+
 Rails.application.config.assets.enabled = true
-Rails.application.config.assets.paths << Rails.root.join('/app/assets/fonts')
 
 Rails.application.config.assets.precompile += %w( scripts/script.js )
-Rails.application.config.assets.precompile += %w( main/main.js )
-Rails.application.config.assets.precompile += %w( slick-custom/slick-custom.js )
