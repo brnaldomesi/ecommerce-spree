@@ -19,12 +19,11 @@ module UsersSpecHelper
     user
   end
 
-  def sign_in
-    user = create(:user)
+  def sign_in(user, which_login_attribute = 'username')
     visit login_path
-    fill_in 'Email', with: user.email
+    fill_in 'Email or Username', with: (which_login_attribute.to_s == 'email' ? user.email : user.username || user.email)
     fill_in 'Password', with: user.password
-    click_button 'Sign in'
+    click_button 'Login'
   end
 
   def check_user_abilities(user)

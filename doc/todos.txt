@@ -10,7 +10,7 @@ Abilities
 ===================================
 Registration
 
-[ ] Add username and display name
+[x] Add username and display name
 [ ] Automate generation of confirmation token and send email
 
 #####################################################
