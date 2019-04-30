@@ -98,4 +98,3 @@ gem 'solidus_marketplace'
 #Bootstrap
 
 gem 'bootstrap-sass'
-# gem 'font-awesome-sass', '~> 5.8.1'
