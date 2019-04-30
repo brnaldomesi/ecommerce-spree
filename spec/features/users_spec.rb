@@ -13,13 +13,18 @@ RSpec.describe 'Register a user', type: :feature do
     let(:email) { user_attr[:email] }
     let(:username) { user_attr[:username] }
     let(:display_name) { user_attr[:display_name] }
+    let(:user) { nil }
 
     it 'Sign up' do
       puts '---- Sign up user'
       user = sign_up_with(user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name] )
 
       check_user_abilities(user)
+    end
 
+    it 'Sign In' do
+      sign_in(user)
+      binding.pry # TODO: debug
     end
   end
 
