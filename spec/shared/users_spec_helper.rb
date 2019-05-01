@@ -16,6 +16,8 @@ module UsersSpecHelper
     expect(user.display_name).not_to be_nil if display_name
     expect(user.display_name).to eq(display_name)
 
+    expect(user.store).not_to be_nil
+
     user
   end
 
