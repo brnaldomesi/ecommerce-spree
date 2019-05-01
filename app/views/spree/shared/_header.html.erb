@@ -1,6 +1,7 @@
 <header class="header-v2">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
 
   <title>TBDMarket - Products</title>
 		<!-- Header desktop -->
@@ -15,7 +16,12 @@
 
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
-						<ul class="main-menu">
+            <div class="search-container">
+              <button type="submit"><i class="fa fa-search"></i></button>
+              <input type="text" placeholder="Find on tbd">
+            </div>
+
+            <!--<ul class="main-menu">
 							<li>
                 <%= link_to('Home', root_path) %>
 							</li>
@@ -31,23 +37,26 @@
 							<li>
 								<a href="contact.html">Contact</a>
 							</li>
-						</ul>
+						</ul>-->
+
+
 					</div>
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m h-full">
-						<div class="flex-c-m h-full p-r-24">
+						<!--<div class="flex-c-m h-full p-r-24">
 							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
 								<i class="fas fa-search"></i>
 							</div>
-						</div>
+						</div>-->
 
 						<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
 							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
                 <li id="link-to-cart" data-hook>
                   <%= link_to spree.cart_path do %>
-                    <i class="fas fa-shopping-cart"></i>
+                    <ion-icon name="cart"></ion-icon>
                   <% end %>
+                  </li>
 							</div>
 						</div>
 
