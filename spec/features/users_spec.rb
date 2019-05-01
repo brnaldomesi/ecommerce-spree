@@ -20,11 +20,10 @@ RSpec.describe 'Register a user', type: :feature do
       user = sign_up_with(user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name] )
 
       check_user_abilities(user)
-    end
 
-    it 'Sign In' do
+      visit logout_path
+
       sign_in(user)
-      binding.pry # TODO: debug
     end
   end
 

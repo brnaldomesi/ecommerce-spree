@@ -39,6 +39,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+Spree::Core::Engine.routes.default_url_options[:host] = ::SolidusMarket::Application.config.action_controller.default_url_options[:host]
 
 RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers

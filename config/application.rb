@@ -8,6 +8,8 @@ require_relative 'initializers/redis'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+APP_HOST = ENV['HOST'] || (Rails.env.production? ? 'tbdmarket.com' : 'localhost' )
+
 module SolidusMarket
   class Application < Rails::Application
 
@@ -17,12 +19,12 @@ module SolidusMarket
       end
 
       # Load application's model / class decorators
-      Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
+      Dir.glob(File.join(File.dirname(__FILE__), '../app/**/*_decorator*.rb')) do |c|
         require_dependency(c)
       end
 
       # Load application's view overrides
-      Dir.glob(File.join(File.dirname(__FILE__), "../app/overrides/*.rb")) do |c|
+      Dir.glob(File.join(File.dirname(__FILE__), '../app/overrides/*.rb')) do |c|
         require_dependency(c)
       end
     end
@@ -33,6 +35,10 @@ module SolidusMarket
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    config.action_controller.default_url_options = {
+      host: APP_HOST
+    }
 
     # Redis
     # config.cache_store = :redis_store, REDIS_CONFIG

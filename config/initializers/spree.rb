@@ -5,10 +5,10 @@ Spree.config do |config|
   # Core:
 
   # Default currency for new sites
-  config.currency = "USD"
+  config.currency = 'USD'
 
   # from address for transactional emails
-  config.mails_from = "store@example.com"
+  config.mails_from ='site@tbdmarket.com'
 
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false
@@ -22,7 +22,7 @@ Spree.config do |config|
   # Frontend:
 
   # Custom logo for the frontend
-  config.logo = "logo/logo_tbd_market.png"
+  config.logo = 'logo/logo_tbd_market.png'
 
   # Template to use when rendering layout
   # config.layout = "spree/layouts/spree_application"
@@ -62,3 +62,5 @@ Spree.user_class = 'Spree::LegacyUser'
 
 Spree::Config.roles.assign_permissions(:default, ['Spree::PermissionSets::SellerUser'] )
 Spree::Config.generate_api_key_for_all_roles = true
+
+Spree::Auth::Config[:confirmable] = true
