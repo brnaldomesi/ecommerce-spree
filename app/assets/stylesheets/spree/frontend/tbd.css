@@ -5,6 +5,10 @@
   padding-right: 100px;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f0f0f0;
+  border-right-width: 0px;
   margin-top: 8px;
   margin-right: 32x;
   font-size: 14px;
@@ -13,7 +17,7 @@
 
 .search-container button {
   float: right;
-  padding: 6px 10px;
+  padding: 5px 10px;
   margin-top: 8px;
   margin-right: 16px;
   color: #fff;
@@ -33,13 +37,16 @@
   list-style-type: none;
   margin: 0;
   padding-left: 120px;
-  background: #fafafa;
+  background: #fff;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   align-items: center;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #f0f0f0
 }
 
 .header-category-menu > li {
