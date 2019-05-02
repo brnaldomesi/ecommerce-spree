@@ -1,0 +1,59 @@
+.search-container input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  padding-right: 100px;
+  margin-top: 8px;
+  margin-right: 32x;
+  font-size: 16px;
+  border-radius: 2px;
+  font-family: Poppins-Light;
+}
+
+.search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+ background: #ccc;
+
+}
+
+.header-category-menu {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 120px;
+  background: #fafafa;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+}
+
+.header-category-menu > li {
+  display: block;
+  position: relative;
+  padding: 10px 20px 10px 0px;
+  margin: 0px 4px 0px 14px;
+}
+
+/* This controls the top buttons on the left of the header*/
+.header-category-menu > li > a {
+  font-family: Poppins-Regular;
+  font-size: 12px;
+  color: #333;
+  padding: 5px 0px;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
