@@ -17,6 +17,8 @@ module UsersSpecHelper
     expect(user.display_name).to eq(display_name)
 
     expect(user.store).not_to be_nil
+    expect(user.confirmation_token.present?).to be_truthy
+    expect(user.confirmed_at).to be_nil
 
     user
   end
@@ -44,6 +46,13 @@ module UsersSpecHelper
     puts '---- Check inabilities of user'
     expect { ability.can?(:destroy, Spree::User).not_to be_truthy }
     expect { ability.can?(:manage, Spree::Role).not_to be_truthy }
+  end
+
+  def confirm_email(user)
+    confirm_url = Spree::Core::Engine.routes.url_helpers.spree_user_confirmation_url(confirmation_token: user.confirmation_token)
+    visit confirm_url
+    user.reload
+    expect(user.confirmed_at).not_to be_nil
   end
 
 end

@@ -21,9 +21,14 @@ RSpec.describe 'Register a user', type: :feature do
 
       check_user_abilities(user)
 
+      puts '---- Confirm email'
+      confirm_email(user)
+
+      puts '---- Relogin'
       visit logout_path
 
       sign_in(user)
+
     end
   end
 
