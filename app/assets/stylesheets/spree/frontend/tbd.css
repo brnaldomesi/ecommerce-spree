@@ -43,6 +43,7 @@
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
+  align-content: center;
   align-items: center;
   border-bottom-style: solid;
   border-bottom-width: 2px;
