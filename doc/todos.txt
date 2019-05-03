@@ -11,16 +11,16 @@ Abilities
 Registration
 
 [x] Add username and display name
-[ ] Automate generation of confirmation token and send email
+[x] Automate generation of confirmation token and send email
 
 #####################################################
 # Stores
 
 Admin/management ==============================
 
-[ ] Add user_id column to spree_stores
+[x] Add user_id column to spree_stores
 [ ] whenever seller user creates a store
-  [ ] set user_id accordingly
+  [x] set user_id accordingly
   [ ] create entries in spree_roles_users
 
 [ ] Different side w/ limited features compared to SuperUser/admin
