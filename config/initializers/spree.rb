@@ -64,3 +64,4 @@ Spree::Config.roles.assign_permissions(:default, ['Spree::PermissionSets::Seller
 Spree::Config.generate_api_key_for_all_roles = true
 
 Spree::Auth::Config[:confirmable] = true
+Spree::Auth::Config.draw_frontend_routes = false
