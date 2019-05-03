@@ -204,7 +204,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .header-v2 .container-menu-desktop {
-  height: 84px;
+  height: 112px;
 }
 
 .header-v3 .container-menu-desktop {
@@ -282,7 +282,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .header-v2 .wrap-menu-desktop {
-  background-color: #fafafa;
+  background-color: #ffffff;
   top: 0;
 }
 
@@ -486,19 +486,19 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .icon-header-noti::after {
   content: attr(data-notify);
   /*font-family: Poppins-Regular;*/
-  font-size: 12px;
+  font-size: 10px;
   color: #fff;
-  line-height: 15px;
+  line-height: 10px;
   text-align: center;
-
+  border-radius: 2px;
   display: block;
   position: absolute;
   top: -7px;
   right: 0;
   min-width: 15px;
   height: 15px;
-  padding: 0 3px;
-  background-color: #999999;
+  padding: 3px 3px;
+  background-color: #333333;
 }
 
 /*---------------------------------------------*/
