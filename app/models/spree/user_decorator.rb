@@ -4,10 +4,9 @@ module Spree
 
     validates_format_of :username, with: USERNAME_REGEXP, allow_blank: true
 
-    attr_accessor :login
-
     has_one :store, class_name: 'Spree::Store', foreign_key: 'user_id'
 
+    before_save :set_defaults
     after_create :create_store
 
     def self.find_for_database_authentication(warden_conditions)
@@ -27,6 +26,12 @@ module Spree
         store.mail_from_address = email
         store.code = "sellers/#{id}"
       end
+    end
+
+    protected
+
+    def set_defaults
+      self.login = username if username.present?
     end
   end
 

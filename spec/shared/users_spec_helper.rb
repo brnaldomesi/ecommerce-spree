@@ -13,6 +13,7 @@ module UsersSpecHelper
     expect(user.email).to eq(email)
     expect(user.username).not_to be_nil if username
     expect(user.username).to eq(username)
+    expect(user.login).to eq(username)
     expect(user.display_name).not_to be_nil if display_name
     expect(user.display_name).to eq(display_name)
 
@@ -23,11 +24,12 @@ module UsersSpecHelper
     user
   end
 
-  def sign_in(user, which_login_attribute = 'username')
+  def sign_in(user, password = 'test1234', which_login_attribute = 'username')
     visit login_path
     fill_in 'Email or Username', with: (which_login_attribute.to_s == 'email' ? user.email : user.username || user.email)
-    fill_in 'Password', with: user.password
+    fill_in 'Password', with: password || user.password
     click_button 'Login'
+    expect(page).not_to have_content 'Invalid email or password'
   end
 
   def check_user_abilities(user)

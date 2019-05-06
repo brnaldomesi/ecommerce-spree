@@ -24,10 +24,13 @@ RSpec.describe 'Register a user', type: :feature do
       puts '---- Confirm email'
       confirm_email(user)
 
-      puts '---- Relogin'
+      puts '---- Relogin w/ username'
       visit logout_path
-
       sign_in(user)
+
+      puts '---- Relogin w/ email'
+      visit logout_path
+      sign_in(user, 'test1234', 'email')
 
     end
   end

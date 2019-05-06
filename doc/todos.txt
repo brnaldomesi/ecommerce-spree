@@ -19,9 +19,9 @@ Registration
 Admin/management ==============================
 
 [x] Add user_id column to spree_stores
-[ ] whenever seller user creates a store
+[x] whenever seller user creates a store
   [x] set user_id accordingly
-  [ ] create entries in spree_roles_users
+  [-] create entries in spree_roles_users <= default role is fine
 
 [ ] Different side w/ limited features compared to SuperUser/admin
   [ ] think of whether to change links not to be prefixed w/ '/admin'
