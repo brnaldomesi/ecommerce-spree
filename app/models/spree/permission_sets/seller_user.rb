@@ -17,12 +17,14 @@ module Spree
         can :manage, Spree::Price
         can :manage, Spree::Image
 
-        # TODO: somehow the looped 'can :manage' calls don't work
+        # somehow the looped 'can :manage' calls don't work
         can :manage, Spree::Product, user_id: user.id
         can [:new, :create], Spree::Product
         can :manage, Spree::OptionValue
-        can :manage, Spree::StockItem
-        can :manage, Spree::StockLocation
+
+        # Cannot's
+        cannot :manage, Spree::StockItem
+        cannot :manage, Spree::StockLocation
 
         # exceptions that don't have actual model class as reference
         cannot :admin, :reports
