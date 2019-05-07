@@ -13,8 +13,8 @@ module Spree
         Spree::Variant,
         Spree::VariantPropertyRule,
         Spree::ProductPromotionRule,
-        Spree::StockItem,
-        Spree::StockLocation,
+        # Spree::StockItem,
+        # Spree::StockLocation,
     ]
 
     def self.included(klass)
