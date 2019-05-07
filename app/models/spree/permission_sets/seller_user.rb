@@ -23,6 +23,9 @@ module Spree
         can :manage, Spree::OptionValue
         can :manage, Spree::StockItem
         can :manage, Spree::StockLocation
+
+        # exceptions that don't have actual model class as reference
+        cannot :admin, :reports
       end
 
     end
