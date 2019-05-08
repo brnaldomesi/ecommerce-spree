@@ -19,6 +19,14 @@ RSpec.describe 'Register a user', type: :feature do
       puts '---- Sign up user'
       user = sign_up_with(user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name] )
 
+      puts '---- Set info by IP'
+      ip_user = build(:seller, :real_ip)
+      user.current_sign_in_ip = ip_user.current_sign_in_ip
+      user.save
+      user.reload
+      expect(user.country.present?).to be_truthy
+      expect(user.timezone.present?).to be_truthy
+
       check_user_abilities(user)
 
       puts '---- Confirm email'
