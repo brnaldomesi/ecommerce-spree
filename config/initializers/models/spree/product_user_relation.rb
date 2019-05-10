@@ -13,7 +13,7 @@ module Spree
         Spree::Variant,
         Spree::VariantPropertyRule,
         Spree::ProductPromotionRule,
-        # Spree::StockItem,
+        Spree::StockItem,
         # Spree::StockLocation,
     ]
 
