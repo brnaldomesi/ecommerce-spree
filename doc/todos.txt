@@ -15,8 +15,8 @@ Registration
 
 ===================================
 Account Info
-[ ] Add timezone and country to spree_users
-[ ] Use geo-IP service to set timezone and country
+[x] Add timezone and country to spree_users
+[x] Use geo-IP service to set timezone and country
 
 #####################################################
 # Stores

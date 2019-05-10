@@ -13,7 +13,8 @@ module Spree
       def collection
         return @collection if @collection
         params[:q] ||= {}
-        params[:q][:s] ||= "name asc"
+        params[:q][:s] ||= 'name asc'
+        logger.info "| spree_roles #{spree_current_user.spree_roles.collect(&:name)}, admin? #{spree_current_user.admin?}"
         # @search needs to be defined as this is passed to search_form_for
         @search = super.ransack(params[:q])
         @collection = @search.result.
@@ -21,7 +22,7 @@ module Spree
             includes(product_includes).
             page(params[:page]).
             per(Spree::Config[:admin_products_per_page])
-        @collection = @collection.where(user_id: spree_current_user.try(:id) ) if spree_current_user
+        @collection = @collection.where(user_id: spree_current_user.try(:id) ) if spree_current_user && !spree_current_user.admin?
         @collection
       end
 

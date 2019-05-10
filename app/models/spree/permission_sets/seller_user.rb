@@ -21,9 +21,9 @@ module Spree
         can :manage, Spree::Product, user_id: user.id
         can [:new, :create], Spree::Product
         can :manage, Spree::OptionValue
+        can :manage, Spree::StockItem,
 
         # Cannot's
-        cannot :manage, Spree::StockItem
         cannot :manage, Spree::StockLocation
 
         # exceptions that don't have actual model class as reference
