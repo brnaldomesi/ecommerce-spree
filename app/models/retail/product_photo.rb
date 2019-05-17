@@ -1,26 +1,28 @@
-class Retail::ProductPhoto < ::RetailScraperRecord
-  self.table_name = 'retail_product_photos'
+module Retail
+  class ProductPhoto < ::RetailScraperRecord
+    self.table_name = 'retail_product_photos'
 
-  validates_presence_of :retail_product_id
 
-  belongs_to :retail_product, class_name: 'Retail::Product'
+    mount_uploader :image, ::ImageUploader
 
-  def to_s
-    inspect
+    validates_presence_of :retail_product_id
+
+    belongs_to :retail_product, class_name: 'Retail::Product'
+
+    before_destroy :delete_file
+
+    def to_s
+      inspect
+    end
+
+    def inspect
+      "Retail::Photo(#{id}) for Product(#{retail_product_id}) from #{url}"
+    end
+
+    protected
+
+    def delete_file
+      `rm -Rf #{File.dirname(self.image.store_dir) }`
+    end
   end
-
-  def inspect
-    "Retail::Photo(#{id}) for Product(#{retail_product_id}) from #{url}"
-  end
-
-  # TODO: implement those that a mounted uploader provides.
-
-  def image_url
-
-  end
-
-  def thumbnail_url
-
-  end
-
 end

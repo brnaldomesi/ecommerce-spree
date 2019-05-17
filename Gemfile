@@ -37,6 +37,15 @@ gem 'redis-namespace', '~> 1.6'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+
+############################################
+# Assets
+
+gem 'rmagick', '2.13.2'
+gem 'carrierwave', '~> 1.3'
+gem 'carrierwave_direct'
+
+
 ############################################
 # Scraping
 

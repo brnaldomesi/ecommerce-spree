@@ -1,4 +1,5 @@
 require 'csv'
+require 'open-uri'
 
 class Retail::Product < ::RetailScraperRecord
 
@@ -125,8 +126,17 @@ class Retail::Product < ::RetailScraperRecord
   end
 
   ##
-  # @retail_product <Retail::Product>
-  def self.convert_to_spree_product(retail_product)
+  #
+  def create_as_spree_product
+    product = self.class.make_spree_product(self)
+    product.save
+    product.copy_images_from_retail_product!(self)
+    product
+  end
+
+  ##
+  # @retail_product <Retail::Product> new but not saved
+  def self.make_spree_product(retail_product)
     product = ::Spree::Product.new(
         name: retail_product.title,
         description: retail_product.description,
