@@ -3,21 +3,17 @@ require 'shared/users_spec_helper'
 
 include UsersSpecHelper
 
-RSpec.describe 'create product', type: :feature do
+describe 'create product', type: :feature do
   # routes { Spree::Core::Engine.routes }
 
-  context 'registering user' do
-    let :user_attr do
-      attributes_for(:basic_user)
-    end
-    let(:email) { user_attr[:email] }
+  let(:sample_image_path) { Rails.root.to_s + '/app/assets/images/samples/color_sponge.jpg' }
 
-    it 'sign up first' do
-      puts '---- Sign up user 1st'
-      user = sign_up_with(user_attr[:email], 'test1234')
-
-      check_user_abilities(user)
-
+  context 'Convert from Retail::Product' do
+    it 'Convert from sample product' do
+      retail_product = build(:basic_product)
+      product = ::Retail::Product.convert_to_spree_product(retail_product)
+      expect(product.name).to eq(retail_product.title)
+      expect(product.price).to eq(retail_product.price)
     end
   end
 
