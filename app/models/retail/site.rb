@@ -1,4 +1,4 @@
-class Retail::Site < ::ApplicationRecord
+class Retail::Site < ::RetailScraperRecord
 
   self.table_name = 'retail_sites'
 
