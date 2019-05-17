@@ -124,6 +124,19 @@ class Retail::Product < ::RetailScraperRecord
     self.update_attributes(categories: retail_site.scraper.find_categories_object(page.make_mechanize_page).to_json)
   end
 
+  ##
+  # @retail_product <Retail::Product>
+  def self.convert_to_spree_product(retail_product)
+    product = ::Spree::Product.new(
+        name: retail_product.title,
+        description: retail_product.description,
+        available_on: Time.now,
+        shipping_category_id: ::Spree::ShippingCategory.default.try(:id),
+        price: retail_product.price
+      )
+    product
+  end
+
   protected
 
   def convert_attributes
