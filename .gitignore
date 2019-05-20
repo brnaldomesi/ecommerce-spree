@@ -23,6 +23,7 @@
 !/storage/.keep
 /public/spree/*
 /public/product_photos/*
+/public/product_photos_test/*
 
 /node_modules
 /yarn-error.log
