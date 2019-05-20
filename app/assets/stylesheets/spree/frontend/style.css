@@ -9,6 +9,10 @@
   background-size: cover;
 }
 
+body {
+    font: 16px Arial, sans-serif;
+}
+
 .zoom-hover {
   overflow: hidden;
 }
@@ -1431,7 +1435,7 @@ header .main-container {
 
 .nav-main .nav-link.active::after {
   position: absolute;
-  bottom: -9px;
+  bottom: -16px;
   left: 0;
   width: 100%;
   height: 2px;
