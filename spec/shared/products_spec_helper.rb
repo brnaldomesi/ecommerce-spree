@@ -9,4 +9,8 @@ module ProductsSpecHelper
     end
     product
   end
+
+  def cleanup_retail_products
+    ::Retail::Product.all.each(&:destroy)
+  end
 end
