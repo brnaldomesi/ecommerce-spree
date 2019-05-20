@@ -1,161 +1,265 @@
-<header class="header-v2">
+    <!-- Top bar -->
+    <div class="topbar">
 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+      <div class="main-container d-flex">
 
-
-  <title>TBDMarket - Products</title>
-		<!-- Header desktop -->
-		<div class="container-menu-desktop trans-03">
-			<div class="wrap-menu-desktop">
-				<nav class="limiter-menu-desktop p-l-45">
-					<!-- Logo desktop -->
-					<a href="#" class="logo">
-						 <figure id="logo" class="columns six" data-hook><%= logo img_options: { class: 'img-responsive', width: '138' } %></figure>
-					</a>
-
-					<!-- Menu desktop -->
-					<div class="menu-desktop">
-            <div class="search-container">
-              <button type="submit"><i class="fa fa-search"></i></button>
-              <input type="text" placeholder="Find on tbd">
-              <!-- actual search box needs theming -->
-              <!--<%= search_field_tag :keywords, params[:keywords], placeholder: t('spree.search') %>-->
-            </div>
-          </div>
-
-					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m h-full">
-            <div class="register-link">
-              <li id="link-to-register" data-hook>
-                <%= link_to spree.cart_path do %>Sell on tbd<% end %>
-              </li>
-            </div>
-						<div class="flex-c-m h-full p-lr-19">
-							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
-                <% if signed_in? -%>
-                  <%= spree_current_user.username || spree_current_user.email -%> &nbsp;|&nbsp;
-                    <%= button_to 'Sign Out', logout_path, :id => "sign-out-btn",
-                    :class => "sign_out", :method => :get %>
-                  <% else -%>
-                    <%= button_to 'Sign In', new_spree_user_session_path, :id => "sign-in", :class => "sign-in", :method => :get %>
-                <% end # signed_in? -%>
-							</div>
-						</div>
-
-            <div class="flex-c-m h-full p-l-12 p-r-34 p-t-8 header-icon-bor">
-							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-6 icon-header-noti js-show-cart" data-notify="2">
-                <li id="link-to-cart" data-hook>
-                  <%= link_to spree.cart_path do %>
-                    <i class="zmdi zmdi-shopping-cart"></i>
-                  <% end %>
-                  </li>
-							</div>
-						</div>
-
-					</div>
+        <!-- service contact -->
+        <nav class="nav d-none d-md-flex"> <!-- hidden on xs -->
+          <a class="nav-link" href="javascript:void(0)"><i data-feather="mail"></i> support@tbdmarket.com</a>
         </nav>
 
-        <nav>
+        <!-- social media -->
+        <nav class="nav">
+          <a class="nav-link pr-2 pl-0" href="javascript:void(0)"><i data-feather="facebook"></i></a>
+          <a class="nav-link px-2" href="javascript:void(0)"><i data-feather="twitter"></i></a>
+          <a class="nav-link px-2" href="javascript:void(0)"><i data-feather="instagram"></i></a>
+        </nav>
 
-          <!-- Replace with a curated list of categories -->
+        <!-- language -->
+        <nav class="nav nav-lang ml-auto"> <!-- push it to the right -->
+          <a class="nav-link active" href="javascript:void(0)">EN</a>
+          <a class="nav-link pipe">|</a>
+          <a class="nav-link" href="javascript:void(0)">RU</a>
+        </nav>
 
-          <ul class="header-category-menu">
-            <li>
-              <%= link_to('Home', root_path) %>
-            </li>
+        <!-- User dropdown -->
+        <ul class="nav">
+          <li class="nav-item dropdown dropdown-hover">
+            <a class="nav-link dropdown-toggle pr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              <i data-feather="user"></i> Hi, John <i data-feather="chevron-down"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <div class="media p-2 align-items-center mb-2">
+                <div class="mr-2 size50x50"><img src="../img/user/user.svg" alt="user" class="img-thumbnail rounded-circle mr-2 size50x50"></div>
+                <div class="media-body">
+                  <strong>John Thor</strong>
+                  <div class="small">john.thor@example.com</div>
+                  <div class="small counter">1113 points</div>
+                </div>
+              </div>
+              <a href="account-orders.html" class="dropdown-item has-icon"><i data-feather="shopping-cart"></i>My Orders</a>
+              <a href="account-wishlist.html" class="dropdown-item has-icon has-badge"><i data-feather="heart"></i>Wishlist <span class="badge rounded badge-primary">2</span></a>
+              <a href="account-profile.html" class="dropdown-item has-icon"><i data-feather="settings"></i>Account Setting</a>
+              <div class="dropdown-divider"></div>
+              <a href="account-login.html" class="dropdown-item has-icon text-danger"><i data-feather="log-out"></i>Logout</a>
+            </div>
+          </li>
+        </ul>
+        <!-- /User dropdown -->
 
-            <li class="active-menu">
-              <a href="products.html">Shop</a>
-            </li>
+      </div><!-- /.container -->
+    </div>
+    <!-- /Top bar -->
 
-            <li>
-              <a href="about.html">About</a>
-            </li>
+    <!--Header -->
+    <header>
+      <div class="main-container">
 
-            <li>
-              <a href="contact.html">Contact</a>
-            </li>
-          </ul>
-				</nav>
+        <!-- Sidebar toggler -->
+        <a class="nav-link nav-icon ml-ni nav-toggler mr-3 d-flex d-lg-none" href="#" data-toggle="modal" data-target="#menuModal"><i data-feather="menu"></i></a>
 
-			</div>
-		</div>
-
-		<!-- Header Mobile -->
-		<div class="wrap-header-mobile">
-			<!-- Logo moblie -->
-			<div class="logo-mobile">
+        <!-- Logo -->
         <a href="#" class="logo">
-           <figure id="logo" class="columns six" data-hook><%= logo img_options: { class: 'img-responsive', width: '96' } %></figure>
-        </a>
-			</div>
+						 <figure id="logo" class="columns six" data-hook><%= logo img_options: { class: 'img-responsive', width: '88' } %></figure>
+					</a>
 
-			<!-- Icon header -->
-			<div class="wrap-icon-header flex-w flex-r-m h-full m-r-15">
-				<div class="flex-c-m h-full p-r-10">
-					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-            <i class="zmdi zmdi-search"></i>
-					</div>
-				</div>
+        <!-- Main navigation -->
+        <ul class="nav nav-main ml-auto d-none d-lg-flex"> <!-- hidden on md -->
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item dropdown dropdown-hover">
+            <a class="nav-link dropdown-toggle forwardable" data-toggle="dropdown" href="shop-categories.html" role="button" aria-haspopup="true" aria-expanded="false">
+              Shop <i data-feather="chevron-down"></i>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="shop-categories.html">Shop Categories</a>
+              <a class="dropdown-item" href="shop-grid.html">Shop Grid</a>
+              <a class="dropdown-item" href="shop-list.html">Shop List</a>
+              <a class="dropdown-item" href="shop-single.html">Single Product</a>
+              <a class="dropdown-item" href="shop-single2.html">Single Product v2</a>
+              <a class="dropdown-item" href="cart.html">Cart</a>
+              <a class="dropdown-item" href="shipping.html">Checkout</a>
+              <div class="dropdown-submenu">
+                <a class="dropdown-item" href="#">Submenu</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="javascript:void(0)">item #1</a>
+                  <a class="dropdown-item" href="javascript:void(0)">item #2</a>
+                  <a class="dropdown-item" href="javascript:void(0)">item #3</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item dropdown dropdown-hover dropdown-mega">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Mega Menu <i data-feather="chevron-down"></i>
+            </a>
+            <div class="dropdown-menu">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="list-group list-group-flush list-group-no-border list-group-sm">
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action"><strong>CLOTHING</strong></a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Polos &amp; Tees</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Casual Shirts</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Jeans</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Casual Trousers</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Formal Shirts</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Formal Trousers</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Suits &amp; Blazers</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Shorts &amp; 3/4ths</a>
+                  </div>
+                </div>
+                <div class="col-lg-3 border-left">
+                  <div class="list-group list-group-flush list-group-no-border list-group-sm">
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action"><strong>FOOTWEAR</strong></a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Sports Shoes</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Sneakers</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Casual Shoes</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Loafers</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Formal Shoes</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Boots</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Outdoor &amp; Hiking</a>
+                    <a href="shop-grid.html" class="list-group-item list-group-item-action">Floaters</a>
+                  </div>
+                </div>
+                <div class="col-lg-3 border-left roboto-condensed">
+                  <div class="card text-white zoom-hover">
+                    <div data-cover="../img/categories/1.jpeg" data-height="260px"></div>
+                    <div class="card-img-overlay card-img-overlay-transparent d-flex justify-content-center align-items-center flex-column">
+                      <h2 class="card-title text-center">New Men's Fashion</h2>
+                      <h5>See what's new</h5>
+                      <a href="shop-grid.html" class="btn btn-primary rounded-pill">Shop Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 border-left roboto-condensed">
+                  <div class="card text-white zoom-hover">
+                    <div data-cover="../img/categories/6.jpeg" data-height="260px"></div>
+                    <div class="card-img-overlay card-img-overlay-transparent d-flex justify-content-center align-items-center flex-column">
+                      <h2 class="card-title text-center">New Women's Fashion</h2>
+                      <h5>See what's new</h5>
+                      <a href="shop-grid.html" class="btn btn-danger rounded-pill">Shop Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item dropdown dropdown-hover">
+            <a class="nav-link dropdown-toggle forwardable" data-toggle="dropdown" href="account-profile.html" role="button" aria-haspopup="true" aria-expanded="false">
+              Account <i data-feather="chevron-down"></i>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="account-login.html">Login / Register</a>
+              <a class="dropdown-item" href="account-profile.html">Profile Page</a>
+              <a class="dropdown-item" href="account-orders.html">Orders List</a>
+              <a class="dropdown-item" href="account-order-detail.html">Order Detail</a>
+              <a class="dropdown-item" href="account-wishlist.html">Wishlist</a>
+              <a class="dropdown-item" href="account-address.html">Address</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown dropdown-hover">
+            <a class="nav-link dropdown-toggle forwardable active" data-toggle="dropdown" href="blog-grid.html" role="button" aria-haspopup="true" aria-expanded="false">
+              Blog <i data-feather="chevron-down"></i>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item active" href="blog-grid.html">Post Grid</a>
+              <a class="dropdown-item" href="blog-list.html">Post List</a>
+              <a class="dropdown-item" href="blog-single.html">Single Post</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown dropdown-hover">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Pages <i data-feather="chevron-down"></i>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="about.html">About Us</a>
+              <a class="dropdown-item" href="contact.html">Contact Us</a>
+              <a class="dropdown-item" href="compare.html">Compare</a>
+              <a class="dropdown-item" href="faq.html">Help / FAQ</a>
+              <a class="dropdown-item" href="404.html">404 Not Found</a>
+            </div>
+          </li>
+        </ul>
+        <!-- /Main navigation -->
 
-				<div class="flex-c-m h-full p-lr-10 bor5">
-					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
-						<i class="fas fa-shopping-cart"></i>
-					</div>
-				</div>
-			</div>
+        <!-- Search form -->
+        <form class="form-inline form-search ml-auto mr-0 mr-sm-1 d-none d-sm-flex">
+          <div class="input-group input-group-search">
+            <div class="input-group-prepend">
+              <button class="btn btn-light d-flex d-sm-none search-toggle" type="button"><i data-feather="chevron-left"></i></button>
+            </div>
+            <input type="text" class="form-control border-0 bg-light input-search" placeholder="Search...">
+            <div class="input-group-append">
+              <button class="btn btn-light" type="submit"><i data-feather="search"></i></button>
+            </div>
+          </div>
+        </form>
+        <!-- /Search form -->
 
-			<!-- Button show menu -->
-			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-				<span class="hamburger-box">
-					<span class="hamburger-inner">
-            <i class="fas fa-bars"></i>
-          </span>
-				</span>
-			</div>
-		</div>
+        <ul class="nav ml-auto ml-sm-0">
+          <!-- Search form toggler -->
+          <li class="nav-item d-block d-sm-none ml-2 ml-lg-0"><a class="nav-link nav-icon search-toggle" href="#"><i data-feather="search"></i></a></li>
 
+          <!-- Cart dropdown -->
+          <li class="nav-item dropdown dropdown-hover dropdown-cart">
+            <a class="nav-link nav-icon mr-nis dropdown-toggle forwardable ml-2" data-toggle="dropdown" href="cart.html" role="button" aria-haspopup="true" aria-expanded="false">
+              <i data-feather="shopping-cart"></i>
+              <span class="badge badge-primary">4</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
 
-		<!-- Menu Mobile -->
-		<div class="menu-mobile">
-			<ul class="main-menu-m">
-				<li>
-					<a href="index.html">Home</a>
-				</li>
+              <div class="media">
+                <a href="shop-single.html"><img src="../img/products/1_small.jpg" width="50" height="50" alt="Hanes Hooded Sweatshirt"></a>
+                <div class="media-body">
+                  <a href="shop-single.html" title="Hanes Hooded Sweatshirt">Hanes Hooded Sweatshirt</a>
+                  <span class="qty">1</span> x <span class="price">$18.56</span>
+                  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+                </div>
+              </div>
 
-				<li>
-					<a href="product.html">Shop</a>
-				</li>
+              <div class="media">
+                <a href="shop-single.html"><img src="../img/products/2_small.jpg" width="50" height="50" alt="The Flash Logo T-Shirt"></a>
+                <div class="media-body">
+                  <a href="shop-single.html" title="The Flash Logo T-Shirt">The Flash Logo T-Shirt</a>
+                  <span class="qty">2</span> x <span class="price">$16.64</span>
+                  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+                </div>
+              </div>
 
-				<li>
-					<a href="about.html">About</a>
-				</li>
+              <div class="media">
+                <a href="shop-single.html"><img src="../img/products/3_small.jpg" width="50" height="50" alt="Open Front Cropped Cardigans"></a>
+                <div class="media-body">
+                  <a href="shop-single.html" title="Open Front Cropped Cardigans">Open Front Cropped Cardigans</a>
+                  <span class="qty">1</span> x <span class="price">$15.20</span>
+                  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+                </div>
+              </div>
 
-				<li>
-					<a href="contact.html">Contact</a>
-				</li>
-			</ul>
-		</div>
+              <div class="media">
+                <a href="shop-single.html"><img src="../img/products/4_small.jpg" width="50" height="50" alt="Cotton Fleece Long Hoodie"></a>
+                <div class="media-body">
+                  <a href="shop-single.html" title="Cotton Fleece Long Hoodie">Cotton Fleece Long Hoodie</a>
+                  <span class="qty">1</span> x <span class="price">$85.00</span>
+                  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+                </div>
+              </div>
 
-		<!-- Modal Search -->
-		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="images/icons/icon-close2.png" alt="CLOSE">
-				</button>
+              <div class="d-flex justify-content-between pb-3 pt-2">
+                <span>Total</span>
+                <strong>$135.40</strong>
+              </div>
+              <div class="d-flex justify-content-between pb-2">
+                <div class="w-100 mr-1">
+                  <a href="cart.html" class="btn btn-block rounded-pill btn-secondary">View Cart</a>
+                </div>
+                <div class="w-100 ml-1">
+                  <a href="shipping.html" class="btn btn-block rounded-pill btn-primary">Checkout</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- /Cart dropdown -->
+        </ul>
 
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
-			</div>
-		</div>
-
-</header>
-
-<style>
-  a { color: black !important; }
-</style>
+      </div><!-- /.container -->
+    </header>
+    <!-- /Header -->
