@@ -1204,6 +1204,7 @@ body, html {
 }
 
 .input-group-search {
+  height: 9px;
   border: 1px solid #dee2e6;
   border-radius: 2rem;
   overflow: hidden;
