@@ -8,7 +8,7 @@ include UsersSpecHelper
 RSpec.describe ::Spree::Product do
   before(:example) do
     create(:level_thee_other_site_category)
-    create(:categories_taxonomy)
+    Category.find_or_create_categories_taxon
   end
 
   after(:example) do
@@ -23,7 +23,6 @@ RSpec.describe ::Spree::Product do
     context 'Convert from Retail::Product' do
       it 'Convert from sample product' do
         retail_product = create_retail_product(:shirt_retail_product, [sample_image_url] )
-        expect(retail_product.other_site_categories.size).to eq(3)
 
         product = retail_product.create_as_spree_product
         expect(product.name).to eq(retail_product.title)
@@ -33,8 +32,6 @@ RSpec.describe ::Spree::Product do
         actual_product_photos_count = retail_product.product_photos.collect(&:image_url).compact.size
         expect(product.gallery.images.size).to eq( actual_product_photos_count )
 
-        # categories_taxonomy = ::Spree::Taxonomy.where(name:'Categories').first
-        # expect(product.taxons.collect(&:id).include?(categories_taxonomy.id) ).to be_truthy
       end
     end
 

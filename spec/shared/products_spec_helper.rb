@@ -7,6 +7,9 @@ module ProductsSpecHelper
       p.save
       p
     end
+
+    expect(product.other_site_categories.size).to eq(3)
+
     product
   end
 
