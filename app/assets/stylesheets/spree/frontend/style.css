@@ -1,6 +1,12 @@
+@font-face {
+  font-family: Poppins-Medium;
+  src: url('/assets/Poppins/Poppins-Medium.ttf');
+}
+
 .bold {
   font-weight: 700;
 }
+
 
 [data-cover] {
   display: block;
@@ -10,7 +16,7 @@
 }
 
 body, html {
-	font-family: Poppins, sans-serif;
+	font-family: 'Poppins-Medium';
 	font-size: 15px;
 	height: 100%;
 	-webkit-box-sizing: border-box;
@@ -1134,7 +1140,7 @@ body, html {
 
 .roboto-condensed, .main-nav-pills, .price, .price span, .counter, .dropdown-cart .dropdown-menu .media-body > .qty,
 .dropdown-cart .dropdown-menu .media-body > .price, .categories-grid, .swiper-overlay *:not(.btn), .or-divider {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Poppins-Medium';
 }
 
 .top-0 {
