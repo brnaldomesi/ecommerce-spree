@@ -1,6 +1,7 @@
 <% cache [I18n.locale, current_pricing_options, @product] do %>
+<% end %>
 <!-- Main Content -->
-    <div class="container mt-3">
+<div class="container mt-3">
       <div class="card">
         <div class="card-body">
           <div class="row">
@@ -113,7 +114,7 @@
         <div class="tab-content">
           <div class="card-body tab-pane fade show active" id="description-content" role="tabpanel" aria-labelledby="description">
             <p>HanesBrands is a socially responsible manufacturer and marketer of leading everyday basic apparel under some of the world's strongest apparel brands in the Americas, Europe and Asia, as well as in Australia and South Africa.</p>
-            <p>Now this medium weight 7.8-o fleece sweatshirt is even better, because it is made with up to 5 percent polyester created from recycled plastic.</p>
+            <p><%= render partial: 'properties' %></p>
             <ul>
               <li>50% Cotton, 50% Polyester</li>
               <li>Imported</li>
@@ -260,8 +261,6 @@
           </div>
         </div>
       </div>
-      <!-- /Related Products -->
-
     </div>
     <!-- /Main Content -->
 
@@ -337,6 +336,7 @@
     </div>
     <!-- /Menu Modal -->
 
+ <!-- Unused right now -->
     <!-- Photoswipe container
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="pswp__bg"></div>
@@ -416,4 +416,3 @@
         </div>
       </div>
     </div>
-<% end %>
