@@ -37,6 +37,14 @@ class Retail::Product < ::RetailScraperRecord
     []
   end
 
+  def other_site_categories
+    ::OtherSiteCategory.find_for_retail_product(self)
+  end
+
+  def leaf_other_site_category
+    other_site_categories.last
+  end
+
   # Mixed spec name and values together, w/ spec.name as its own attribute name, e.g., "max_size": 10
   def specs_list
     # product_specs.collect{|spec| [spec.name, spec.value_1, spec.value_2].compact }.flatten.uniq Mixed spec name and values together
@@ -131,6 +139,7 @@ class Retail::Product < ::RetailScraperRecord
     product = self.class.make_spree_product(self)
     product.save
     product.copy_images_from_retail_product!(self)
+    product.create_categories_taxon!(self)
     product
   end
 

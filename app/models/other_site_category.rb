@@ -53,4 +53,25 @@ class OtherSiteCategory < RetailScraperRecord
     id_value = CATEGORY_URL_REGEX.match(url).try(:[], 2)
     id_value ? id_value.to_i : nil
   end
+
+  ##
+  # @retail_product <Retail::Product>
+  def self.find_for_retail_product(retail_product)
+    find_from_categories_json(retail_product.retail_site.name, retail_product.category_names)
+  end
+
+  def self.find_from_categories_json(site_name, category_names)
+    return nil if category_names.blank?
+    cats = []
+    category_names.each_with_index do|cat_name, idx|
+      parent = cats.last
+      cat = if parent
+              parent.children.where(site_name: site_name, name: cat_name).first
+            else
+              self.where(site_name: site_name, level: idx + 1, name: cat_name).first
+            end
+      cats << cat if cat
+    end
+    cats
+  end
 end

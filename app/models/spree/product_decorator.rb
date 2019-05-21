@@ -8,6 +8,19 @@ module Spree
       retail_product.product_photos.collect{|product_photo| copy_from_retail_product_photo!(product_photo) }
     end
 
+    def categories_taxon
+      self.taxons.where(taxonomy_id: ::Spree::Taxonomy.categories_taxonomy.try(:id) ).first
+    end
+
+    def create_categories_taxon!(retail_product)
+      taxon = categories_taxon
+      unless taxon
+        ::Spree::Classification.create(product_id: self.id, taxon_id: ::Spree::Taxonomy.categories_taxonomy.try(:id), position: 1)
+        taxon = categories_taxon
+      end
+      taxon
+    end
+
     ##
     # @product_photo <Retail::ProductPhoto>
     # @return <Spree::Image> added photo if successfully copied/downloaded
