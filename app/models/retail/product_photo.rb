@@ -22,7 +22,6 @@ module Retail
     protected
 
     def delete_file
-      binding.pry # TODO: debug
       `rm -Rf #{File.dirname(self.image.store_dir) }`
     end
   end
