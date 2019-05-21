@@ -9,7 +9,7 @@ module Spree
         Spree::ProductProperty,
         Spree::Property,
         Spree::Classification,
-        # Spree::Taxon,
+        Spree::Taxon,
         Spree::Variant,
         Spree::VariantPropertyRule,
         Spree::ProductPromotionRule,
