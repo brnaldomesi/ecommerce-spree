@@ -20,12 +20,10 @@
     </div>
   <% end %>
 </div>
-
   <% products.each do |product| %>
+    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women mt-3">
     <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-
-    <!--<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">-->
-    <div class="grid grid-gap-3 grid-col-2 grid-col-lg-5 mt-3">
+    <!--<div class="grid grid-gap-3 grid-col-1 grid-col-lg-3 mt-3">-->
         <div class="card card-product">
                 <div class="card-body">
                   <button class="wishlist atw-demo active" title="Added to wishlist"><i data-feather="heart"></i></button>
