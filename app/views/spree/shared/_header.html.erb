@@ -15,12 +15,18 @@
           <a class="nav-link px-2" href="javascript:void(0)"><i data-feather="instagram"></i></a>
         </nav>
 
+        <nav class="nav nav-lang ml-auto pt-1"> <!-- push it to the right -->
+          <a class="nav-link active"> <%= link_to spree.cart_path do %>Sell on tbd<% end %></a>
+        </nav>
+
         <!-- language -->
-        <nav class="nav nav-lang ml-auto"> <!-- push it to the right -->
+        <nav class="nav nav-lang ml-3"> <!-- push it to the right -->
           <a class="nav-link active" href="javascript:void(0)">EN</a>
           <a class="nav-link pipe">|</a>
           <a class="nav-link" href="javascript:void(0)">RU</a>
         </nav>
+
+
 
         <!-- User dropdown -->
         <ul class="nav">
@@ -61,11 +67,11 @@
         <!-- Logo -->
         <a href="#" class="logo">
 						 <figure id="logo" class="columns six" data-hook><%= logo img_options: { class: 'img-responsive', width: '64' } %></figure>
-					</a>
+				</a>
 
         <!-- Main navigation -->
         <ul class="nav nav-main ml-auto d-none d-lg-flex"> <!-- hidden on md -->
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><%= link_to('Home', root_path) %></li>
           <li class="nav-item dropdown dropdown-hover">
             <a class="nav-link dropdown-toggle forwardable" data-toggle="dropdown" href="shop-categories.html" role="button" aria-haspopup="true" aria-expanded="false">
               Shop <i data-feather="chevron-down"></i>
