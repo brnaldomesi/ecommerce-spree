@@ -38,7 +38,7 @@ class Retail::Product < ::RetailScraperRecord
   end
 
   def other_site_categories
-    ::OtherSiteCategory.find_for_retail_product(self)
+    ::Retail::OtherSiteCategory.find_for_retail_product(self)
   end
 
   def leaf_other_site_category
