@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :other_site_categories, class: OtherSiteCategory do
+  factory :other_site_categories, class: Retail::OtherSiteCategory do
     factory :level_one_other_site_category, aliases: [:ioffer_level_one] do
       site_name { 'ioffer' }
       name { 'Clothing & Accessories'}

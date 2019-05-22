@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2019_05_22_013242) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-<<<<<<< HEAD
   create_table "site_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "site_name", null: false
     t.integer "other_site_category_id"
@@ -65,9 +64,6 @@ ActiveRecord::Schema.define(version: 2019_05_22_013242) do
     t.index ["rgt"], name: "index_site_categories_on_rgt"
     t.index ["site_name", "name"], name: "index_site_categories_on_site_name_and_name"
     t.index ["site_name"], name: "index_site_categories_on_site_name"
-=======
-  create_table "retail_scraper_records", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
->>>>>>> 31398c476cf994302c1127a852b791291e8776bd
   end
 
   create_table "spree_addresses", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
