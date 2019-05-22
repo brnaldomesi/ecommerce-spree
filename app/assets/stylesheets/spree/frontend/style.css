@@ -1,35 +1,8 @@
-@font-face {
-  font-family: Poppins-Medium;
-  src: url('/assets/Poppins/Poppins-Medium.ttf');
-}
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('/assets/Poppins/Poppins-Regular.ttf');
-}
-
-@font-face {
-  font-family: Poppins-Light;
-  src: url('/assets/Poppins/Poppins-Light.ttf');
-}
-
-/*@font-face {
-  font-family: Poppins-ExtraLight;
-  src: url('/assets/Poppins/Poppins-ExtraLight.ttf');
-}*/
-
-@font-face {
-  font-family: Poppins-Medium;
-  src: url('/assets/Poppins/Poppins-Medium.ttf');
-}
 
 /*---------------------------------------------*/
 
 .bold {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 
@@ -41,7 +14,7 @@
 }
 
 body, html {
-	font-family: Poppins-Medium;
+	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 15px;
 	height: 100%;
 	-webkit-box-sizing: border-box;
@@ -50,7 +23,7 @@ body, html {
 }
 
 header {
-	font-family: Poppins-Light;
+	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 14px;
 	height: 100%;
 	-webkit-box-sizing: border-box;
@@ -1174,7 +1147,7 @@ header {
 
 .roboto-condensed, .main-nav-pills, .price, .price span, .counter, .dropdown-cart .dropdown-menu .media-body > .qty,
 .dropdown-cart .dropdown-menu .media-body > .price, .categories-grid, .swiper-overlay *:not(.btn), .or-divider {
-  font-family: Poppins-Medium;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .top-0 {
