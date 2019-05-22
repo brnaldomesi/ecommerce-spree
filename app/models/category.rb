@@ -8,6 +8,24 @@ class Category < RetailScraperRecord
   has_many :siblings, -> { where(parent_category_id: parent_category_id) }, class_name:'Category'
 
   ##
+  # Find the Spree::Taxon category that has exact path.  This assumes the categories have
+  # been populated using +migrate_to_spree_taxons+.
+  def category_taxon
+    taxon = nil
+    current_node = ::Spree::CategoryTaxon.root
+    full_path.split(' > ').each do|cat_name|
+      t = current_node.children.where(name: cat_name).first
+      if t.nil?
+        break
+      else
+        taxon = t
+        current_node = t
+      end
+    end
+    taxon
+  end
+
+  ##
   # Iterate over tree structure of Category records and create Spree::Taxon based on.
   # Instead of recursively going into dynamic sublevels, this goes into furthest 3 levels.
   def self.migrate_to_spree_taxons
@@ -53,20 +71,11 @@ class Category < RetailScraperRecord
   end
 
   def self.find_or_create_categories_taxon()
-    taxon = ::Spree::Taxon.where(name: 'Categories', parent_id: nil).last
-    taxon ||= ::Spree::Taxon.find_or_create_by!(taxonomy_id: find_or_create_categories_taxonomy.id) do|t|
-      t.position = 0
-      t.name = 'Categories'
-      t.permalink = 'categories'
-      t.depth = 0
-    end
-    taxon
+    ::Spree::CategoryTaxon.find_or_create_categories_taxon
   end
 
   def self.find_or_create_categories_taxonomy()
-    ::Spree::Taxonomy.find_or_create_by!(name: 'Categories') do|t|
-      t.position = 1
-    end
+    ::Spree::CategoryTaxon.find_or_create_categories_taxonomy
   end
 
 end
