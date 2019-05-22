@@ -8,13 +8,20 @@
             <div class="col-md-6">
               <div class="swiper-container" id="product-slider">
                 <div class="swiper-wrapper">
-                    <%= render partial: 'image' %>
+                  <!--<img src="../img/products/1_medium.jpg" data-large="../img/products/1_large.jpg" alt="Product" class="swiper-slide">-->
+                  <%= render partial: 'image' %>
+
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev autohide"><i data-feather="chevron-left"></i></div>
                 <div class="swiper-button-next autohide"><i data-feather="chevron-right"></i></div>
                 <button class="wishlist atw-demo active" title="Added to wishlist"><i data-feather="heart"></i></button>
                 <button class="zoom" title="Zoom"><i data-feather="zoom-in"></i></button>
+
+                <div id="thumbnails" data-hook>
+                  <%= render partial: 'thumbnails' %>
+                </div>
+
               </div>
             </div>
             <div class="col-md-6 mt-3 mt-md-0">
