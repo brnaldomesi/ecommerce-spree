@@ -9,9 +9,9 @@
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
 
-    <div class="container">
+    <%= render partial: 'spree/shared/header' %>
 
-      <%= render partial: 'spree/shared/header' %>
+    <div class="container">
 
       <div id="wrapper" class="row" data-hook>
 
@@ -33,4 +33,9 @@
     </div>
 
   </body>
+
+  <script>
+    feather.replace()
+  </script>
+
 </html>

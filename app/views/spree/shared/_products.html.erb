@@ -20,46 +20,32 @@
     </div>
   <% end %>
 </div>
-
-<% if products.any? %>
-  <ul id="products" class="inline product-listing" data-hook>
-    <% products.each do |product| %>
-      <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-      <li id="product_<%= product.id %>" class="columns three <%= cycle("alpha", "secondary", "", "omega secondary", name: "classes") %>" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
-        <% cache(@taxon.present? ? [I18n.locale, current_pricing_options, @taxon, product] : [I18n.locale, current_pricing_options, product]) do %>
-
-          <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-              <div class="block2">
-                  <div class="block2-pic hov-img0">
-                      <div class="product-image">
-                        <%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :large, itemprop: "image"), url, itemprop: 'url') %>
-                      </div>
-                      <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                        Quick View
-                      </a>
-
-                      <%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %>
-                      <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                        <% if price = product.price_for(current_pricing_options) %>
-                          <span class="stext-105 cl3">
-                            <%= price.to_html %>
-                          </span>
-
-                        <% end %>
-                        <span itemprop="priceCurrency" content="<%= current_pricing_options.currency %>"></span>
+  <% products.each do |product| %>
+    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women mt-3">
+    <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
+    <!--<div class="grid grid-gap-3 grid-col-1 grid-col-lg-3 mt-3">-->
+        <div class="card card-product">
+                <div class="card-body">
+                  <button class="wishlist atw-demo active" title="Added to wishlist"><i data-feather="heart"></i></button>
+                  <button class="quickview quickview-demo" title="Quick view"><i data-feather="zoom-in"></i></button>
+                  <div class="card-img-top">
+                    <%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :small, itemprop: "image"), url, itemprop: 'url') %>
+                  </div>
+                  <%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %>
+                  <div class="price"><span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <% if price = product.price_for(current_pricing_options) %>
+                      <!-- fix the price font -->
+                      <span class="stext-105 cl3">
+                        <%= price.to_html %>
                       </span>
                     <% end %>
-                  </div>
-              </div>
+                    <span itemprop="priceCurrency" content="<%= current_pricing_options.currency %>"></span>
+                  </span></div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-sm rounded-pill btn-outline-primary btn-block atc-demo">Add to Cart</button>
+                </div>
           </div>
-
-
-      </li>
-    <% end %>
-    <% reset_cycle("classes") %>
-  </ul>
-<% end %>
-
-<% if paginated_products.respond_to?(:total_pages) %>
-  <%= paginate paginated_products %>
-<% end %>
+    </div>
+  <% end %>
+  <% reset_cycle("classes") %>
