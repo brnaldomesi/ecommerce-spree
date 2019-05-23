@@ -6,6 +6,7 @@ class SiteCategory < ApplicationRecord
 
   attr_accessor :is_new
 
+  belongs_to :mapped_taxon, class_name: 'Spree::Taxon'
   scope :mapped, ->{ where('mapped_taxon_id IS NOT NULL') }
 
   validates :site_name, presence: true
@@ -15,7 +16,7 @@ class SiteCategory < ApplicationRecord
   after_touch :touch_ancestors_and_taxonomy
 
   def self.root_for(site_name)
-    self.where(site_name: site_name, parent_id: nil).first || self.create(site_name: site_name, name: site_name + ' Categories')
+    self.where(site_name: site_name, parent_id: nil).first || self.create(site_name: site_name, name: site_name + ' categories')
   end
 
   def self.find_by_full_path(site_name, full_path)

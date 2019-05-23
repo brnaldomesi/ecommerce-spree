@@ -17,5 +17,20 @@ FactoryBot.define do
       depth { 0 }
       taxonomy_id { ::Category.find_or_create_categories_taxonomy.id }
     end
+
+    factory :level_one_category_taxon do
+      name { 'Clothing' }
+      permalink { 'categories/clothing' }
+    end
+
+    factory :level_two_category_taxon do
+      name { "Men's Clothing" }
+      permalink { 'categories/mens-clothing' }
+    end
+
+    factory :level_three_category_taxon do
+      name { 'Shirts' }
+      permalink { 'categories/mens-clothing-shirts' }
+    end
   end
 end

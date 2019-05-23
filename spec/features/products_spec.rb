@@ -9,6 +9,8 @@ RSpec.describe ::Spree::Product do
   before(:example) do
     create(:level_thee_other_site_category)
     Category.find_or_create_categories_taxon
+    setup_category_taxons( [:level_one_category_taxon, :level_two_category_taxon, :level_three_category_taxon] )
+    setup_site_categories('ioffer', [:level_one_site_category, :level_two_site_category, :level_three_site_category], true )
   end
 
   after(:example) do
@@ -23,10 +25,14 @@ RSpec.describe ::Spree::Product do
     context 'Convert from Retail::Product' do
       it 'Convert from sample product' do
         retail_product = create_retail_product(:shirt_retail_product, [sample_image_url] )
+        expect(retail_product.leaf_site_category).not_to be_nil
+        expect(retail_product.leaf_site_category.mapped_taxon_id).not_to be_nil
 
+        # is find_by_full_path
         product = retail_product.create_as_spree_product
         expect(product.name).to eq(retail_product.title)
         expect(product.price).to eq(retail_product.price)
+        expect(product.taxons.under_categories.first.id).to eq(retail_product.leaf_site_category.mapped_taxon_id)
 
         # Download could be problem
         actual_product_photos_count = retail_product.product_photos.collect(&:image_url).compact.size
