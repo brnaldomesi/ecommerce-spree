@@ -3,6 +3,13 @@
  * Copyright 2018 rokaux
  * Theme Styles
  */
+
+@font-face {
+  font-family: "feather";
+  src: url(/assets/feather.otf) format("truetype");
+}
+
+
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700");
 .toolbar-dropdown, .site-header .site-menu > ul > li .sub-menu {
   display: none;

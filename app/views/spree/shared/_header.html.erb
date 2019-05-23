@@ -1,5 +1,5 @@
 <header class="site-header navbar-sticky">
-
+     <script src="https://unpkg.com/feather-icons"></script>
      <!-- Topbar-->
      <div class="topbar d-flex justify-content-between">
        <!-- Logo-->
@@ -472,7 +472,7 @@
        <div class="toolbar">
          <div class="toolbar-inner">
            <div class="toolbar-item"><a href="product-comparison.html">
-               <div><span class="compare-icon"><i class="icon-repeat"></i><span class="count-label">3</span></span><span class="text-label">Compare</span></div></a></div>
+               <div><span class="compare-icon"><i data-feather="circle"></i></i><span class="count-label">3</span></span><span class="text-label">Compare</span></div></a></div>
            <div class="toolbar-item"><a href="cart.html">
                <div><span class="cart-icon"><i class="icon-shopping-cart"></i><span class="count-label">3   </span></span><span class="text-label">Cart</span></div></a>
              <div class="toolbar-dropdown cart-dropdown widget-cart">
@@ -512,5 +512,9 @@
          </div>
        </div>
      </div>
+
+     <script>
+       feather.replace()
+     </script>
 
    </header>
