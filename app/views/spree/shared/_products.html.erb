@@ -20,33 +20,29 @@
     </div>
   <% end %>
 </div>
+
+<div class="row">
   <% products.each do |product| %>
-    <div class="col-sm-1 col-md-4 col-lg-3 p-b-35 isotope-item women mt-3">
     <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-    <!--<div class="grid grid-gap-3 grid-col-1 grid-col-lg-3 mt-3">-->
-        <div class="card card-product">
-                <div class="card-body">
-                  <button class="wishlist atw-demo active" title="Added to wishlist"><i data-feather="heart"></i></button>
-                  <button class="quickview quickview-demo" title="Quick view"><i data-feather="zoom-in"></i></button>
-                  <div class="card-img-top">
-                    <%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :small, itemprop: "image"), url, itemprop: 'url') %>
-                  </div>
-                  <%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %>
-                  <div class="price"><span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                    <% if price = product.price_for(current_pricing_options) %>
-                      <!-- fix the price font -->
-                      <span class="stext-105 cl3">
-                        <%= price.to_html %>
-                      </span>
-                    <% end %>
-                    <span itemprop="priceCurrency" content="<%= current_pricing_options.currency %>"></span>
-                  </span></div>
-                </div>
-                <div class="card-footer">
-                  <button class="btn btn-sm rounded-pill btn-outline-primary btn-block atc-demo">Add to Cart</button>
-                </div>
-          </div>
-    </div>
-    
+           <div class="col-lg-3 col-md-4 col-sm-6">
+             <div class="product-card mb-30">
+               <a class="product-thumb" href="shop-single.html"><%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :large, itemprop: "image"), url, itemprop: 'url') %></a>
+               <div class="product-card-body">
+                 <div class="product-category"><a href="#">Smart home</a></div>
+                 <h3 class="product-title"><%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %></h3>
+                 <h4 class="product-price">
+                   <% if price = product.price_for(current_pricing_options) %>
+                     <!-- fix the price font -->
+                     <span class="stext-105 cl3">
+                       <%= price.to_html %>
+                     </span>
+                   <% end %>
+                 </h4>
+               </div>
+               <div class="product-button-group"><a class="product-button btn-wishlist" href="#"><i class="icon-heart"></i><span>Wishlist</span></a><a class="product-button btn-compare" href="#"><i class="icon-repeat"></i><span>Compare</span></a><a class="product-button" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-shopping-cart"></i><span>To Cart</span></a></div>
+             </div>
+           </div>
   <% end %>
-  <% reset_cycle("classes") %>
+</div>
+
+<% reset_cycle("classes") %>

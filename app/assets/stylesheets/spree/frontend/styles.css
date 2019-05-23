@@ -9,7 +9,6 @@
   src: url('/assets/feather.ttf');
 }
 
-
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700");
 .toolbar-dropdown, .site-header .site-menu > ul > li .sub-menu {
   display: none;
@@ -1939,7 +1938,7 @@ select.form-control.form-control-sm:not([size]):not([multiple]) {
 }
 
 .input-group .input-group-btn ~ .form-control {
-  padding-right: 38px;
+  padding-right: 0px;
   padding-left: 18px;
 }
 
