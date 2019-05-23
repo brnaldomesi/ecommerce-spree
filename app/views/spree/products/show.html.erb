@@ -11,6 +11,8 @@
             <div class="gallery-wrapper">
               <div class="gallery-item video-btn text-center"><a href="#" data-toggle="tooltip" data-type="video" data-video="&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;video-wrapper&quot;&gt;&lt;iframe class=&quot;pswp__video&quot; width=&quot;960&quot; height=&quot;640&quot; src=&quot;https://www.youtube.com/embed/CjNjcrQZtd8&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;" title="Watch video"></a></div>
             </div>
+
+            <%= render partial: 'image' %>
             <div class="product-carousel owl-carousel gallery-wrapper">
               <div class="gallery-item" data-hash="one"><%= render partial: 'image' %></div>
               <div class="gallery-item" data-hash="two"><a href="img/shop/single/02.jpg" data-size="1000x667"><img src="img/shop/single/02.jpg" alt="Product"></a></div>
@@ -18,17 +20,17 @@
               <div class="gallery-item" data-hash="four"><a href="img/shop/single/04.jpg" data-size="1000x667"><img src="img/shop/single/04.jpg" alt="Product"></a></div>
               <div class="gallery-item" data-hash="five"><a href="img/shop/single/05.jpg" data-size="1000x667"><img src="img/shop/single/05.jpg" alt="Product"></a></div>
             </div>
-            <ul class="product-thumbnails">
-              <%= render partial: 'thumbnails' %>
-            </ul>
+
+            <%= render partial: 'thumbnails' %>
+
           </div>
         </div>
         <!-- Product Info-->
         <div class="col-md-6">
           <div class="padding-top-2x mt-2 hidden-md-up"></div>
           <div class="sp-categories pb-3"><i class="icon-tag"></i><a href="#">Drones,</a><a href="#">Action cameras</a></div>
-          <h2 class="mb-3">GoPro Karma Camera Drone</h2><span class="h3 d-block">
-            <del class="text-muted">$958.00</del>&nbsp; $899.00</span>
+          <h2 class="mb-3"><%= @product.name %></h2>
+          <span class="h3 d-block"><%= display_price(@product) %></span>
           <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta voluptatibus quos ea dolore rem, molestias laudantium et explicabo... <a href='#details' class='scroll-to'>More info</a></p>
           <div class="row margin-top-1x">
             <div class="col-sm-6">
