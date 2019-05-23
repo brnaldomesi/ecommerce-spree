@@ -549,6 +549,7 @@ DEPENDENCIES
   factory_bot
   factory_bot_rails
   geo_ip
+  haml (~> 5.1.0)
   inherited_resources (~> 1.9)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
