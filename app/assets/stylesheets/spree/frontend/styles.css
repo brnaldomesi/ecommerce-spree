@@ -429,20 +429,20 @@ figure figcaption {
 
 /* Bootstrap Overrides */
 @media (min-width: 1200px) {
-  .container {
+  .container1 {
     width: 1170px;
     max-width: 1170px;
   }
 }
 
 @media (max-width: 1200px) {
-  .container {
+  .container1 {
     width: 100% !important;
     max-width: 100% !important;
   }
 }
 
-.container-fluid {
+.container1 {
   max-width: 1920px;
   margin-right: auto;
   margin-left: auto;
@@ -451,7 +451,7 @@ figure figcaption {
 }
 
 @media (max-width: 1200px) {
-  .container-fluid {
+  .container1-fluid {
     padding: 0 15px;
   }
 }
@@ -1996,7 +1996,7 @@ select.form-control.input-light option {
 }
 
 @media (max-width: 576px) {
-  .jp-card-container {
+  .jp-card-container1 {
     width: 285px !important;
   }
   .jp-card {
@@ -5985,11 +5985,11 @@ video {
   z-index: 1;
 }
 
-.fw-section > .container,
-.fw-section > .container-fluid,
+.fw-section > .container1,
+.fw-section > .container1-fluid,
 .fw-section > div,
-.fh-section > .container,
-.fh-section > .container-fluid,
+.fh-section > .container1,
+.fh-section > .container1-fluid,
 .fh-section > div {
   position: relative;
   z-index: 5;
@@ -6657,8 +6657,8 @@ video {
   box-shadow: 0 7px 30px -6px rgba(0, 0, 0, 0.12);
 }
 
-.page-title > .container,
-.page-title > .container-fluid {
+.page-title > .container1,
+.page-title > .container1-fluid {
   display: table;
 }
 
@@ -6741,8 +6741,8 @@ video {
   .page-title {
     margin-bottom: 53px;
   }
-  .page-title > .container,
-  .page-title > .container-fluid {
+  .page-title > .container1,
+  .page-title > .container1-fluid {
     display: block;
   }
   .page-title .column {
