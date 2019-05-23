@@ -1938,7 +1938,7 @@ select.form-control.form-control-sm:not([size]):not([multiple]) {
 }
 
 .input-group .input-group-btn ~ .form-control {
-  padding-right: 0px;
+  padding-right: 38px;
   padding-left: 18px;
 }
 
