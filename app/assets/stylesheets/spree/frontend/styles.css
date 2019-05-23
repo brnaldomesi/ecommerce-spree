@@ -5,8 +5,8 @@
  */
 
 @font-face {
-  font-family: "feather";
-  src: url(/assets/feather.otf) format("truetype");
+  font-family: feather;
+  src: url('/assets/feather.ttf');
 }
 
 
