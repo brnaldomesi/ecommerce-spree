@@ -3,22 +3,23 @@ module Spree
 
     require 'open-uri'
 
+    def categories
+      categories_taxon = ::Spree::CategoryTaxon.root
+      self.taxons.where(parent_id: categories_taxon.id).first
+    end
+
     # @return <Array of Spree::Image>
     def copy_images_from_retail_product!(retail_product)
       retail_product.product_photos.collect{|product_photo| copy_from_retail_product_photo!(product_photo) }
     end
 
-    def categories_taxon
-      self.taxons.where(taxonomy_id: ::Spree::Taxonomy.categories_taxonomy.try(:id) ).first
-    end
-
     def create_categories_taxon!(retail_product)
-      taxon = categories_taxon
-      unless taxon
-        ::Spree::Classification.create(product_id: self.id, taxon_id: ::Spree::Taxonomy.categories_taxonomy.try(:id), position: 1)
-        taxon = categories_taxon
+      site_category = retail_product.leaf_site_category
+      if site_category.try(:mapped_taxon_id)
+        ::Spree::Classification.find_or_create_by(product_id: id, taxon_id: site_category.mapped_taxon_id) do|c|
+          c.position = 1
+        end
       end
-      taxon
     end
 
     ##

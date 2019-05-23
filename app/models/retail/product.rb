@@ -45,6 +45,14 @@ class Retail::Product < ::RetailScraperRecord
     other_site_categories.last
   end
 
+  ##
+  # Deepest level of category, dependent on categories property specifying the category path.
+  # @return <SiteCategory>
+  def leaf_site_category
+    categories.present? ? ::SiteCategory.find_by_full_path(retail_site.name, category_names) : []
+  end
+  alias_method :site_category, :leaf_site_category
+
   # Mixed spec name and values together, w/ spec.name as its own attribute name, e.g., "max_size": 10
   def specs_list
     # product_specs.collect{|spec| [spec.name, spec.value_1, spec.value_2].compact }.flatten.uniq Mixed spec name and values together
