@@ -1,8 +1,7 @@
 
 /*---------------------------------------------*/
-
 .bold {
-  font-weight: 500;
+  font-weight: 700;
 }
 
 
@@ -14,9 +13,10 @@
 }
 
 body, html {
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 15px;
 	height: 100%;
+  background-color: #fff;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1557,17 +1557,17 @@ body.transparent-backdrop .modal-backdrop {
 
 .menu > li > a:hover {
   color: #151515;
-  background-color: #f8f8f8;
+  background-color: #fff;
 }
 
 .menu > li.mm-active {
-  background-color: #f8f8f8;
+  background-color: #fff;
   box-shadow: 4px 0px 0px 0px #606ddd inset;
 }
 
 .menu > li.mm-active > a {
   color: #151515;
-  background-color: #f8f8f8;
+  background-color: #fff;
   box-shadow: 4px 0px 0px 0px #606ddd inset;
 }
 
@@ -2581,7 +2581,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 }
 
 .download-app:hover {
-  background-color: #f8f8f8;
+  background-color: #fff;
 }
 
 .copyright {
