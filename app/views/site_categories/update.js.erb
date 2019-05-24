@@ -1,0 +1,4 @@
+$("#map_category_modal").modal('hide');
+<% if resource.category_id -%>
+$("#map_site_category_button_<%= resource.id -%>").removeClass('fa-bars').addClass('fa-check');
+<% end -%>

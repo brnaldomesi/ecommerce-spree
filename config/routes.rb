@@ -47,6 +47,11 @@ Rails.application.routes.draw do
   mount Spree::Core::Engine, at: '/'
 
   ####################################################
+  # Admins
+
+  resources :site_categories, path: 'admin/site_categories'
+
+  ####################################################
   # Additions to Spree
   namespace :spree, path: '/' do
     resources :stores, only: [:show, :index]

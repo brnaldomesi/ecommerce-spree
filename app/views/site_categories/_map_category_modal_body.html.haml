@@ -1,0 +1,33 @@
+- if resource && resource.mapped_taxon
+  %p
+    %strong Currently mapped:
+    #{resource.mapped_taxon.breadcrumb}
+%div
+  = form_tag('#', id: 'search_categories_for_mapping_form') do
+    .input-group
+      = text_field_tag('name', '', class: 'form-control', placeholder: 'Search by name', id: 'name_for_search_categories')
+      .input-group-append
+        %button(type='button' class='btn btn-light dropdown-toggle' data-toggle='collapse' data-target='#recently_mapped_categories' aria-expanded="false" aria-controls="" title='Recent mappings') &nbsp;
+- if @recently_mapped_category_taxon_ids
+  .collapse.container(id="recently_mapped_categories")
+    .card
+      %h6.card-header Recently picked categories
+      .card-body
+        .card-text
+          %ol(id="recent_picked_categories_list")
+            - recent_cat_map = ::Spree::Taxon.where(id: @recently_mapped_category_taxon_ids).to_a.group_by(&:id)
+            - @recently_mapped_category_taxon_ids.each do|cat_id|
+              - cat = recent_cat_map[cat_id].first
+              - next if cat.nil?
+              %li
+                = form_for(resource, remote: true, method: :put, html:{ class:'form' } ) do|f|
+                  = f.hidden_field(:mapped_taxon_id, value: cat.id)
+                  = f.submit(cat.breadcrumb, class:'btn btn-category', title: cat.id)
+    %br/
+
+%div(style="background-color: #9cf;")
+  %p #{Spree::CategoryTaxon.root.children}
+  - Spree::CategoryTaxon.root.children.each do|top_category_taxon|
+    = category_taxon_selector(::SiteCategory.last, top_category_taxon)
+  %br/
+%br/
