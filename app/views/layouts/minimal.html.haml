@@ -1,0 +1,28 @@
+/!DOCTYPE html
+%html
+  %head
+    %title #{@page_title || [@page_title_prefix, 'TBD Market', @page_title_suffix].compact.join(' ') }
+    = csrf_meta_tags
+
+    = stylesheet_link_tag 'admin', :media => 'all'
+
+    = javascript_include_tag 'admin'
+
+    = yield :head
+
+  %body
+
+    .container
+      .section-gap
+      = yield
+
+    .section-gap
+
+    :javascript
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
+        // $('a[data-remote="true"]').click( function(e){ e.preventDefault(); } );
+      });
+
+    = yield :footer

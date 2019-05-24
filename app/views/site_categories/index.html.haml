@@ -1,0 +1,74 @@
+- @page_title_suffix = ': Site Categories'
+
+%h4 Map Categories for #{params[:site_name].present? ? params[:site_name] : 'All Other Sites'}
+
+%div(style="background-color: #9cf;")
+  %p #{Spree::CategoryTaxon.root.children}
+  - Spree::CategoryTaxon.root.children.each do|top_category_taxon|
+    = category_taxon_selector(::SiteCategory.last, top_category_taxon)
+  %br/
+%br/
+%ul
+  - collection.each do|cat|
+    %li(class="#{cat.mapped_taxon_id ? 'mapped' : 'not-mapped'}")
+      = list_item_for_mapping(cat).html_safe
+      - if cat.children.any?
+        %br/
+        %ul
+          - cat.children.each do|second_cat|
+            %li(class="#{second_cat.mapped_taxon_id ? 'mapped' : 'not-mapped'}")
+              = list_item_for_mapping(second_cat).html_safe
+              - if second_cat.children.any?
+                %br/
+                %ul
+                  - second_cat.children.each do|third_cat|
+                    %li(class="#{third_cat.mapped_taxon_id ? 'mapped' : 'not-mapped'}")
+                      = list_item_for_mapping(third_cat).html_safe
+                      - if third_cat.children.any?
+                        %br/
+                        %ul
+                          - third_cat.children.each do|fourth_cat|
+                            %li(class="#{fourth_cat.mapped_taxon_id ? 'mapped' : 'not-mapped'}")
+                              = list_item_for_mapping(fourth_cat).html_safe
+
+
+.modal.map-category-modal(tabindex='-1' role='dialog' id="map_category_modal")
+  .modal-dialog(role='document' style='max-width: max-content !important;')
+    .modal-content
+      .modal-header
+        .modal-title Choose mapping to our category
+        %button(type='button' class='close' data-dismiss='modal' aria-label='Close')
+          %span(aria-hidden="true") &times;
+      .modal-body
+
+- content_for :footer do
+  :javascript
+    function updateListOfCategories() {
+      //$(this).preventDefault();
+      var name = $(this).val();
+      if (name == "") {
+        $('#map_category_modal .btn-category').css('display', 'inline-block');
+      } else if (name.length > 2) {
+        const r = new RegExp(name, "i");
+        var allCategoryButtons = $('#map_category_modal .btn-category');
+        for (var i = 0; i < allCategoryButtons.length; i++) {
+          var buttonObj = $(allCategoryButtons[i] );
+          var hasMatch = r.test( buttonObj.attr('value') );
+          //console.log("| " + name + " vs " + buttonObj.attr('value') + ' => ' + hasMatch);
+          if (hasMatch) {
+            buttonObj.css('display', 'inline-block');
+          } else {
+            buttonObj.css('display', 'none');
+            buttonObj.siblings().css('display', 'none');
+          }
+        }
+      }
+    }
+
+    $(function(){
+      $("#name_for_search_categories").change(updateListOfCategories);
+
+      $('[data-toggle="tooltip"]').tooltip();
+      $('[data-toggle="popover"]').popover();
+      $('a[data-remote="true"]').click( function(e){ e.preventDefault(); } );
+    });

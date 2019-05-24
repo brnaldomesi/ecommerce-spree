@@ -1,0 +1,3 @@
+$("#map_category_modal .modal-body").html("<%= escape_javascript( render(partial: 'site_categories/map_category_modal_body') ) %>");
+$("#map_category_modal").modal('show');
+$("#name_for_search_categories").change(updateListOfCategories);
