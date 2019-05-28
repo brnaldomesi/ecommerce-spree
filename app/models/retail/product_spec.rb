@@ -32,9 +32,7 @@ class Retail::ProductSpec < ::RetailScraperRecord
 
   def normalize_name!
     if name
-      self.name.gsub!(UNWANTED_CHARS_REGEX, '')
-      self.name.gsub!(REDUNDANT_PREFIXES_REGEX, '')
-      self.name.downcase!
+      self.name = self.class.normalize_name(name)
     end
     name
   end
@@ -96,6 +94,24 @@ class Retail::ProductSpec < ::RetailScraperRecord
     else
       comp
     end
+  end
+
+  def self.normalize_name(name)
+    return name if name.blank?
+    name.downcase.singularize.gsub(UNWANTED_CHARS_REGEX, '').gsub(REDUNDANT_PREFIXES_REGEX, '')
+  end
+
+  NAME_ALIAS_REGEXP = /^(available\s+)(.+)\Z/i
+
+  ##
+  # Iterates over the list and normalize the names of Retail::ProductSpec.
+  # A name could be converted by being an alias or plural form of some common name.
+  # However, the records are not saved.
+  def self.normalize_product_specs(list)
+    list.each do|record|
+      record.name = normalize_name(record.name)
+    end
+    list
   end
 
   protected

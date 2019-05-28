@@ -11,6 +11,7 @@ RSpec.describe ::Spree::Product do
     Category.find_or_create_categories_taxon
     setup_category_taxons( [:level_one_category_taxon, :level_two_category_taxon, :level_three_category_taxon] )
     setup_site_categories('ioffer', [:level_one_site_category, :level_two_site_category, :level_three_site_category], true )
+    setup_option_types_and_values
   end
 
   after(:example) do
@@ -33,6 +34,23 @@ RSpec.describe ::Spree::Product do
         expect(product.name).to eq(retail_product.title)
         expect(product.price).to eq(retail_product.price)
         expect(product.taxons.under_categories.first.id).to eq(retail_product.leaf_site_category.mapped_taxon_id)
+
+        # properties
+        matching_color_property = product.product_properties.includes(:property).find{|p| p.property.name == 'color' && (p.value == 'blue white' || p.value == 'white blue') }
+        expect(matching_color_property).not_to be_nil
+
+        matching_material_property = product.product_properties.includes(:property).find{|p| p.property.name == 'material' && p.value == 'cotton' }
+        expect(matching_material_property).not_to be_nil
+
+        # variants
+        variant_ids = product.variants_including_master.all.collect(&:id)
+        option_value_variants = ::Spree::OptionValuesVariant.where(variant_id: variant_ids).includes(:option_value)
+        %w|white blue|.each do|_color|
+          matching_color_value = option_value_variants.find{|ovv| ovv.option_value.option_type.name == 'color' && ovv.option_value.name == _color }
+          expect(matching_color_value).not_to be_nil
+        end
+        matching_cotton_value = option_value_variants.find{|ovv| ovv.option_value.option_type.name == 'material' && ovv.option_value.name == 'cotton' }
+        expect(matching_cotton_value).not_to be_nil
 
         # Download could be problem
         actual_product_photos_count = retail_product.product_photos.collect(&:image_url).compact.size

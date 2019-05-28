@@ -23,6 +23,42 @@ module Spree
     end
 
     ##
+    # Some specs are simply existing option types such as color, as could represent a variant while
+    # they are still created as properties with joined values as safe backup of the original names and values.
+    def copy_product_specs_from_retail_product!(retail_product)
+      # TODO: use Spree::Product#build_variants_from_option_values_hash to make option types
+
+      ::Retail::ProductSpec.normalize_product_specs(retail_product.product_specs)
+      group = retail_product.product_specs.group_by(&:name)
+      option_values_group = Spree::OptionValue.joins(:option_type).where("#{Spree::OptionType.table_name}.name IN (?)", group.keys).group_by{|v| v.option_type.name }
+      variant_ids = self.variants_including_master.to_a.collect(&:id)
+
+      group.each_pair do|spec_name, spec_list|
+        self.set_property(spec_name, spec_list.collect(&:value_1).uniq.join(' ') )
+
+        # Try to create variants for this spec name and values
+        if (option_values = option_values_group[spec_name] ).present?
+          spec_list.each do|spec|
+            option_value = option_values.find{|var| var.presentation.downcase == spec.value_1.downcase }
+            is_new_option_value = false
+            unless option_value
+              option_value ||= Spree::OptionValue.create(option_type_id: option_values.first.option_type_id,
+                position: option_values.size, name: spec.value_1, presentation: spec.value_1)
+              option_values << option_value
+              is_new_option_value = true
+            end
+            # see if variant is attached
+            if is_new_option_value || Spree::OptionValuesVariant.where(variant_id: variant_ids, option_value_id: option_value.id).count == 0
+              new_variant = self.variants.create(product_id: id, price: master.price)
+              Spree::OptionValuesVariant.create(variant_id: new_variant.id, option_value_id: option_value.id)
+            end
+          end
+        end
+      end
+      self.save
+    end
+
+    ##
     # @product_photo <Retail::ProductPhoto>
     # @return <Spree::Image> added photo if successfully copied/downloaded
     def copy_from_retail_product_photo!(product_photo_or_url)

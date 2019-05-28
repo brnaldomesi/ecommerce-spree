@@ -148,6 +148,7 @@ class Retail::Product < ::RetailScraperRecord
     product.save
     product.copy_images_from_retail_product!(self)
     product.create_categories_taxon!(self)
+    product.copy_product_specs_from_retail_product!(self)
     product
   end
 
