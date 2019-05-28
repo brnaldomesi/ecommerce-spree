@@ -44,4 +44,15 @@ module ProductsSpecHelper
     end
     @site_categories
   end
+
+  ##
+  # Basic Spree::OptionType and OptionValue
+  def setup_option_types_and_values
+    option_type_color = create(:option_type_color)
+    option_type_size = create(:option_type_size)
+    option_type_material = create(:option_type_material)
+    %w|white black grey red|.each{|_color| create("option_value_#{_color}".to_sym, option_type: option_type_color) }
+    %w|xs s m l xl|.each{|_size| create("option_value_#{_size}".to_sym, option_type: option_type_size) }
+    %w|cotton silk metal aluminum|.each{|_m| create("option_value_#{_m}".to_sym, option_type: option_type_material) }
+  end
 end
