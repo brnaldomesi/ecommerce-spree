@@ -6427,6 +6427,7 @@ video {
 .site-header .site-menu ul > li > .sale  {
   transition: all .3s;
   color: #ff0000;
+  font-weight: 500;
   text-decoration: none;
 }
 
