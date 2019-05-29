@@ -20,6 +20,8 @@ class Retail::Product < ::RetailScraperRecord
   has_many :product_photos, class_name: 'Retail::ProductPhoto', foreign_key: :retail_product_id, dependent: :destroy
   alias_method :photos, :product_photos
 
+  has_many :migrations, class_name: 'Retail::ProductToSpreeProduct', foreign_key: :retail_product_id
+  has_many :spree_products, class_name: 'Spree::Product', through: :migrations, foreign_key: :spree_product_id
 
   ##################################
   # Callbacks
@@ -142,13 +144,17 @@ class Retail::Product < ::RetailScraperRecord
   end
 
   ##
-  #
-  def create_as_spree_product
-    product = self.class.make_spree_product(self)
-    product.save
-    product.copy_images_from_retail_product!(self)
-    product.create_categories_taxon!(self)
-    product.copy_product_specs_from_retail_product!(self)
+  # @return <Spree::Product>
+  def create_as_spree_product(force_recreate = false)
+    product = force_recreate ? nil : ::Retail::ProductToSpreeProduct.where(retail_product_id: id).first.try(:spree_product)
+    unless product
+      product = self.class.make_spree_product(self)
+      product.save
+      ::Retail::ProductToSpreeProduct.create(retail_product_id: id, spree_product_id: product.id)
+      product.copy_images_from_retail_product!(self)
+      product.create_categories_taxon!(self)
+      product.copy_product_specs_from_retail_product!(self)
+    end
     product
   end
 
