@@ -6367,12 +6367,16 @@ video {
   color: #fff;
 }
 
+.site-header .toolbar .toolbar-item > a > div > .cart-icon-sticky :hover {
+  color: #000;
+}
+
 .site-header .toolbar .toolbar-item > a > div > .compare-icon > .count-label,
 .site-header .toolbar .toolbar-item > a > div > .cart-icon > .count-label,
 .site-header .toolbar .toolbar-item > a > div > .cart-icon-sticky > .count-label  {
   display: block;
   position: absolute;
-  top: -6px;
+  top: -8px;
   right: -13px;
   width: 18px;
   height: 18px;
@@ -6392,6 +6396,10 @@ video {
 
 .site-header .toolbar .toolbar-item:hover, .site-header .toolbar .toolbar-item.active {
   background-color: #f5f5f5;
+}
+
+.site-header .toolbar .toolbar-item:hover > a > div > .cart-icon-sticky, .site-header .toolbar .toolbar-item.active {
+  color: #000;
 }
 
 .site-header .toolbar .toolbar-item:hover > .toolbar-dropdown, .site-header .toolbar .toolbar-item.active > .toolbar-dropdown {
