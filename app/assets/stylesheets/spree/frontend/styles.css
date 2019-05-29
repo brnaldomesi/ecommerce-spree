@@ -6361,8 +6361,15 @@ video {
   position: relative;
 }
 
+.site-header .toolbar .toolbar-item > a > div > .cart-icon-sticky {
+  display: inline-block;
+  position: relative;
+  color: #fff;
+}
+
 .site-header .toolbar .toolbar-item > a > div > .compare-icon > .count-label,
-.site-header .toolbar .toolbar-item > a > div > .cart-icon > .count-label {
+.site-header .toolbar .toolbar-item > a > div > .cart-icon > .count-label,
+.site-header .toolbar .toolbar-item > a > div > .cart-icon-sticky > .count-label  {
   display: block;
   position: absolute;
   top: -6px;
