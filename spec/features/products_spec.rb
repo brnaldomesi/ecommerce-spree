@@ -35,6 +35,15 @@ RSpec.describe ::Spree::Product do
         expect(product.price).to eq(retail_product.price)
         expect(product.taxons.under_categories.first.id).to eq(retail_product.leaf_site_category.mapped_taxon_id)
 
+        migration = ::Retail::ProductToSpreeProduct.where(retail_product_id: retail_product.id, spree_product_id: product.id).first
+        expect(migration).not_to be_nil
+        retail_product.reload
+        expect(retail_product.migrations.collect(&:spree_product_id).include?(product.id) ).to be_truthy
+        expect(retail_product.spree_products.collect(&:id).include?(product.id) ).to be_truthy
+        product.reload
+        expect(product.migration).not_to be_nil
+        expect(product.migration.retail_product_id).to eq(retail_product.id)
+
         # properties
         matching_color_property = product.product_properties.includes(:property).find{|p| p.property.name == 'color' && (p.value == 'blue white' || p.value == 'white blue') }
         expect(matching_color_property).not_to be_nil

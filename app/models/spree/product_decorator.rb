@@ -3,6 +3,9 @@ module Spree
 
     require 'open-uri'
 
+    has_one :migration, class_name: 'Retail::ProductToSpreeProduct', foreign_key: :spree_product_id
+    delegate :retail_product, to: :migration
+
     def categories
       categories_taxon = ::Spree::CategoryTaxon.root
       self.taxons.where(parent_id: categories_taxon.id).first
@@ -26,7 +29,6 @@ module Spree
     # Some specs are simply existing option types such as color, as could represent a variant while
     # they are still created as properties with joined values as safe backup of the original names and values.
     def copy_product_specs_from_retail_product!(retail_product)
-      # TODO: use Spree::Product#build_variants_from_option_values_hash to make option types
 
       ::Retail::ProductSpec.normalize_product_specs(retail_product.product_specs)
       group = retail_product.product_specs.group_by(&:name)
