@@ -429,20 +429,20 @@ figure figcaption {
 
 /* Bootstrap Overrides */
 @media (min-width: 1200px) {
-  .container1 {
+  .container {
     width: 1170px;
     max-width: 1170px;
   }
 }
 
 @media (max-width: 1200px) {
-  .container1 {
+  .container {
     width: 100% !important;
     max-width: 100% !important;
   }
 }
 
-.container1 {
+.container {
   max-width: 1920px;
   margin-right: auto;
   margin-left: auto;
@@ -451,7 +451,7 @@ figure figcaption {
 }
 
 @media (max-width: 1200px) {
-  .container1-fluid {
+  .container-fluid {
     padding: 0 15px;
   }
 }
@@ -1996,7 +1996,7 @@ select.form-control.input-light option {
 }
 
 @media (max-width: 576px) {
-  .jp-card-container1 {
+  .jp-card-container {
     width: 285px !important;
   }
   .jp-card {
@@ -5985,11 +5985,11 @@ video {
   z-index: 1;
 }
 
-.fw-section > .container1,
-.fw-section > .container1-fluid,
+.fw-section > .container,
+.fw-section > .container-fluid,
 .fw-section > div,
-.fh-section > .container1,
-.fh-section > .container1-fluid,
+.fh-section > .container,
+.fh-section > .container-fluid,
 .fh-section > div {
   position: relative;
   z-index: 5;
@@ -6220,18 +6220,16 @@ video {
 .site-header {
   position: relative;
   z-index: 1000;
+  border: 0px solid transparent;
 }
 
 .site-header .topbar {
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 0px solid #e5e5e5;
   background-color: #ffffff;
 }
 
 .site-header .navbar {
   position: relative;
   width: 100%;
-  border-bottom: 0px solid #e5e5e5;
   background-color: #f5f5f5;
 }
 
@@ -6367,12 +6365,16 @@ video {
   color: #fff;
 }
 
+.site-header .toolbar .toolbar-item > a > div > .cart-icon-sticky :hover {
+  color: #000;
+}
+
 .site-header .toolbar .toolbar-item > a > div > .compare-icon > .count-label,
 .site-header .toolbar .toolbar-item > a > div > .cart-icon > .count-label,
 .site-header .toolbar .toolbar-item > a > div > .cart-icon-sticky > .count-label  {
   display: block;
   position: absolute;
-  top: -6px;
+  top: -8px;
   right: -13px;
   width: 18px;
   height: 18px;
@@ -6392,6 +6394,10 @@ video {
 
 .site-header .toolbar .toolbar-item:hover, .site-header .toolbar .toolbar-item.active {
   background-color: #f5f5f5;
+}
+
+.site-header .toolbar .toolbar-item:hover > a > div > .cart-icon-sticky, .site-header .toolbar .toolbar-item.active {
+  color: #000;
 }
 
 .site-header .toolbar .toolbar-item:hover > .toolbar-dropdown, .site-header .toolbar .toolbar-item.active > .toolbar-dropdown {
@@ -6416,6 +6422,8 @@ video {
   position: relative;
   background-color: #222;
   width: 100%;
+  min-height: 40px;
+  border: 0px solid transparent;
   z-index: 1;
 }
 
@@ -6534,6 +6542,8 @@ video {
   position: fixed;
   top: 0;
   left: 0;
+  min-height: 45px;
+  border: 0px solid transparent;
   background-color: #ffffff;
   box-shadow: 0 7px 30px -6px rgba(0, 0, 0, 0.15);
 }
@@ -6647,7 +6657,6 @@ video {
   .site-header .site-branding {
     padding-right: 15px;
     padding-left: 15px;
-    border: 0;
   }
   .site-header .toolbar .toolbar-item.visible-on-mobile {
     display: block;
@@ -6671,8 +6680,8 @@ video {
   box-shadow: 0 7px 30px -6px rgba(0, 0, 0, 0.12);
 }
 
-.page-title > .container1,
-.page-title > .container1-fluid {
+.page-title > .container,
+.page-title > .container-fluid {
   display: table;
 }
 
@@ -6755,8 +6764,8 @@ video {
   .page-title {
     margin-bottom: 53px;
   }
-  .page-title > .container1,
-  .page-title > .container1-fluid {
+  .page-title > .container,
+  .page-title > .container-fluid {
     display: block;
   }
   .page-title .column {
@@ -7569,8 +7578,6 @@ video {
   padding-top: 40px;
   padding-right: 15px;
   padding-left: 15px;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
 }
 
 .product-gallery .product-carousel {
@@ -7603,8 +7610,6 @@ video {
   margin-right: -15px;
   margin-left: -15px;
   padding: 6px;
-  border-top: 1px solid #e5e5e5;
-  background-color: #f5f5f5;
   list-style: none;
   align-content: center;
   text-align: center;
