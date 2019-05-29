@@ -1,28 +1,10 @@
 <% cache [I18n.locale, current_pricing_options, @product] do %>
-  <div data-hook="product_show" itemscope itemtype="http://schema.org/Product">
-
     <!-- Page Content-->
-    <div class="container1 padding-bottom-3x">
+    <div class="container padding-bottom-3x">
       <div class="row">
         <!-- Poduct Gallery-->
         <div class="col-md-6">
-          <div class="product-gallery">
-            <div class="gallery-wrapper">
-              <div class="gallery-item video-btn text-center"><a href="#" data-toggle="tooltip" data-type="video" data-video="&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;video-wrapper&quot;&gt;&lt;iframe class=&quot;pswp__video&quot; width=&quot;960&quot; height=&quot;640&quot; src=&quot;https://www.youtube.com/embed/CjNjcrQZtd8&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;" title="Watch video"></a></div>
-            </div>
-
-            <%= render partial: 'image' %>
-            <div class="product-carousel owl-carousel gallery-wrapper">
-              <div class="gallery-item" data-hash="one"><%= render partial: 'image' %></div>
-              <div class="gallery-item" data-hash="two"><a href="img/shop/single/02.jpg" data-size="1000x667"><img src="img/shop/single/02.jpg" alt="Product"></a></div>
-              <div class="gallery-item" data-hash="three"><a href="img/shop/single/03.jpg" data-size="1000x667"><img src="img/shop/single/03.jpg" alt="Product"></a></div>
-              <div class="gallery-item" data-hash="four"><a href="img/shop/single/04.jpg" data-size="1000x667"><img src="img/shop/single/04.jpg" alt="Product"></a></div>
-              <div class="gallery-item" data-hash="five"><a href="img/shop/single/05.jpg" data-size="1000x667"><img src="img/shop/single/05.jpg" alt="Product"></a></div>
-            </div>
-
-            <%= render partial: 'thumbnails' %>
-
-          </div>
+          <%= render partial: 'product_view' %>
         </div>
         <!-- Product Info-->
         <div class="col-md-6">
@@ -77,7 +59,7 @@
     </div>
     <!-- Product Details-->
     <div class="bg-secondary padding-top-3x padding-bottom-2x mb-3" id="details">
-      <div class="container1">
+      <div class="container">
         <div class="row">
           <div class="col-md-6">
             <h3 class="h4">Details</h3>
@@ -112,7 +94,7 @@
       </div>
     </div>
     <!-- Reviews-->
-    <div class="container1 padding-top-2x">
+    <div class="container padding-top-2x">
       <div class="row">
         <div class="col-md-4 mb-4">
           <div class="card border-default">
@@ -186,7 +168,7 @@
         </div>
       </div>
     </div>
-    <div class="container1 padding-bottom-3x mb-1">
+    <div class="container padding-bottom-3x mb-1">
       <!-- Related Products Carousel-->
       <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
       <!-- Carousel-->
