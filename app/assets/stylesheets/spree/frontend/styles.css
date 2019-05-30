@@ -6314,6 +6314,10 @@ video {
   border-left: 1px solid #e5e5e5;
 }
 
+.site-header .toolbar .toolbar-item-sticky {
+  border-left: 0px solid #e5e5e5;
+}
+
 .site-header .toolbar .toolbar-item.visible-on-mobile {
   display: none;
 }
@@ -6379,7 +6383,7 @@ video {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #0055ff;
+  background-color: #333333;
   color: #ffffff;
   font-size: 11px;
   line-height: 18px;
@@ -6554,7 +6558,7 @@ video {
   top: 0;
   right: 0;
   height: 100%;
-  z-index: 5;
+  z-index: 10000;
   -webkit-animation: toolbar-in .6s;
           animation: toolbar-in .6s;
 }
