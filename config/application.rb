@@ -14,7 +14,7 @@ module SolidusMarket
   class Application < Rails::Application
 
     config.to_prepare do
-      Dir.glob(File.join(File.dirname(__FILE__), '../lib/**.rb')) do |c|
+      Dir.glob(File.join(File.dirname(__FILE__), '../lib/**/*.rb')) do |c|
         require_dependency(c)
       end
 
