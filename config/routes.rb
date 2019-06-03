@@ -34,6 +34,12 @@ Spree::Core::Engine.routes.draw do
 
     resources :account, controller: 'users'
   end
+
+  ##
+  # Buyer
+
+  resources :variants
+
 end
 
 Rails.application.routes.draw do
@@ -56,7 +62,7 @@ Rails.application.routes.draw do
   namespace :spree, path: '/' do
     resources :stores, only: [:show, :index]
 
-    resources :variants
+
   end
 
   # Buyers
