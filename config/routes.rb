@@ -32,7 +32,7 @@ Spree::Core::Engine.routes.draw do
     get '/checkout/registration', to: 'checkout#registration', as: :checkout_registration
     put '/checkout/registration', to: 'checkout#update_registration', as: :update_checkout_registration
 
-    resource :account, controller: 'users'
+    resources :account, controller: 'users'
   end
 end
 
@@ -55,7 +55,11 @@ Rails.application.routes.draw do
   # Additions to Spree
   namespace :spree, path: '/' do
     resources :stores, only: [:show, :index]
+
+    resources :variants
   end
+
+  # Buyers
 
   get '/sellers/:id', to: 'sellers#show', as: :seller
 

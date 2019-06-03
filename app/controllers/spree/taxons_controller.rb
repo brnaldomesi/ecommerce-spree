@@ -7,7 +7,7 @@ module Spree
 
     def show
       @searcher = build_searcher(params.merge(taxon: @taxon.id, include_images: true))
-      @products = @searcher.retrieve_products
+      @variants = @searcher.retrieve_products
       @taxonomies = Spree::Taxonomy.includes(root: :children)
 
       respond_to do|format|
@@ -19,7 +19,7 @@ module Spree
       @searcher = build_searcher(params.merge(taxon: @taxon.id, include_images: true))
       @products = @searcher.retrieve_products
       logger.info "| products #{@products.class}: #{@products.to_a}"
-      logger.info "|   count =  #{@products.count}, empty? #{@products.empty?}"
+      logger.info "|   count =  #{@variants.count}, empty? #{@products.empty?}"
       @taxonomies = Spree::Taxonomy.includes(root: :children)
     end
 
