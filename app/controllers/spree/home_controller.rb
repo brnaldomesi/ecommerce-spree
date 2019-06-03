@@ -9,7 +9,7 @@ module Spree
         searcher.pricing_options = current_pricing_options
       end
 
-      @products = @searcher.retrieve_products
+      @variants = @searcher.retrieve_variants
       logger.info "| home#index: searcher #{@searcher}"
       @taxonomies = Spree::Taxonomy.includes(root: :children)
     end

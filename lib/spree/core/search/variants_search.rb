@@ -3,14 +3,18 @@ module Spree
     module Search
       class VariantsSearch < Base
 
-        def retrieve_products
-          @products = get_base_scope
-          curr_page = @properties[:page] || 1
+        def retrieve_variants
+          @variants = get_base_scope
+          cur_page = @properties[:page] || 1
 
           unless Spree::Config.show_products_without_price
-            @products = @products.joins(:prices).merge(Spree::Price.where(pricing_options.search_arguments)).distinct
+            @variants = @variants.joins(:prices).merge(Spree::Price.where(pricing_options.search_arguments)).distinct
           end
-          @products = @products.page(curr_page).per(@properties[:per_page])
+          @variants = @variants.page(cur_page).per(@properties[:per_page])
+        end
+
+        def to_s
+          "VariantsSearch (#{@properties})"
         end
 
         protected
@@ -18,28 +22,13 @@ module Spree
         def get_base_scope
           base_scope = Spree::Variant.includes(:product).where(nil)
           base_scope = base_scope.in_taxon(@properties[:taxon]) unless @properties[:taxon].blank?
-          base_scope = get_products_conditions_for(base_scope, @properties[:keywords])
+          base_scope = get_conditions_for(base_scope, @properties[:keywords])
           base_scope = add_search_scopes(base_scope)
           base_scope = add_eagerload_scopes(base_scope)
           base_scope
         end
 
         def add_eagerload_scopes(scope)
-          # TL;DR Switch from `preload` to `includes` as soon as Rails starts honoring
-          # `order` clauses on `has_many` associations when a `where` constraint
-          # affecting a joined table is present (see
-          # https://github.com/rails/rails/issues/6769).
-          #
-          # Ideally this would use `includes` instead of `preload` calls, leaving it
-          # up to Rails whether associated objects should be fetched in one big join
-          # or multiple independent queries. However as of Rails 4.1.8 any `order`
-          # defined on `has_many` associations are ignored when Rails builds a join
-          # query.
-          #
-          # Would we use `includes` in this particular case, Rails would do
-          # separate queries most of the time but opt for a join as soon as any
-          # `where` constraints affecting joined tables are added to the search;
-          # which is the case as soon as a taxon is added to the base scope.
           scope = scope.preload(:currently_valid_prices, :images)
           scope = scope.preload(:product) if @properties[:include_images]
           scope
@@ -60,7 +49,7 @@ module Spree
         end
 
         # method should return new scope based on base_scope
-        def get_products_conditions_for(base_scope, query)
+        def get_conditions_for(base_scope, query)
           unless query.blank?
             base_scope = base_scope.like_any([:name, :description], query.split)
           end
@@ -74,7 +63,7 @@ module Spree
           @properties[:include_images] = params[:include_images]
 
           per_page = params[:per_page].to_i
-          @properties[:per_page] = per_page > 0 ? per_page : Spree::Config[:products_per_page]
+          @properties[:per_page] = per_page > 0 ? per_page : 24
           @properties[:page] = (params[:page].to_i <= 0) ? 1 : params[:page].to_i
         end
       end

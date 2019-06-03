@@ -8,7 +8,7 @@
 <% end %>
 
 <div data-hook="taxon_products">
-  <%= render partial: 'spree/shared/products', locals: { products: @products.to_a, taxon: @taxon } %>
+  <%= render partial: 'spree/shared/products', locals: {products: @variants.to_a, taxon: @taxon } %>
 </div>
 
 <% unless params[:keywords].present? %>
