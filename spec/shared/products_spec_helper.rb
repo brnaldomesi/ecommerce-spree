@@ -17,6 +17,16 @@ module ProductsSpecHelper
     ::Retail::Product.all.each(&:destroy)
   end
 
+  ###########################################
+
+  def setup_all_for_posting_products
+    create(:level_thee_other_site_category)
+    Category.find_or_create_categories_taxon
+    setup_category_taxons( [:level_one_category_taxon, :level_two_category_taxon, :level_three_category_taxon] )
+    setup_site_categories('ioffer', [:level_one_site_category, :level_two_site_category, :level_three_site_category], true )
+    setup_option_types_and_values
+  end
+
   # @category_taxon_factory_keys <Array of symbols> list of factory keys that represent a path of multiple levels.
   def setup_category_taxons(category_taxon_factory_keys)
     categories_taxon = ::Spree::CategoryTaxon.find_or_create_categories_taxon

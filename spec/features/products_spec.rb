@@ -7,11 +7,7 @@ include UsersSpecHelper
 
 RSpec.describe ::Spree::Product do
   before(:example) do
-    create(:level_thee_other_site_category)
-    Category.find_or_create_categories_taxon
-    setup_category_taxons( [:level_one_category_taxon, :level_two_category_taxon, :level_three_category_taxon] )
-    setup_site_categories('ioffer', [:level_one_site_category, :level_two_site_category, :level_three_site_category], true )
-    setup_option_types_and_values
+    setup_all_for_creating_products
   end
 
   after(:example) do

@@ -69,7 +69,7 @@ module Spree
       if url.present?
         if url.start_with?('/') # copy local
           file_path = File.join(Rails.root.to_s, 'public', url)
-          puts "ProductPhoto.image at #{file_path}, exists? #{File.exists?(file_path)}"
+          logger.debug "ProductPhoto.image at #{file_path}, exists? #{File.exists?(file_path)}"
           Spree::Image.create(:attachment => File.open(file_path), :viewable => self.master)
 
         else # download
