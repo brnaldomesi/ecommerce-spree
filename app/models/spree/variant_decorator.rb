@@ -5,6 +5,7 @@
 module Spree
   Variant.class_eval do
     has_many :classifications, through: :product
+    belongs_to :user, class_name: 'Spree::User'
 
     #################################
     # Scopes copied from
