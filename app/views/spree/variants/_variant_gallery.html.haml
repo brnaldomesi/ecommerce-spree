@@ -1,0 +1,9 @@
+.product-gallery
+  .gallery-wrapper
+  - if variant.images.present?
+    = render partial: 'spree/shared/image', locals: { image: variant.images.first, size: :large }
+  .product-carousel.owl-carousel.gallery-wrapper
+    - variant.images.to_a.each_with_index do|image, index|
+      .gallery-item(dash-hash="Image #{index}")
+        = render partial: 'spree/shared/image', locals: { image: image }
+    = render partial: 'spree/products/thumbnails', locals: { product: variant.product }

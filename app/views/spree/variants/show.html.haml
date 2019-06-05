@@ -1,0 +1,351 @@
+:ruby
+  @variant ||= resource
+  @product ||= @variant.product if @variant
+
+- cache [I18n.locale, current_pricing_options, @variant] do
+  / Page Content
+  .container.padding-bottom-3x
+    .row
+      / Product Gallery
+      .col-md-6
+        = render partial: 'spree/variants/variant_gallery', locals: { variant: @variant }
+      / Product Info
+      .col-md-6
+        .padding-top-2x.mt-2.hidden-md-up
+        .sp-categories.pb-3
+          %i.icon-tag
+          %a{:href => "#"} Drones,
+          %a{:href => "#"} Action cameras
+        %h2.mb-3 #{@variant.name}
+        %span.h3.d-block= display_price(@variant)
+        %p.text-muted
+          #{@variant.description.truncate(100, omission: "  <a class='scroll-to' href='#details'> More info</a>" ).html_safe}
+        .row.margin-top-1x
+          - @variant.product.options.includes(:option_type).each do|option|
+            .col-sm-6
+              .form-group
+                %label(for="#{option.option_type.name}") Choose #{option.option_type.presentation}
+                = select_tag(option.option_type.name, options_from_collection_for_select(option.option_type.option_values, :name, :presentation), class:'form-control' )
+          .col-sm-6
+            .form-group
+              %label{:for => "size"} Choose color
+              %select#size.form-control
+                %option White/Gray/Black
+                %option Black
+                %option Black/White/Red
+          .col-sm-6
+            .form-group
+              %label{:for => "color"} Battery capacity
+              %select#color.form-control
+                %option 5100 mAh
+                %option 6200 mAh
+                %option 8000 mAh
+        .row.align-items-end.pb-4
+          .col-sm-4
+            .form-group.mb-0
+              %label{:for => "quantity"} Quantity
+              %select#quantity.form-control
+                %option 1
+                %option 2
+                %option 3
+                %option 4
+                %option 5
+          .col-sm-8
+            .pt-4.hidden-sm-up
+            %button.btn.btn-primary.btn-block.m-0{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success"}
+              %i.icon-bag
+              Add to Cart
+        .pt-1.mb-4
+          %span.text-medium SKU:
+          \#21457832
+  / Product Details
+  #details.bg-secondary.padding-top-3x.padding-bottom-2x.mb-3
+    .container
+      .row
+        .col-md-6
+          %h3.h4 Details
+          %p.mb-4 #{@variant.description}
+          %h3.h4 Features
+          %ul.list-icon.mb-4
+            %li
+              %i.icon-check.text-success>
+              Capture 4K30 Video and 12MP Photos
+            %li
+              %i.icon-check.text-success>
+              Game-Style Controller with Touchscreen
+            %li
+              %i.icon-check.text-success>
+              View Live Camera Feed
+            %li
+              %i.icon-check.text-success>
+              Full Control of HERO6 Black
+            %li
+              %i.icon-check.text-success>
+              Use App for Dedicated Camera Operation
+        .col-md-6
+          - if @variant.product.product_properties.count > 0
+            %h3.h4 Specifications
+            %ul.list-unstyled.mb-4
+              - @variant.product.product_properties.order('position asc').each do|prop|
+                %li
+                  %strong #{prop.property.presentation}:
+                  #{prop.value}
+          %h3.h4 Shipping Options:
+          %ul.list-unstyled.mb-4
+            %li
+              %strong Courier:
+              2 - 4 days, $22.50
+            %li
+              %strong Local Shipping:
+              up to one week, $10.00
+            %li
+              %strong UPS Ground Shipping:
+              4 - 6 days, $18.00
+            %li
+              %strong Unishop Global Export:
+              3 - 4 days, $25.00
+  / Reviews
+  .container.padding-top-2x
+    .row
+      .col-md-4.mb-4
+        .card.border-default
+          .card-body
+            .text-center
+              .d-inline.align-baseline.display-3.mr-1 4.2
+              .d-inline.align-baseline.text-sm.text-warning.mr-1
+                .rating-stars
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star
+            .pt-3
+              %label.text-medium.text-sm
+                5 stars
+                %span.text-muted - 38
+              .progress.margin-bottom-1x
+                .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "75", :role => "progressbar", :style => "width: 75%; height: 2px;"}
+              %label.text-medium.text-sm
+                4 stars
+                %span.text-muted - 10
+              .progress.margin-bottom-1x
+                .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "20", :role => "progressbar", :style => "width: 20%; height: 2px;"}
+              %label.text-medium.text-sm
+                3 stars
+                %span.text-muted - 3
+              .progress.margin-bottom-1x
+                .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "7", :role => "progressbar", :style => "width: 7%; height: 2px;"}
+              %label.text-medium.text-sm
+                2 stars
+                %span.text-muted - 1
+              .progress.margin-bottom-1x
+                .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "3", :role => "progressbar", :style => "width: 3%; height: 2px;"}
+              %label.text-medium.text-sm
+                1 star
+                %span.text-muted - 0
+              .progress.mb-2
+                .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "0", :role => "progressbar", :style => "width: 0; height: 2px;"}
+            .pt-2
+              %a.btn.btn-warning.btn-block{"data-target" => "#leaveReview", "data-toggle" => "modal", :href => "#"} Leave a Review
+      .col-md-8
+        %h3.padding-bottom-1x Latest Reviews
+        / Review
+        .comment
+          .comment-author-ava
+            %img{:alt => "Comment author", :src => "/img/reviews/02.jpg"}/
+          .comment-body
+            .comment-header.d-flex.flex-wrap.justify-content-between
+              %h4.comment-title My husband love his new...
+              .mb-2
+                .rating-stars
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star
+            %p.comment-text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...
+            .comment-footer
+              %span.comment-meta Maggie Scott
+        / Review
+        .comment
+          .comment-author-ava
+            %img{:alt => "Comment author", :src => "/img/reviews/03.jpg"}/
+          .comment-body
+            .comment-header.d-flex.flex-wrap.justify-content-between
+              %h4.comment-title Awesome quality for the price
+              .mb-2
+                .rating-stars
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+                  %i.icon-star.filled
+            %p.comment-text Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
+            .comment-footer
+              %span.comment-meta Jacob Hammond
+        / View All Button
+        %a.btn.btn-secondary.btn-block{:href => "#"} View All Reviews
+  .container.padding-bottom-3x.mb-1
+    / Related Products Carousel
+    %h3.text-center.padding-top-2x.mt-2.padding-bottom-1x You May Also Like
+    / Carousel
+    .owl-carousel{"data-owl-carousel" => "{ \"nav\": false, \"dots\": true, \"margin\": 30, \"responsive\": {\"0\":{\"items\":1},\"576\":{\"items\":2},\"768\":{\"items\":3},\"991\":{\"items\":4},\"1200\":{\"items\":4}} }"}
+      / Product
+      .product-card
+        .product-badge.bg-danger Sale
+        %a.product-thumb{:href => "shop-single.html"}
+          %img{:alt => "Product", :src => "/img/shop/products/01.jpg"}/
+        .product-card-body
+          .product-category
+            %a{:href => "#"} Smart home
+          %h3.product-title
+            %a{:href => "shop-single.html"} Echo Dot (2nd Generation)
+          %h4.product-price
+            %del> $62.00
+            $49.99
+        .product-button-group
+          %a.product-button.btn-wishlist{:href => "#"}
+            %i.icon-heart
+            %span Wishlist
+          %a.product-button.btn-compare{:href => "#"}
+            %i.icon-repeat
+            %span Compare
+          %a.product-button{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success", :href => "#"}
+            %i.icon-shopping-cart
+            %span To Cart
+      / Product
+      .product-card
+        %a.product-thumb{:href => "shop-single.html"}
+          %img{:alt => "Product", :src => "/img/shop/products/11.jpg"}/
+        .product-card-body
+          .product-category
+            %a{:href => "#"} Headphones
+          %h3.product-title
+            %a{:href => "shop-single.html"} Edifier W855BT Bluetooth
+          %h4.product-price $99.75
+        .product-button-group
+          %a.product-button.btn-wishlist{:href => "#"}
+            %i.icon-heart
+            %span Wishlist
+          %a.product-button.btn-compare{:href => "#"}
+            %i.icon-repeat
+            %span Compare
+          %a.product-button{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success", :href => "#"}
+            %i.icon-shopping-cart
+            %span To Cart
+      / Product
+      .product-card
+        .rating-stars
+          %i.icon-star.filled
+          %i.icon-star.filled
+          %i.icon-star.filled
+          %i.icon-star.filled
+          %i.icon-star.filled
+        %a.product-thumb{:href => "shop-single.html"}
+          %img{:alt => "Product", :src => "/img/shop/products/06.jpg"}/
+        .product-card-body
+          .product-category
+            %a{:href => "#"} Video games
+          %h3.product-title
+            %a{:href => "shop-single.html"} Xbox One S White
+          %h4.product-price $298.99
+        .product-button-group
+          %a.product-button.btn-wishlist{:href => "#"}
+            %i.icon-heart
+            %span Wishlist
+          %a.product-button.btn-compare{:href => "#"}
+            %i.icon-repeat
+            %span Compare
+          %a.product-button{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success", :href => "#"}
+            %i.icon-shopping-cart
+            %span To Cart
+      / Product
+      .product-card
+        %a.product-thumb{:href => "shop-single.html"}
+          %img{:alt => "Product", :src => "/img/shop/products/07.jpg"}/
+        .product-card-body
+          .product-category
+            %a{:href => "#"} Smartphones
+          %h3.product-title
+            %a{:href => "shop-single.html"} Samsung Galaxy S9+
+          %h4.product-price $839.99
+        .product-button-group
+          %a.product-button.btn-wishlist{:href => "#"}
+            %i.icon-heart
+            %span Wishlist
+          %a.product-button.btn-compare{:href => "#"}
+            %i.icon-repeat
+            %span Compare
+          %a.product-button{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success", :href => "#"}
+            %i.icon-shopping-cart
+            %span To Cart
+      / Product
+      .product-card
+        .product-badge.bg-secondary.border-default.text-body Out of stock
+        %a.product-thumb{:href => "shop-single.html"}
+          %img{:alt => "Product", :src => "/img/shop/products/12.jpg"}/
+        .product-card-body
+          .product-category
+            %a{:href => "#"} Wearable electornics
+          %h3.product-title
+            %a{:href => "shop-single.html"} Apple Watch Series 3
+          %h4.product-price $329.10
+        .product-button-group
+          %a.product-button.btn-wishlist{:href => "#"}
+            %i.icon-heart
+            %span Wishlist
+          %a.product-button.btn-compare{:href => "#"}
+            %i.icon-repeat
+            %span Compare
+          %a.product-button{:href => "shop-single.html"}
+            %i.icon-arrow-right
+            %span Details
+      / Product
+      .product-card
+        .rating-stars
+          %i.icon-star.filled
+          %i.icon-star.filled
+          %i.icon-star.filled
+          %i.icon-star.filled
+          %i.icon-star
+        %a.product-thumb{:href => "shop-single.html"}
+          %img{:alt => "Product", :src => "/img/shop/products/10.jpg"}/
+        .product-card-body
+          .product-category
+            %a{:href => "#"} Printers &amp; Ink
+          %h3.product-title
+            %a{:href => "shop-single.html"} HP LaserJet Pro Printer
+          %h4.product-price $249.50
+        .product-button-group
+          %a.product-button.btn-wishlist{:href => "#"}
+            %i.icon-heart
+            %span Wishlist
+          %a.product-button.btn-compare{:href => "#"}
+            %i.icon-repeat
+            %span Compare
+          %a.product-button{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success", :href => "#"}
+            %i.icon-shopping-cart
+            %span To Cart
+      / Product
+      .product-card
+        .product-badge.bg-danger Sale
+        %a.product-thumb{:href => "shop-single.html"}
+          %img{:alt => "Product", :src => "/img/shop/products/09.jpg"}/
+        .product-card-body
+          .product-category
+            %a{:href => "#"} Action cameras
+          %h3.product-title
+            %a{:href => "shop-single.html"} Samsung Gear 360 Camera
+          %h4.product-price
+            %del> $74.00
+            $68.00
+        .product-button-group
+          %a.product-button.btn-wishlist{:href => "#"}
+            %i.icon-heart
+            %span Wishlist
+          %a.product-button.btn-compare{:href => "#"}
+            %i.icon-repeat
+            %span Compare
+          %a.product-button{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success", :href => "#"}
+            %i.icon-shopping-cart
+            %span To Cart
