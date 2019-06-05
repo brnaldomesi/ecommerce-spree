@@ -1,11 +1,12 @@
 <%
   # Required locals:
-  #   either 'product' <Spree::Product>
+  #   'product' <Spree::Product>
+  product = @product unless defined?(product)
 -%>
 <div class="product-gallery">
   <div class="gallery-wrapper"></div>
-    <% if images.present? %>
-      <%= render partial: 'spree/shared/image', locals: { image: product.images.first } %>
+    <% if product.images.present? %>
+      <%= render partial: 'spree/shared/image', locals: { image: product.images.first, size: :large } %>
     <% end -%>
     <div class="product-carousel owl-carousel gallery-wrapper">
       <% product.images.to_a.each_with_index do|image, index| -%>
