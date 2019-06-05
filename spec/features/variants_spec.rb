@@ -23,10 +23,14 @@ RSpec.describe ::Spree::Product do
       let :user_attr do
         attributes_for(:basic_user)
       end
+      let :another_user_attr do
+        attributes_for(:another_user)
+      end
 
       it 'Register user and create variant product' do
         puts '---- Sign up user'
         user = sign_up_with(user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name] )
+        another_user = sign_up_with(another_user_attr[:email], 'test1234', another_user_attr[:username], another_user_attr[:display_name] )
 
         puts '---- Confirm email'
         confirm_email(user)
@@ -37,7 +41,17 @@ RSpec.describe ::Spree::Product do
 
         retail_product = create_retail_product(:shirt_retail_product, [sample_image_url] )
         product = retail_product.create_as_spree_product
+        ability = Spree::Ability.new(user)
+        expect( ability.can?(:manage, product) ).not_to be_truthy
+
+        # Set this user as owner
         product.update_attributes(user_id: user.id)
+        ability = Spree::Ability.new(user)
+        expect( ability.can?(:manage, product) ).to be_truthy
+
+        # Check permission against another user
+        another_ability = Spree::Ability.new(another_user)
+        expect( another_ability.can?(:manage, product) ).not_to be_truthy
 
         puts '--- Add option types'
         first_option_type = ::Spree::OptionType.first
@@ -55,8 +69,14 @@ RSpec.describe ::Spree::Product do
           })
         product.reload
         expect( product.variants_including_master.count ).to eq( first_option_type.option_values.count )
+
+        puts '--- Check permissions'
+        ability = Spree::Ability.new(user)
+        another_ability = Spree::Ability.new(another_user)
         product.variants_including_master.each do|variant|
           expect( variant.user_id ).to eq(user.id)
+          expect( ability.can?(:manage, product) ).to be_truthy
+          expect( another_ability.can?(:manage, product) ).not_to be_truthy
         end
       end
     end
