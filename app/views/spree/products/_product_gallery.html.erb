@@ -1,16 +1,16 @@
+<%
+  # Required locals:
+  #   either 'product' <Spree::Product>
+-%>
 <div class="product-gallery">
   <div class="gallery-wrapper"></div>
-
-  <%= render partial: 'image' %>
-  <div class="product-carousel owl-carousel gallery-wrapper">
-    <div class="gallery-item" data-hash="one"><%= render partial: 'image' %></div>
-
-    <div class="gallery-item" data-hash="two"><a href="img/shop/single/02.jpg" data-size="1000x667"><img src="img/shop/single/02.jpg" alt="Product"></a></div>
-    <div class="gallery-item" data-hash="three"><a href="img/shop/single/03.jpg" data-size="1000x667"><img src="img/shop/single/03.jpg" alt="Product"></a></div>
-    <div class="gallery-item" data-hash="four"><a href="img/shop/single/04.jpg" data-size="1000x667"><img src="img/shop/single/04.jpg" alt="Product"></a></div>
-    <div class="gallery-item" data-hash="five"><a href="img/shop/single/05.jpg" data-size="1000x667"><img src="img/shop/single/05.jpg" alt="Product"></a></div>
-  </div>
-
-  <%= render partial: 'thumbnails' %>
-
+    <% if images.present? %>
+      <%= render partial: 'spree/shared/image', locals: { image: product.images.first } %>
+    <% end -%>
+    <div class="product-carousel owl-carousel gallery-wrapper">
+      <% product.images.to_a.each_with_index do|image, index| -%>
+        <div class="gallery-item" data-hash="Image <%= index -%>"><%= render partial: 'spree/shared/image', locals: { image: image } %></div>
+      <% end -%>
+    <%= render partial: 'spree/products/thumbnails', locals: { product: product } %>
+    </div>
 </div>
