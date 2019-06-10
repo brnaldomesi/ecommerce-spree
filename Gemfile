@@ -42,7 +42,7 @@ gem 'redis-namespace', '~> 1.6'
 ############################################
 # Assets
 
-gem 'rmagick', '2.13.2'
+gem 'rmagick', '~> 3.1'
 gem 'carrierwave', '~> 1.3'
 gem 'carrierwave_direct'
 
