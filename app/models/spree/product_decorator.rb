@@ -6,6 +6,8 @@ module Spree
     has_one :migration, class_name: 'Retail::ProductToSpreeProduct', foreign_key: :spree_product_id
     delegate :retail_product, to: :migration
 
+    belongs_to :master_product, class_name: 'Spree::Product', foreign_key: :master_product_id
+
     def categories
       categories_taxon = ::Spree::CategoryTaxon.root
       self.taxons.where(parent_id: categories_taxon.id).first

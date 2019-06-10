@@ -1,6 +1,7 @@
 Spree::Core::Engine.routes.draw do
   # solidus_auth_devise-master/config/routes.rb
   unless Spree::Auth::Config.draw_frontend_routes
+
     devise_for(:spree_user, {
         class_name: 'Spree::User',
         controllers: {
@@ -10,8 +11,8 @@ Spree::Core::Engine.routes.draw do
             confirmations: 'spree/user_confirmations'
         },
         skip: [:unlocks, :omniauth_callbacks],
-        path_names: { sign_out: 'logout' },
-        path: '/user'
+        path_names: { sign_in: 'login', sign_out: 'logout' },
+        path: '/users'
     })
 
     resources :users, only: [:edit, :update]

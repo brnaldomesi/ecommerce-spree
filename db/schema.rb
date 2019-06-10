@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_133736) do
+ActiveRecord::Schema.define(version: 2019_06_07_205353) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -476,8 +476,10 @@ ActiveRecord::Schema.define(version: 2019_06_05_133736) do
     t.boolean "promotionable", default: true
     t.string "meta_title"
     t.integer "user_id"
+    t.integer "master_product_id"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
+    t.index ["master_product_id"], name: "index_spree_products_on_master_product_id"
     t.index ["name"], name: "index_spree_products_on_name"
     t.index ["slug"], name: "index_spree_products_on_slug", unique: true
     t.index ["user_id"], name: "index_spree_products_on_user_id"
