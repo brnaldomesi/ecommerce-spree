@@ -31,6 +31,13 @@ test:
   username: scraper
   password: test
 
+staging:
+  <<: *default
+  host: localhost
+  database: solidus_market_staging
+  username: dbuser
+  password: y0u4staging09db
+
 production:
   <<: *default
   host: localhost

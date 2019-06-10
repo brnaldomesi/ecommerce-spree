@@ -1,35 +1,35 @@
-development:
+default: &default
   adapter: mysql2
   encoding: utf8mb4
   collation: utf8mb4_unicode_ci
-  reconnect: false
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
   host: localhost
   database: retail_scraper_dev
-  pool: 5
   username: scraper
   password: test
-  socket: /tmp/mysql.sock
 
 test:
-  adapter: mysql2
-  encoding: utf8mb4
-  collation: utf8mb4_unicode_ci
-  reconnect: true
+  <<: *default
   host: localhost
   database: retail_scraper_test
-  pool: 5
   username: scraper
   password: test
-  socket: /tmp/mysql.sock
+
+staging:
+  <<: *default
+  host: localhost
+  database: retail_scraper_staging
+  username: dbuser
+  password: y0u4staging09db
 
 production:
-  adapter: mysql2
-  encoding: utf8mb4
-  collation: utf8mb4_unicode_ci
-  reconnect: true
+  <<: *default
   host: localhost
   database: retail_scraper_prod
-  pool: 5
-  username: scraper
-  password: test
-  socket: /tmp/mysql.sock
+  username: dbuser
+  password: y0u4staging09db
