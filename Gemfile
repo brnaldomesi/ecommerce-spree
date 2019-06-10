@@ -35,6 +35,8 @@ gem 'redis-rails', '~> 5.0'
 gem 'redis-store', '~> 1.6'
 gem 'redis-namespace', '~> 1.6'
 
+gem 'sidekiq', '~> 5.2'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -98,7 +100,6 @@ group :development, :test do
   # gem 'rails_best_practices'
 
   gem 'mailcatcher'
-  gem 'sidekiq', '~> 5.2'
 end
 
 gem 'actionview-encoded_mail_to'
