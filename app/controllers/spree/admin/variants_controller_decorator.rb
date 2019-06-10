@@ -11,7 +11,15 @@ module Spree
       ##
       # Copied over code and then added w/ extra current user only condition.
       def collection
-        @collection = super
+        if params[:deleted] == 'on'
+          base_variant_scope ||= super.with_deleted
+        else
+          base_variant_scope ||= super
+        end
+
+        search = Spree::Config.variant_search_class.new(params[:variant_search_term], scope: base_variant_scope)
+        @collection = search.results.includes(variant_includes).page(params[:page]).per(Spree::Config[:admin_variants_per_page])
+
         @collection = @collection.where(user_id: spree_current_user.try(:id) ) if spree_current_user && !spree_current_user.admin?
         @collection
       end
