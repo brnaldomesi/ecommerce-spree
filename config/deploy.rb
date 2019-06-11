@@ -4,7 +4,10 @@ lock '~> 3.11.0'
 set :rvm_type, :system
 set :rvm_ruby_string, 'ruby-2.5.3'
 
-domain = 'www.tbdmarket.com'
+set :stages, %w(production staging development)
+set :default_stage, 'staging'
+
+domain = 'tbdmarket.com'
 set :application, 'tbdmarket'
 set :repo_url, 'git@github.com:briangan/solidus_market.git'
 
@@ -33,7 +36,8 @@ role :db, domain
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
 # Default value for :pty is false
-# set :pty, true
+set :scm, :git
+set :pty, false
 
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml"
@@ -53,3 +57,5 @@ role :db, domain
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
+set :user, 'deploy'
+set :use_sudo, false
