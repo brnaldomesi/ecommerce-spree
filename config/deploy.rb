@@ -5,7 +5,7 @@ set :rvm_type, :system
 set :rvm_ruby_string, 'ruby-2.5.3'
 
 domain = 'www.tbdmarket.com'
-set :application, 'TBD Market'
+set :application, 'tbdmarket'
 set :repo_url, 'git@github.com:briangan/solidus_market.git'
 
 # Default branch is :master
