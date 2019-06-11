@@ -59,12 +59,14 @@ gem 'nokogiri', '~> 1.10'
 # gem 'mini_magick', '~> 4.8'
 
 # Use Capistrano for deployment
-gem 'ed25519', group: :development
-gem 'bcrypt_pbkdf', group: :development
-gem 'capistrano-rails', group: :development
-gem 'capistrano-rvm', group: :development
-gem 'capistrano-bundler', group: :development
-gem 'capistrano-passenger', group: :development
+group :development do
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
+end
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
