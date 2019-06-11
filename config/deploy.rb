@@ -36,7 +36,6 @@ role :db, domain
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
 # Default value for :pty is false
-set :scm, :git
 set :pty, false
 
 # Default value for :linked_files is []
