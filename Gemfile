@@ -59,6 +59,8 @@ gem 'nokogiri', '~> 1.10'
 # gem 'mini_magick', '~> 4.8'
 
 # Use Capistrano for deployment
+gem 'ed25519', group: :development
+gem 'bcrypt_pbkdf', group: :development
 gem 'capistrano-rails', group: :development
 gem 'capistrano-rvm', group: :development
 gem 'capistrano-bundler', group: :development

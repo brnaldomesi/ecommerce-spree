@@ -72,6 +72,7 @@ GEM
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
     bcrypt (3.1.12)
+    bcrypt_pbkdf (1.0.1)
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -150,6 +151,7 @@ GEM
     durable_decorator (0.2.2)
       logging
       method_source
+    ed25519 (1.2.4)
     erubi (1.8.0)
     eventmachine (1.2.7)
     excon (0.64.0)
@@ -561,6 +563,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionview-encoded_mail_to
+  bcrypt_pbkdf
   bootsnap (>= 1.1.0)
   bootstrap-sass
   byebug
@@ -573,6 +576,7 @@ DEPENDENCIES
   carrierwave_direct
   chromedriver-helper
   coffee-rails (~> 4.2)
+  ed25519
   factory_bot
   factory_bot_rails
   geo_ip
