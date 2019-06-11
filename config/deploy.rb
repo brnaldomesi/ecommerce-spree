@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.11.0'
 
-set :rvm_type, :system
+set :rvm_type, :user
 set :rvm_ruby_string, 'ruby-2.5.3'
 
 set :stages, %w(production staging development)
@@ -14,7 +14,7 @@ set :repo_url, 'git@github.com:briangan/solidus_market.git'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-base_path = '/var/www/tbdmarket'
+base_path = '/var/www/solidus_market'
 set :deploy_to, base_path
 
 current_path = base_path + '/current'
@@ -36,7 +36,7 @@ role :db, domain
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
 # Default value for :pty is false
-set :pty, false
+set :pty, true
 
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml"
