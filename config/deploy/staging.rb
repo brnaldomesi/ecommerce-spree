@@ -7,7 +7,7 @@ server '140.82.56.18', user: 'deploy', roles: %w{web app db}
 
 set :ssh_options, {
     user: 'deploy',
-    keys: ['~/.ssh/~/.ssh/tbdmarket'],
+    keys: ['~/.ssh/tbdmarket'],
     forward_agent: true,
     auth_methods: %w(publickey)
 }
