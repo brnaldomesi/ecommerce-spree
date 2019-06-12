@@ -17,8 +17,11 @@ set :repo_url, 'git@github.com:briangan/solidus_market.git'
 base_path = '/var/www/solidus_market'
 set :deploy_to, base_path
 
+shared_path = base_path + '/shared'
 current_path = base_path + '/current'
 set :current_path, current_path
+
+set :linked_files, %w{config/master.key}
 
 ######################################
 
@@ -38,8 +41,6 @@ role :db, domain
 # Default value for :pty is false
 set :pty, true
 
-# Default value for :linked_files is []
-# append :linked_files, "config/database.yml"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
@@ -58,3 +59,21 @@ set :pty, true
 
 set :user, 'deploy'
 set :use_sudo, false
+
+#######################################
+# Puma server
+
+set :puma_bind,       "unix://#{shared_path}/tmp/sockets/puma.sock"
+set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
+set :puma_access_log, "#{shared_path}/log/puma.error.log"
+set :puma_error_log,  "#{shared_path}/log/puma.access.log"
+set :puma_preload_app, true
+set :puma_worker_timeout, nil
+set :puma_init_active_record, false  # Change to true if using ActiveRecord
+
+
+#######################################
+# Before and after
+
+after 'deploy', 'deploy:prepare_assets'
