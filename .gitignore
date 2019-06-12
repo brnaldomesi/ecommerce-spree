@@ -13,6 +13,7 @@
 
 /current
 .DS_Store
+yarn.lock
 
 # Ignore all logfiles and tempfiles.
 /log/*

@@ -21,7 +21,7 @@ shared_path = base_path + '/shared'
 current_path = base_path + '/current'
 set :current_path, current_path
 
-set :linked_files, %w{config/master.key}
+# set :linked_files, %w{config/master.key}
 
 ######################################
 
