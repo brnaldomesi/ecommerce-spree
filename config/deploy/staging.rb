@@ -3,7 +3,7 @@ set :rails_env, 'staging'
 
 set :branch, ENV['BRANCH'] || 'master'
 
-server 'tbdmarket.com', user: 'deploy', roles: %w{web app db}
+server '140.82.56.18', user: 'deploy', roles: %w{web app db}
 
 set :ssh_options, {
     user: 'deploy',
