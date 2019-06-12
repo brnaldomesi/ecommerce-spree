@@ -66,6 +66,7 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
+  gem 'capistrano3-puma'
 end
 
 # Reduces boot times through caching; required in config/boot.rb
