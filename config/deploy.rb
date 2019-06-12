@@ -21,7 +21,7 @@ shared_path = base_path + '/shared'
 current_path = base_path + '/current'
 set :current_path, current_path
 
-set :linked_files, %w{config/master.key}
+set :linked_files, %w{config/master.key config/puma.rb}
 
 
 ######################################
@@ -58,6 +58,7 @@ set :use_sudo, false
 #######################################
 # Puma server
 
+set :puma_conf, "#{shared_path}/config/puma.rb"
 set :puma_bind,       "unix://#{shared_path}/sockets/puma.sock"
 set :puma_state,      "#{shared_path}/pids/puma.state"
 set :puma_pid,        "#{shared_path}/pids/puma.pid"
@@ -82,10 +83,12 @@ namespace :puma do
     on roles(:app) do
       execute "mkdir #{shared_path}/sockets -p"
       execute "mkdir #{shared_path}/pids -p"
+      execute "mkdir #{shared_path}/log -p"
+      execute "mkdir #{shared_path}/config -p"
     end
   end
 
-  before :deploy, :make_dirs
+  before :deploy, 'puma:make_dirs'.to_sym
 end
 
 namespace :deploy do
