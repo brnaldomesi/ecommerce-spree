@@ -10,6 +10,7 @@ default: &default
   collation: utf8mb4_unicode_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -18,7 +19,6 @@ development:
   reconnect: false
   username: scraper
   password: test
-  socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -36,6 +36,7 @@ staging:
   database: solidus_market_staging
   username: dbuser
   password: y0u4staging09db
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   <<: *default
