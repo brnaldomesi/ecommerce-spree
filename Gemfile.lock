@@ -378,7 +378,7 @@ GEM
     rspec-expectations (3.8.4)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
-    rspec-mocks (3.8.0)
+    rspec-mocks (3.8.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-rails (3.8.2)
@@ -441,7 +441,7 @@ GEM
       kaminari-activerecord (~> 1.1)
       responders
       solidus_core (= 2.8.4)
-    solidus_auth_devise (2.1.0)
+    solidus_auth_devise (2.2.0)
       devise (~> 4.1)
       devise-encryptable (= 0.2.0)
       solidus_core (>= 1.2.0, < 3)
@@ -608,8 +608,8 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   sidekiq (~> 5.2)
-  solidus
-  solidus_auth_devise
+  solidus (~> 2.8.4)
+  solidus_auth_devise (~> 2.2.0)
   solidus_marketplace
   solidus_reports!
   spring
