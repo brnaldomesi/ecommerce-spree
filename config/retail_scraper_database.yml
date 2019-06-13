@@ -24,6 +24,7 @@ staging:
   database: retail_scraper_staging
   username: dbuser
   password: y0u4staging09db
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   <<: *default
