@@ -180,7 +180,7 @@
   padding: 13px 20px;
   transition: color .3s;
   border-bottom: 1px solid #e5e5e5;
-  border-left: 2px solid transparent;
+  border-left: 1px solid transparent;
   color: #505050;
   font-size: 16px;
   letter-spacing: .025em;
@@ -6241,8 +6241,12 @@ video {
           flex-grow: 0;
   -ms-flex-negative: 0;
       flex-shrink: 0;
-  padding: 18px 30px;
-  border-right: 1px solid #e5e5e5;
+  padding-left: 35px;
+  padding-right: 10px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+
+  border-right: 0px solid #e5e5e5;
 }
 
 .site-header .site-branding .site-logo {
@@ -6309,9 +6313,9 @@ video {
 
 .site-header .toolbar .toolbar-item {
   position: relative;
-  width: 96px;
+  width: 86px;
   transition: background-color .3s;
-  border-left: 1px solid #e5e5e5;
+  border-left: 0px solid #e5e5e5;
 }
 
 .site-header .toolbar .toolbar-item-sticky {
