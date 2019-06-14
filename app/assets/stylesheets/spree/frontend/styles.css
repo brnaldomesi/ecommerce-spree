@@ -98,7 +98,7 @@
   top: 100%;
   left: 0;
   width: 100%;
-  border-top: 1px solid #e5e5e5;
+  border-top: 0px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   background-color: #ffffff;
   box-shadow: 0 7px 22px -5px rgba(0, 0, 0, 0.2);
@@ -6274,7 +6274,8 @@ video {
 
 .site-header .search-box-wrap .search-box {
   width: 100%;
-  box-shadow: 0 0px 10px -0px rgba(0, 0, 0, 0.20);
+  border-width: 2px;
+  border-color: #222;
   border-radius: 6px;
 }
 
@@ -6303,7 +6304,7 @@ video {
 .site-header .search-box-wrap .input-group .form-control {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-width: 0px;
+  border-width: 1px;
 }
 
 .site-header .search-box-wrap .input-group .form-control:focus {
@@ -6529,8 +6530,10 @@ video {
 
 .site-header .site-menu > ul > li.has-submenu:hover > a,
 .site-header .site-menu > ul > li.has-megamenu:hover > a {
-  border-color: #e5e5e5;
+  border-color: #ffffff;
+  border-width: 0px;
   background-color: #ffffff;
+
 }
 
 .site-header .site-menu > ul > li.has-submenu:hover > a::after,
