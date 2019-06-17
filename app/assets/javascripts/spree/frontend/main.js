@@ -8,8 +8,8 @@
     };
 
 	// Variables
-	var $html, window_width, pageUrl, header, topBarHeight, mainHeaderHeight, 
-	innerHeaderHeight, headerTotalHeight, mobileHeader, mobileHeaderHeight, pageUrl, $body, 
+	var $html, window_width, pageUrl, header, topBarHeight, mainHeaderHeight,
+	innerHeaderHeight, headerTotalHeight, mobileHeader, mobileHeaderHeight, pageUrl, $body,
 	$galleryWithThumbs, $elementCarousel, $window;
 
 	$body = $('body');
@@ -28,17 +28,17 @@
 	$galleryWithThumbs = $('.gallery-with-thumbs');
 	$elementCarousel = $('.airi-element-carousel');
 
-	
+
 	/**********************
 	*Mobile Menu Activatin
-	***********************/ 
-    $( '#dl-menu' ).dlmenu({
-        animationClasses : { 
+	***********************/
+    /*$( '#dl-menu' ).dlmenu({
+        animationClasses : {
 			classin: "dl-animate-in-2",
 			classout: "dl-animate-out-2"
         }
-    });
-    
+    });*/
+
 
 	$('.menu-btn').on('click', function(e){
 		e.preventDefault();
@@ -46,7 +46,7 @@
 		$('.mobile-navigation').toggleClass('open-mobile-menu');
 		$('.dl-menu').toggleClass('dl-menuopen');
 	});
-    
+
     $(".main-navigation a").each(function() {
         if ($(this).attr("href") === pageUrl || $(this).attr("href") === '') {
             $(this).closest('li').addClass("active");
@@ -61,13 +61,13 @@
 	/**********************
 	* Countdown Activation
 	***********************/
-	
+
 	$('[data-countdown]').each(function() {
 		var $this = $(this), finalDate = $(this).data('countdown');
 		$this.countdown(finalDate, function(event) {
 			$this.html(event.strftime('<div class="single-countdown"><span class="single-countdown__time">%D</span><span class="single-countdown__text">Days</span></div><div class="single-countdown"><span class="single-countdown__time">%H</span><span class="single-countdown__text">Hours</span></div><div class="single-countdown"><span class="single-countdown__time">%M</span><span class="single-countdown__text">Minutes</span></div><div class="single-countdown"><span class="single-countdown__time">%S</span><span class="single-countdown__text">Seconds</span></div>'));
 		});
-	}); 
+	});
 
 	/**********************
 	*Header Toolbar Sidenav Expand
@@ -91,7 +91,7 @@
 		});
 	}
 
-	
+
 
 	/**********************
 	*Click on Documnet
@@ -101,7 +101,7 @@
 		$body.on('click', function (e){
 		    var $target = e.target;
 		    var dom = $('.wrapper').children();
-		    
+
 		    if (!$($target).is('.toolbar-btn') && !$($target).is('.product-filter-btn') && !$($target).parents().is('.open')) {
 		        dom.removeClass('open');
 		        dom.find('.open').removeClass('open');
@@ -124,7 +124,7 @@
 			}
 		});
 	}
-	
+
 	/**********************
 	*Transparent Header
 	***********************/
@@ -138,7 +138,7 @@
 					}else{
 						$('.main-content-wrapper').css('margin-top', parseInt(mainHeaderHeight, 10) * -1);
 					}
-					
+
 				},
 				resize: function(){
 					var mainHeaderHeightResize = ( $('.header').elExists() ) ? $('.header')[0].getBoundingClientRect().height : 0;
@@ -175,7 +175,7 @@
 			}
 		}
 	}
-	
+
 
 	/**********************
 	* Sticky Header
@@ -235,7 +235,7 @@
 			var className = stickyArg.selector.substr(1);
 
 			$(window).on('scroll', function(){
-				var windowTop = $(window).scrollTop(); 
+				var windowTop = $(window).scrollTop();
 				if(windowTop >= stickyPosition && windowTop <= containerHeight){
 					sticky.addClass('fixed').css({'left': leftPosition, 'top': topSpacing});
 				} else{
@@ -245,7 +245,7 @@
 
 			$(window).on({
 				load: function(){
-					
+
 					if(window_width < columnWidth){
 						sticky.removeClass(className).addClass('no-sticky');
 					}else{
@@ -274,7 +274,7 @@
 	stickySocial(SocialStickyArg);
 
 
-	
+
 
 	/**********************
 	*Transparent Header
@@ -286,11 +286,11 @@
 			$('.notice-text-wrapper').slideUp('500').addClass('notice-text-close');
 		});
 	}
-	
+
 
 	/**********************
 	*Adding Slide effect to dropdown
-	***********************/ 
+	***********************/
 
 	function dropdownAnimation(){
 		$('.dropdown').on('show.bs.dropdown', function(e){
@@ -299,13 +299,13 @@
 
 		$('.dropdown').on('hide.bs.dropdown', function(e){
 		  $(this).find('.dropdown-menu').first().stop(true, true).slideUp(200);
-		});		
+		});
 	}
 
 
 	/**********************
 	*BootStrap Tab
-	***********************/ 
+	***********************/
 
 	$('.product-tab__link').on('click', function(){
 		var parent = $(this).parent('.product-tab__item');
@@ -334,7 +334,7 @@
 	            }
 	        }
 	        $button.parent().find("input").val(newVal);
-	    });		
+	    });
 	}
 
 
@@ -352,7 +352,7 @@
 	}
 
 	/**********************
-	*Expand new shipping info  
+	*Expand new shipping info
 	***********************/
 
 	function expandShippingInfo(){
@@ -392,7 +392,7 @@
 			e.stopPropagation();
 		});
 	}
-	
+
 	function productFilterExpand(){
 		$('.product-filter-btn').on('click', function(e){
 			e.preventDefault();
@@ -429,7 +429,7 @@
 
 	/**********************
 	*Magnific Popup Activation
-	***********************/ 
+	***********************/
 
 	var imagePopup = $('.popup-btn');
 	var videoPopup = $('.video-popup');
@@ -457,7 +457,7 @@
 
 	/**********************
 	*Product Image Carousel
-	***********************/ 
+	***********************/
 	$('.product-gallery-image-carousel').slick({
 		slidesToShow: 1,
 		arrows: true,
@@ -468,7 +468,7 @@
 
 	/**********************
 	*Product Carousel
-	***********************/ 
+	***********************/
 
 
 	function elementCarousel(){
@@ -476,13 +476,13 @@
 			var slickInstances = [];
 
 			$elementCarousel.each(function(index, element){
-				var $this = $(this);	
+				var $this = $(this);
 
 				// Carousel Options
-				
+
 
 				var options = $this.data('slick-options');
-				
+
 				var spaceBetween = options.spaceBetween ? parseInt(options.spaceBetween, 10) : 0;
 				var spaceBetween_xl = options.spaceBetween_xl ? parseInt(options.spaceBetween_xl, 10) : 0;
 				var vertical = options.vertical ? options.vertical : false;
@@ -508,12 +508,12 @@
 				    $responsiveArray = [];
 				    for (var i = 0; i < $responsiveSettingLength; i++) {
 						$responsiveArray[i] = $responsiveSetting[i];
-						
+
 					}
 
 				// Adding Class to instances
-				$this.addClass('slick-carousel-'+index);		
-				$this.parent().find('.slick-dots').addClass('dots-'+index);		
+				$this.addClass('slick-carousel-'+index);
+				$this.parent().find('.slick-dots').addClass('dots-'+index);
 				$this.parent().find('.slick-btn').addClass('btn-'+index);
 
 				if(spaceBetween != 0){
@@ -542,7 +542,7 @@
 					prevArrow: '<span class="slick-btn slick-prev"><i class="'+prevArrow+'"></i></span>',
 					nextArrow: '<span class="slick-btn slick-next"><i class="'+nextArrow+'"></i></span>',
 					responsive: $responsiveArray
-				});	
+				});
 			});
 
             // Updating the sliders
@@ -586,7 +586,7 @@
 				}
 			]
 			})
-		});		
+		});
 	}
 
 	function galleryWithThumb(){
@@ -598,10 +598,10 @@
 			navSliderSelector.each(function(index, element){
 
 				// Carousel Options
-				
+
 				var options = $('.nav-slider')[0].getAttribute('data-options');
 				var optionsObj = JSON.parse(options);
-				
+
 				var vertical = optionsObj.vertical ? optionsObj.vertical : false;
 				var vertical_md = optionsObj.vertical_md? optionsObj.vertical_md : false;
 				var arrows = optionsObj.arrows ? optionsObj.arrows : false;
@@ -677,7 +677,7 @@
 
 
 			// Main Slider
-			
+
 			mainSliderSelector.slick({
 				slidesToShow: 1,
 				slidesToScroll: 1,
@@ -711,7 +711,7 @@
             dynamicEl: images
         });
     });
-    
+
 	/**********************
 	*Star Rating
 	***********************/
@@ -722,9 +722,9 @@
 	})
 
 
-	/**********************
-	*Tooltip
-	***********************/
+	/**********************/
+	/*Tooltip*/
+	/***********************/
 
 	$('[data-toggle="tooltip"]').tooltip();
 
@@ -765,9 +765,9 @@
 				percentPosition: true
 			});
 		});
-	}	
+	}
 
-	
+
 
 	/**********************
 	*Price Slider
@@ -847,7 +847,7 @@
 
 
 	/**********************
-	*Initialization 
+	*Initialization
 	***********************/
 
 	$(window).on('load', function(){
