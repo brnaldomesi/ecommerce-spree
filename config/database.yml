@@ -20,7 +20,6 @@ development:
   username: scraper
   password: test
 
-
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -37,6 +36,7 @@ staging:
   database: solidus_market_staging
   username: dbuser
   password: y0u4staging09db
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   <<: *default

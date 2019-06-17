@@ -2,8 +2,6 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   collation: utf8mb4_unicode_ci
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
   socket: /tmp/mysql.sock
 
 development:
@@ -26,6 +24,7 @@ staging:
   database: retail_scraper_staging
   username: dbuser
   password: y0u4staging09db
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   <<: *default
@@ -33,3 +32,5 @@ production:
   database: retail_scraper_prod
   username: dbuser
   password: y0u4staging09db
+  timeout: 5000
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
