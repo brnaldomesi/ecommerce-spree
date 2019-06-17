@@ -305,3 +305,88 @@ padding: 0 4rem; } }
     -moz-flex-direction: column-reverse;
     -ms-flex-direction: column-reverse;
     flex-direction: column-reverse; }
+
+    .tab-style-1 .nav-link, .tab-style-2 .nav-link {
+      color: #d0d0d0;
+      font-size: 4.2rem;
+      line-height: 1.2;
+      border-width: 0 0 0;
+      border-style: solid;
+      border-color: transparent;
+      margin: 0 2.7rem;
+      padding: 0;
+      text-align: center; }
+
+    .tab-style-1 .nav-link span, .tab-style-2 .nav-link span {
+      border-width: 0 0 3px;
+      border-style: solid;
+      border-color: transparent;
+      padding: 0 0 .6rem;
+      display: inline-block; }
+
+      .tab-style-1 .nav-tabs {
+        border-bottom: 0;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        justify-content: center; }
+        @media (max-width: 28.125em) {
+          .tab-style-1 .nav-tabs {
+            -webkit-box-direction: normal;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -moz-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column; } }
+
+      @media (max-width: 93.6875em) {
+        .tab-style-1 .nav-link {
+          font-size: 3rem;
+          line-height: 1.4; } }
+
+      @media (max-width: 47.94em) {
+        .tab-style-1 .nav-link {
+          font-size: 2rem;
+          margin: 0 2rem; } }
+
+      @media (max-width: 28.125em) {
+        .tab-style-1 .nav-link {
+          margin-left: 0;
+          margin-right: 0;
+          border-bottom: none; }
+          .tab-style-1 .nav-link span {
+            padding: 0 0 .5rem;
+            border-width: 0 0 2px; } }
+
+      .tab-style-1 .nav-link:first-child {
+        margin-left: 0; }
+
+      .tab-style-1 .nav-link:last-child {
+        margin-right: 0; }
+
+      @media (max-width: 28.125em) {
+        .tab-style-1 .nav-link:not(:last-child) {
+          margin-bottom: 1rem; } }
+
+      .tab-style-1 .nav-link.active {
+        border-color: transparent;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+        border-radius: 0; }
+        .tab-style-1 .nav-link.active:hover {
+          border-color: transparent; }
+
+      .tab-style-1 .nav-link:hover {
+        border-color: transparent;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+        border-radius: 0; }
+
+      .tab-style-1-2 .nav-link span {
+        border: none;
+        padding-bottom: 0; }
