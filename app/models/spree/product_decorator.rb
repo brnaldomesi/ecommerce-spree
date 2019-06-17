@@ -38,7 +38,7 @@ module Spree
       variant_ids = self.variants_including_master.to_a.collect(&:id)
 
       group.each_pair do|spec_name, spec_list|
-        self.set_property(spec_name, spec_list.collect(&:value_1).uniq.join(' ') )
+        self.set_property_with_list(spec_name, spec_list)
 
         # Try to create variants for this spec name and values
         if (option_values = option_values_group[spec_name] ).present?
@@ -85,5 +85,22 @@ module Spree
       logger.warn "** Spree::Product(#{id}): #{e.message}"
       spree_image
     end
-  end
+
+
+    ##
+    # Since there is DB column limit of 100, need to join manually
+    def set_property_with_list(spec_name, spec_list)
+      value_s = ''
+      spec_list.each do|spec|
+        if value_s.size + spec.value_1.to_s.size + 1 < 100
+          value_s << ' ' unless value_s == ''
+          value_s << spec.value_1.to_s
+        else
+          break
+        end
+      end
+      self.set_property(spec_name, value_s)
+    end
+
+  end # class_eval
 end

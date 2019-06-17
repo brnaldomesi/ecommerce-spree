@@ -7,6 +7,7 @@ ruby '2.5.3'
 gem 'rails', '~> 5.2.3'
 gem 'inherited_resources', '~> 1.9'
 gem 'haml', '~> 5.1.0'
+gem 'websocket-extensions'
 
 ############################
 # Storage

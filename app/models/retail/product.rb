@@ -162,7 +162,7 @@ class Retail::Product < ::RetailScraperRecord
   # @retail_product <Retail::Product> new but not saved
   def self.make_spree_product(retail_product)
     product = ::Spree::Product.new(
-        name: retail_product.title,
+        name: retail_product.title.strip,
         description: retail_product.description,
         available_on: Time.now,
         shipping_category_id: ::Spree::ShippingCategory.default.try(:id),

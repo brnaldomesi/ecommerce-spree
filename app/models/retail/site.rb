@@ -9,18 +9,6 @@ class Retail::Site < ::RetailScraperRecord
   has_many :products, class_name: 'Retail::Product', foreign_key: 'retail_site_id', dependent: :destroy
   has_many :stores, class_name: 'Retail::Store', foreign_key: 'retail_site_id', dependent: :destroy
 
-  before_save :set_defaults
-
-  def scraper_class
-    ::Scraper::Base.scraper_class(name)
-  end
-
-  def scraper
-    @scraper ||= scraper_class.new
-  end
-
-  alias_method :agent, :scraper
-
   def abs_url(url)
     full_url = url
     full_url.insert(0, (forced_scheme || 'http') + '://' + domain ) unless full_url =~ /^(ht|f)tps?:\/\//
@@ -45,14 +33,4 @@ class Retail::Site < ::RetailScraperRecord
     site
   end
 
-  private
-
-  def set_defaults
-    self.site_scraper = scraper_class.to_s if site_scraper.blank?
-    begin
-      self.domain = URI::HTTP.domain_base(domain)
-    rescue Exception => domain_e
-      logger.warn 'Invalid domain: ' + domain_e.message
-    end
-  end
 end

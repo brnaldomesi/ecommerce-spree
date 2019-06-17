@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_14_141304) do
+ActiveRecord::Schema.define(version: 2019_06_14_194222) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,12 @@ ActiveRecord::Schema.define(version: 2019_06_14_141304) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["retail_product_id"], name: "index_retail_product_to_spree_product_on_retail_product_id"
+  end
+
+  create_table "retail_stores_spree_users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "retail_store_id"
+    t.integer "spree_user_id"
+    t.index ["retail_store_id"], name: "index_retail_stores_spree_users_on_retail_store_id"
   end
 
   create_table "site_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
