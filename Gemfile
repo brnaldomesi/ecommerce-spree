@@ -7,6 +7,7 @@ ruby '2.5.3'
 gem 'rails', '~> 5.2.3'
 gem 'inherited_resources', '~> 1.9'
 gem 'haml', '~> 5.1.0'
+gem 'websocket-extensions'
 
 ############################
 # Storage
@@ -35,6 +36,8 @@ gem 'redis-rails', '~> 5.0'
 gem 'redis-store', '~> 1.6'
 gem 'redis-namespace', '~> 1.6'
 
+gem 'sidekiq', '~> 5.2'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -42,7 +45,7 @@ gem 'redis-namespace', '~> 1.6'
 ############################################
 # Assets
 
-gem 'rmagick', '2.13.2'
+gem 'rmagick', '~> 3.1'
 gem 'carrierwave', '~> 1.3'
 gem 'carrierwave_direct'
 
@@ -57,7 +60,15 @@ gem 'nokogiri', '~> 1.10'
 # gem 'mini_magick', '~> 4.8'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :development do
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
+  gem 'capistrano3-puma'
+end
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -98,7 +109,6 @@ group :development, :test do
   # gem 'rails_best_practices'
 
   gem 'mailcatcher'
-  gem 'sidekiq', '~> 5.2'
 end
 
 gem 'actionview-encoded_mail_to'
@@ -110,8 +120,8 @@ gem 'geo_ip'
 #############################
 # Shopping
 
-gem 'solidus'
-gem 'solidus_auth_devise'
+gem 'solidus', '~> 2.8.4'
+gem 'solidus_auth_devise', '~> 2.2.0'
 gem 'solidus_reports', github: 'solidusio-contrib/solidus_reports'
 gem 'solidus_marketplace'
 
