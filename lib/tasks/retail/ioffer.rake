@@ -5,30 +5,41 @@ namespace :ioffer do
     ioffer_site = Retail::Site.where(name:'ioffer').first
     found_page_count = 0
     found_page_statuses = {}
-    bad_status_pages = []
     found_product_count = 0
+    newly_created_count = 0
     item_ids.each_with_index do |ioffer_item_id, index|
       puts "#{index} .. " if index % 100 == 1
-      # url = "/i/#{ioffer_item_id}"
-      page = ::Scraper::Page.where(retail_site_id: ioffer_site.id).where("url_path LIKE '/i/%#{ioffer_item_id}'").first
+      begin
+        # url = "/i/#{ioffer_item_id}"
+        page = ::Scraper::Page.where(retail_site_id: ioffer_site.id).where("url_path LIKE '/i/%#{ioffer_item_id}'").first
 
-      if page
-        found_page_count += 1
-        status_count = found_page_statuses[page.file_status] || 0
-        status_count += 1
-        if page.file_status != 'SAVED'
-          bad_status_pages << page.id
+        if page
+          found_page_count += 1
+          status_count = found_page_statuses[page.file_status] || 0
+          status_count += 1
+
+          found_page_statuses[page.file_status] = status_count
+
+          product = page.try(:retail_product)
+          if product
+            found_product_count += 1
+            ::Spree::Product.transaction do
+              spree_product = product.spree_products.first
+              unless spree_product
+                newly_created_count += 1
+                spree_product ||= create_as_spree_product
+              end
+            end
+          end
         end
-        found_page_statuses[page.file_status] = status_count
-
-        product = page.try(:retail_product)
-        found_product_count += 1 if product
+      rescue Exception => product_e
+        puts "** Error in creating #{ioffer_item_id}: #{product_e}"
       end
     end
     puts "\n==================================="
-    puts "Out of #{item_ids.size}, found #{found_page_count} pages, #{found_product_count} products"
+    puts "Out of #{item_ids.size}, found #{found_page_count} pages, #{found_product_count} products, #{newly_created_count} new"
     puts "  page statuses: #{found_page_statuses}"
-    puts "     bad pages: #{bad_status_pages}"
+
   end
 
 end
