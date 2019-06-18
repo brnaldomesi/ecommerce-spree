@@ -1,8 +1,8 @@
 <meta charset="utf-8"/>
-<title><%= title %></title>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport"/>
-<%= meta_data_tags %>
+<%# = meta_data_tags %>
 <%= canonical_tag(current_store.url) %>
 <%= favicon_link_tag 'favicon.ico' %>
 <%= stylesheet_link_tag 'spree/frontend/all', media: 'screen' %>
@@ -10,18 +10,18 @@
 <%= csrf_meta_tags %>
 <%= javascript_include_tag 'spree/frontend/all' %>
 <!--[if lt IE 9]>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
 <![endif]-->
 <%= yield :head %>
 
-<title>tbd market</title>
-    <!-- SEO Meta Tags-->
+<title><%= title + ' - ' + default_title %></title>
+<!-- SEO Meta Tags-->
 <meta name="description" content="tbd market"/>
 <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean"/>
 <meta name="author" content="tbd market"/>
-    <!-- Mobile Specific Meta Tag-->
+<!-- Mobile Specific Meta Tag-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <!-- Favicon and Apple Icons-->
+<!-- Favicon and Apple Icons-->
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 <link rel="icon" type="image/png" href="favicon.png"/>
 <link rel="apple-touch-icon" href="touch-icon-iphone.png"/>
