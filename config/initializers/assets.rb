@@ -15,4 +15,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Enable the asset pipeline
 
 Rails.application.config.assets.enabled = true
-Rails.application.config.assets.precompile += %w( scripts/script.js admin.css admin.js)
+Rails.application.config.assets.precompile += %w(admin.css admin.js spree/frontend)
+Rails.application.config.assets.precompile.uniq!
