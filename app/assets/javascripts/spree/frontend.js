@@ -1,10 +1,12 @@
 //= require jquery.min
 //= require jquery_ujs
 //= require jsuri
+//= require popper.min
+//= require bootstrap.min
 //= require spree/spree
 //= require spree/frontend/card.min
-//= require spree/frontend/main
 //= require spree/frontend/modernizr.min
 //= require spree/frontend/plugins
+//= require spree/frontend/main
 //= require spree/frontend/scripts.min
 //= require spree/frontend/vendor.min
