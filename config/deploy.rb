@@ -14,6 +14,11 @@ set :repo_url, 'git@github.com:briangan/solidus_market.git'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
+branch = `git symbolic-ref HEAD 2> /dev/null`.strip.gsub(/^refs\/heads\//, '')
+puts '#' * 60
+puts "# Deploying branch #{branch}"
+set :branch, branch
+
 base_path = '/var/www/solidus_market'
 set :deploy_to, base_path
 
@@ -85,6 +90,8 @@ namespace :puma do
       execute "mkdir #{shared_path}/pids -p"
       execute "mkdir #{shared_path}/log -p"
       execute "mkdir #{shared_path}/config -p"
+      execute "mkdir #{shared_path}/public/uploads -p"
+      execute "mkdir #{shared_path}/public/spree -p"
     end
   end
 
@@ -107,6 +114,15 @@ namespace :deploy do
     end
   end
 
-  after  :finishing,    :compile_assets
+  desc 'Link user uploads done via Spree engine to shared path'
+  task :link_uploads do
+    on roles(:app) do
+      execute "mv #{current_path}/public/spree #{current_path}/public/spree.old"
+      execute "ln -s #{shared_path}/public/spree #{current_path}/public/spree"
+    end
+  end
+
+  # after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
+  after  :finishing, :link_uploads
 end
