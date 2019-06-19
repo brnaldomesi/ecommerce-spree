@@ -91,7 +91,7 @@ module Spree
     # Since there is DB column limit of 100, need to join manually
     def set_property_with_list(spec_name, spec_list)
       value_s = ''
-      spec_list.each do|spec|
+      spec_list.uniq.each do|spec|
         if value_s.size + spec.value_1.to_s.size + 1 < 100
           value_s << ' ' unless value_s == ''
           value_s << spec.value_1.to_s
