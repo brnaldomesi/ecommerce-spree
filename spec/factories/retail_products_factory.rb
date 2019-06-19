@@ -11,7 +11,7 @@ FactoryBot.define do
     end
 
     factory :shirt_retail_product, aliases: [:ioffer_retail_product_2] do
-      title { 'New Mens Slim Fit Casual Dress Shirts 3Colors ' }
+      title { 'New Mens Slim Fit Casual Dress Shirts 3Colors' }
       price { 16.95 }
       original_price { 22.0 }
       description { "U.S Size\r Measurement\r \rShoulder\r Chest(From armpit to armpit)\r Length\r Sleeve\rS\r 43cm(16.9\")\r 98cm(38.6\")\r 72cm(28.3\")\r 61cm(24.0\")\rM\r 44cm(17.3\")\r 102cm(40.2\")\r 73cm(28.7\")\r 62cm(24.4\")\rL\r 45cm(17.7\")\r 106cm(41.7\")\r 75cm(29.5\")\r 63cm(24.8\")\rXL\r 46cm(18.1'')\r 110cm(43.3'')\r 76cm(29.9'')\r 64cm(25.2'')\rPayment:\r\rWe only accept Paypal.Please send payment within 3 days after the auctions closed." }

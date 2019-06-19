@@ -1,42 +1,7 @@
-
-/*=============================================
-=            Jquery Plugin List            =
-=============================================
-
-    01. DL Menu
-    02. Count Down
-    03. Magnific popup
-    04. Nice Select
-    05. Slick slider
-    06. ResizeSensor
-    07. Theia sticky sidebar
-    08. Instafeed
-    09. ImagesLoaded
-    10. Masonary
-    11. jQuery UI
-    12. Light Gallery
-    13. Zoom
-    14. AjaxChimp
-
-/*=====  End of Jquery Plugin List  ======*/
-
-
-
-
 /*=============================================
 =            01. DL Menu         =
 =============================================*/
 
-/**
- * jquery.dlmenu.js v1.0.1
- * http://www.codrops.com
- *
- * Licensed under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
- *
- * Copyright 2013, Codrops
- * http://www.codrops.com
- */
 ;( function( $, window, undefined ) {
 
     'use strict';
