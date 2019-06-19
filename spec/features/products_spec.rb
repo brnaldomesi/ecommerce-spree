@@ -7,7 +7,7 @@ include UsersSpecHelper
 
 RSpec.describe ::Spree::Product do
   before(:example) do
-    setup_all_for_creating_products
+    setup_all_for_posting_products
   end
 
   after(:example) do
