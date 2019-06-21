@@ -92,6 +92,11 @@
   border-radius: 5px;
 }
 
+/* Fix for grid system on safari*/
+.row:before, row:after {
+    display: inline-block;
+}
+
 .site-header .site-menu > ul > li .mega-menu {
   display: none;
   position: absolute;
@@ -6722,6 +6727,64 @@ video {
   line-height: 1.3;
 }
 
+/** PAGE HEADER BANNER **/
+
+.page-banner {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 3px 0;
+  background-color: #efefef;
+  box-shadow: 0 7px 30px -6px rgba(0, 0, 0, 0.12);
+}
+
+.page-banner > .container,
+.page-banner > .container-fluid {
+  display: table;
+}
+
+.page-banner .column {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.page-banner.column:first-child {
+  width: 60%;
+  padding-right: 20px;
+}
+
+.page-banner h1, .page-banner h2, .page-banner h3 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.banner-content {
+  display: block;
+  margin: 0;
+  padding: 0px 0;
+  list-style: none;
+  text-align: center;
+}
+
+/*.banner-content > button{
+  display: block;
+  margin: 0;
+  padding: 0px 0;
+  list-style: none;
+  text-align: center;
+}*/
+
+.banner-content > h1 {
+  display: inline-block;
+  margin-left: -4px;
+  padding: 5px 0;
+  color: #000000;
+  font-weight: 400;
+  font-size: 16px;
+  cursor: default;
+  vertical-align: middle;
+}
+
 .breadcrumbs {
   display: block;
   margin: 0;
@@ -6743,7 +6806,7 @@ video {
 .breadcrumbs > li.separator {
   margin-top: 2px;
   margin-left: 3px;
-  color: #505050;
+  color: #FEFEFE;
   font-family: feather;
   font-size: 14px;
 }
@@ -6754,7 +6817,7 @@ video {
 
 .breadcrumbs > li > a {
   transition: color .25s;
-  color: #505050;
+  color: #999999;
   text-decoration: none;
 }
 
