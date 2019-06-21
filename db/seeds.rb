@@ -621,6 +621,5 @@ Spree::OptionType.create!(
         {name: "working frequency", presentation: "Working Frequency", position: 968},
         {name: "working time", presentation: "Working Time", position: 969},
         {name: "yarn type", presentation: "Yarn Type", position: 970},
-        {name: "zone number", presentation: "Zone Number", position: 971},
-        {name: "comodity size", presentation: "Comodity Size", position: 972}
+        {name: "zone number", presentation: "Zone Number", position: 971}
     ])
