@@ -24,7 +24,7 @@
 <div class="row">
   <% products.each do |product| %>
     <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-           <div class="col-lg-3 col-md-4 col-sm-6">
+           <div class="col-lg-3 col-md-4 col-sm-4 col-6">
              <div class="product-card mb-30">
                <a class="product-thumb" href="shop-single.html"><%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :large, itemprop: "image"), url, itemprop: 'url') %></a>
                <div class="product-card-body">
@@ -42,12 +42,6 @@
                <div class="product-button-group"><a class="product-button btn-wishlist" href="#"><i class="icon-heart"></i><span>Wishlist</span></a><a class="product-button btn-compare" href="#"><i class="icon-repeat"></i><span>Compare</span></a><a class="product-button" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-shopping-cart"></i><span>To Cart</span></a></div>
              </div>
            </div>
-  <% end %>
-</div>
-
-<div class="row text-center">
-  <% if paginated_products.respond_to?(:total_pages) %>
-    <%= paginate paginated_products %>
   <% end %>
 </div>
 
