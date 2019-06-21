@@ -11,7 +11,7 @@ module Spree
     protected
 
     def check_name
-      unless name.valid_option_name?
+      unless self.class.valid_option_name?(name)
         self.errors.add(:name)
       end
     end
