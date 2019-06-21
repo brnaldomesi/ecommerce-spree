@@ -13,6 +13,7 @@ gem 'websocket-extensions'
 # Storage
 gem 'mysql2', '~> 0.5.0'
 #gem 'sqlite3'
+gem 'seed_dump', '~> 3.3'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
