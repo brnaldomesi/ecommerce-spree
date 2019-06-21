@@ -17,6 +17,10 @@ class String < Object
     self.class.valid_keyword_name?(self)
   end
 
+  def to_sanitize_keyword_name
+    self.class.sanitize_keyword_name(self)
+  end
+
   REDUNDANT_PREFIXES_REGEX = /^(a|available|about|applicable|appropriate|choose|chosen|for|get|with|the|suggeste?d?|product|item)\b/i
 
   def self.sanitize_keyword_name(name = '')
