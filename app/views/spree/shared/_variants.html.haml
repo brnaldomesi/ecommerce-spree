@@ -15,10 +15,10 @@
     %div(data-hook="products_search_results_heading_results_found")
       %h6.search-results-title #{ t('spree.search_results', keywords: h(params[:keywords])) }
 
-.row2
+.row
   - variants.each do |variant|
     - url = variant_path(variant, taxon_id: @taxon.try(:id))
-    %div(class="col-lg-3 col-md-4 col-sm-6")
+    %div(class="col-lg-3 col-md-4 col-sm-4 col-6")
       %div(class="product-card mb-30")
         %a(class="product-thumb" href="shop-single.html")
           = link_to(render('spree/shared/image', image: variant.gallery.images.first, size: :large, itemprop: 'image'), url, itemprop: 'url')
