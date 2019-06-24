@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: feather;
-  src: font-url('feather.ttf');
+  src: url('feather.ttf');
 }
 
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700");
