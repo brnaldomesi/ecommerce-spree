@@ -22,7 +22,7 @@ Spree.config do |config|
   # Frontend:
 
   # Custom logo for the frontend
-  config.logo = 'logo/tbd-logo.png'
+  config.logo = 'logo/shoppn-logo.png'
 
   # Template to use when rendering layout
   # config.layout = "spree/layouts/spree_application"
