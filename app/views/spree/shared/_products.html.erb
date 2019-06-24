@@ -21,7 +21,7 @@
   <% end %>
 </div>
 
-<div class="row2">
+<div class="row">
   <% products.each do |product| %>
     <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
            <div class="col-lg-3 col-md-4 col-sm-4 col-6">
