@@ -30,23 +30,32 @@ module Spree
     ##
     # Some specs are simply existing option types such as color, as could represent a variant while
     # they are still created as properties with joined values as safe backup of the original names and values.
-    def copy_product_specs_from_retail_product!(retail_product)
+    def copy_product_specs_from_retail_product!(retail_product, create_new_option_value = false)
 
       ::Retail::ProductSpec.normalize_product_specs(retail_product.product_specs)
       group = retail_product.product_specs.group_by(&:name)
-      option_values_group = Spree::OptionValue.joins(:option_type).where("#{Spree::OptionType.table_name}.name IN (?)", group.keys).group_by{|v| v.option_type.name }
+      option_types = ::Spree::OptionType.where(name: group.keys).all
+      option_types_group = option_types.group_by(&:name)
+      option_values_group = Spree::OptionValue.where(option_type_id: option_types.collect(&:id)).group_by(&:option_type_name)
       variant_ids = self.variants_including_master.to_a.collect(&:id)
 
       group.each_pair do|spec_name, spec_list|
         self.set_property_with_list(spec_name, spec_list)
 
         # Try to create variants for this spec name and values
-        if (option_values = option_values_group[spec_name] ).present?
+        option_values = option_values_group[spec_name] || []
+        if create_new_option_value || option_values
+          option_type = option_types_group[spec_name.downcase].try(:first) || option_values.first.try(:option_type)
+          next if option_type.nil?
+
+          product_option_type = self.product_option_types.find{|ot| ot.id == option_type.id }
+          self.product_option_types.create(position: self.product_option_types.size + 1, product_id: id, option_type_id: option_type.id) if product_option_type.nil?
+
           spec_list.each do|spec|
             option_value = option_values.find{|var| var.presentation.downcase == spec.value_1.downcase }
             is_new_option_value = false
             unless option_value
-              option_value ||= Spree::OptionValue.create(option_type_id: option_values.first.option_type_id,
+              option_value ||= Spree::OptionValue.create(option_type_id: option_type.id,
                 position: option_values.size, name: spec.value_1, presentation: spec.value_1)
               option_values << option_value
               is_new_option_value = true
@@ -90,6 +99,7 @@ module Spree
     ##
     # Since there is DB column limit of 100, need to join manually
     def set_property_with_list(spec_name, spec_list)
+      return if spec_name.blank? || spec_list.blank?
       value_s = ''
       spec_list.uniq.each do|spec|
         if value_s.size + spec.value_1.to_s.size + 1 < 100
@@ -99,7 +109,7 @@ module Spree
           break
         end
       end
-      self.set_property(spec_name, value_s)
+      self.set_property(spec_name, value_s) if value_s.present?
     end
 
   end # class_eval

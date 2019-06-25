@@ -125,7 +125,7 @@ namespace :deploy do
   desc 'Copy fonts to public/assets as workaround of font path problem'
   task :copy_fonts_to_assets do
     on roles(:web) do
-      execute "cp -Ri #{current_path}/app/assets/fonts/* #{shared_path}/public/assets"
+      execute "cp -Rn #{current_path}/app/assets/fonts/* #{shared_path}/public/assets"
     end
   end
 
