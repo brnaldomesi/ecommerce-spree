@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_06_14_194222) do
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "friendly_id_slugs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "friendly_id_slugs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-  create_table "retail_product_to_spree_product", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "retail_product_to_spree_product", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "retail_product_id"
     t.integer "spree_product_id"
     t.datetime "created_at", null: false
@@ -54,16 +54,16 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["retail_product_id"], name: "index_retail_product_to_spree_product_on_retail_product_id"
   end
 
-  create_table "retail_scraper_records", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "retail_scraper_records", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
   end
 
-  create_table "retail_stores_spree_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "retail_stores_spree_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "retail_store_id"
     t.integer "spree_user_id"
     t.index ["retail_store_id"], name: "index_retail_stores_spree_users_on_retail_store_id"
   end
 
-  create_table "site_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "site_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "site_name", null: false
     t.integer "other_site_category_id"
     t.integer "mapped_taxon_id"
@@ -1029,7 +1029,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["user_id"], name: "index_spree_stores_on_user_id"
   end
 
-  create_table "spree_supplier_variants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "spree_supplier_variants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "supplier_id"
     t.integer "variant_id"
     t.decimal "cost", precision: 10
@@ -1039,7 +1039,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["variant_id"], name: "index_spree_supplier_variants_on_variant_id"
   end
 
-  create_table "spree_suppliers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+  create_table "spree_suppliers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.boolean "active", default: false, null: false
     t.integer "address_id"
     t.decimal "commission_flat_rate", precision: 8, scale: 2, default: "0.0", null: false
