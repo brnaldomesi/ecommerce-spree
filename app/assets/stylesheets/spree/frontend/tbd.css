@@ -431,10 +431,10 @@ padding: 0 4rem; } }
 /*********************/
 /* STICKY SIDEBAR ***/
 /********************/
-
       .content-section {
         min-height: 1000px;
       }
+
       .sidebar-section {
         position: absolute;
         height: 100%;
