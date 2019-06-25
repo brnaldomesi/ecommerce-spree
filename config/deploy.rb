@@ -116,13 +116,21 @@ namespace :deploy do
 
   desc 'Link user uploads done via Spree engine to shared path'
   task :link_uploads do
-    on roles(:app) do
+    on roles(:web) do
       execute "mv #{current_path}/public/spree #{current_path}/public/spree.old"
       execute "ln -s #{shared_path}/public/spree #{current_path}/public/spree"
+    end
+  end
+
+  desc 'Copy fonts to public/assets as workaround of font path problem'
+  task :copy_fonts_to_assets do
+    on roles(:web) do
+      execute "cp -Ri #{current_path}/app/assets/fonts/* #{shared_path}/public/assets"
     end
   end
 
   # after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing, :link_uploads
+  after  :finishing, :copy_fonts_to_assets
 end
