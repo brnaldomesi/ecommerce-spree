@@ -6,11 +6,11 @@ include ProductsSpecHelper
 include UsersSpecHelper
 
 RSpec.describe ::Spree::Product do
-  before(:example) do
+  before(:all) do
     setup_all_for_posting_products
   end
 
-  after(:example) do
+  after(:all) do
     cleanup_retail_products
   end
 

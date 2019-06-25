@@ -98,7 +98,13 @@ class Retail::ProductSpec < ::RetailScraperRecord
 
   def self.normalize_name(name)
     return name if name.blank?
-    name.downcase.singularize.gsub(UNWANTED_CHARS_REGEX, '').gsub(REDUNDANT_PREFIXES_REGEX, '')
+    name.downcase.singularize.to_sanitized_keyword_name
+  end
+
+  NON_ALPHANUMERAL_ENDING_REGEX = /([\/,.]+)\Z/i
+
+  def self.normalize_value(value)
+    value ? value.gsub(NON_ALPHANUMERAL_ENDING_REGEX, '') : value
   end
 
   NAME_ALIAS_REGEXP = /^(available\s+)(.+)\Z/i
@@ -110,6 +116,8 @@ class Retail::ProductSpec < ::RetailScraperRecord
   def self.normalize_product_specs(list)
     list.each do|record|
       record.name = normalize_name(record.name)
+      record.value_1 = normalize_value(record.value_1)
+      record.value_2 = normalize_value(record.value_2)
     end
     list
   end
