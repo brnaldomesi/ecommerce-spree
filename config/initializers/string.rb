@@ -17,7 +17,7 @@ class String < Object
     self.class.valid_keyword_name?(self)
   end
 
-  def to_sanitize_keyword_name
+  def to_sanitized_keyword_name
     self.class.sanitize_keyword_name(self)
   end
 
