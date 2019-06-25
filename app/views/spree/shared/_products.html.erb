@@ -9,40 +9,42 @@
   <% end %>
 <% end %>
 
-<div data-hook="products_search_results_heading">
-  <% if products.empty? %>
-    <div data-hook="products_search_results_heading_no_results_found">
-      <%= t('spree.no_products_found') %>
-    </div>
-  <% elsif params.key?(:keywords) %>
-    <div data-hook="products_search_results_heading_results_found">
-      <h6 class="search-results-title"><%= t('spree.search_results', keywords: h(params[:keywords])) %></h6>
-    </div>
-  <% end %>
-</div>
+<% if products.empty? %>
+  <div data-hook="products_search_results_heading_no_results_found">
+    <%= t('spree.no_products_found') %>
+  </div>
+<% elsif params.key?(:keywords) %>
+  <div data-hook="products_search_results_heading_results_found">
+    <h6 class="search-results-title"><%= t('spree.search_results', keywords: h(params[:keywords])) %></h6>
+  </div>
+<% end %>
 
-<div class="row">
-  <% products.each do |product| %>
-    <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-           <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-             <div class="product-card mb-30">
-               <a class="product-thumb" href="shop-single.html"><%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :large, itemprop: "image"), url, itemprop: 'url') %></a>
-               <div class="product-card-body">
-                 <div class="product-category"><a href="#">Smart home</a></div>
-                 <h3 class="product-title"><%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %></h3>
-                 <h4 class="product-price">
-                   <% if price = product.price_for(current_pricing_options) %>
-                     <!-- fix the price font -->
-                     <span class="stext-105 cl3">
-                       <%= price.to_html %>
-                     </span>
-                   <% end %>
-                 </h4>
+    <div class="row">
+      <% products.each do |product| %>
+        <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
+               <div class="col-lg-3 col-md-4 col-sm-4 col-6">
+                 <div class="product-card mb-30">
+                   <a class="product-thumb" href="shop-single.html"><%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :large, itemprop: "image"), url, itemprop: 'url') %></a>
+                   <div class="product-card-body">
+                     <div class="product-category"><a href="#">Smart home</a></div>
+                     <h3 class="product-title"><%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %></h3>
+                     <h4 class="product-price">
+                       <% if price = product.price_for(current_pricing_options) %>
+                         <!-- fix the price font -->
+                         <span class="stext-105 cl3">
+                           <%= price.to_html %>
+                         </span>
+                       <% end %>
+                     </h4>
+                   </div>
+                   <div class="product-button-group"><a class="product-button btn-wishlist" href="#"><i class="icon-heart"></i><span>Wishlist</span></a><a class="product-button btn-compare" href="#"><i class="icon-repeat"></i><span>Compare</span></a><a class="product-button" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-shopping-cart"></i><span>To Cart</span></a></div>
+                 </div>
                </div>
-               <div class="product-button-group"><a class="product-button btn-wishlist" href="#"><i class="icon-heart"></i><span>Wishlist</span></a><a class="product-button btn-compare" href="#"><i class="icon-repeat"></i><span>Compare</span></a><a class="product-button" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-shopping-cart"></i><span>To Cart</span></a></div>
-             </div>
-           </div>
-  <% end %>
-</div>
+      <% end %>
+    </div>
+
+
+
+
 
 <% reset_cycle("classes") %>
