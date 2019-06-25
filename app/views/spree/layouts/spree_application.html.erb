@@ -17,15 +17,16 @@
       <div id="wrapper" class="row" data-hook>
 
         <%= taxon_breadcrumbs(@taxon) %>
-        <div id="content" class="columns <%= !content_for?(:sidebar) ? "sixteen" : "twelve omega" %>" data-hook>
+
+        <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
+
+        <div id="content" class="<%= !content_for?(:sidebar) ? 'col-lg-12' : 'col-lg-8' %>" data-hook>
           <%= flash_messages %>
           <%= yield %>
         </div>
 
-        <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
-
         <%= yield :templates %>
-
+      </div>
     </div>
 
       <%= render partial: 'spree/shared/footer' %>
