@@ -1,0 +1,19 @@
+.container
+  %br/
+  .card
+    .card-header
+      Need to sign in with access account
+    %p/
+    = form_tag(user_access_login_path ) do
+      = hidden_field_tag(:return_url, params[:return_url])
+      .form-group.row
+        = label_tag(:username, 'User Name', class:'col-sm-2 col-md-4 col-form-label text-right')
+        .col-sm-8.col-md-6
+          = text_field_tag(:username, nil, class:'form-control')
+      .form-group.row
+        = label_tag(:password, 'Password', class:'col-sm-2 col-md-4 col-form-label text-right')
+        .col-sm-8.col-md-6
+          = password_field_tag(:password, nil, class:'form-control')
+      .form-group.text-center
+        = submit_tag('Sign In', disable_with:'Submitting ...')
+    %p/

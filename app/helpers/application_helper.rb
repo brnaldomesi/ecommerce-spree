@@ -1,6 +1,14 @@
 module ApplicationHelper
 
+  def current_store
+    nil
+  end
+
   def default_title
-    'TBD Market'
+    'Shoppn'
+  end
+
+  def title
+    ''
   end
 end
