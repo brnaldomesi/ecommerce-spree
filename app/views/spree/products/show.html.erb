@@ -1,5 +1,5 @@
 <!-- Main Content Wrapper Start -->
-<div class="container"
+<div class="container pb-12"
 <div id="content" class="main-content-wrapper">
     <div class="page-content-inner enable-full-width">
       <div id="wrapper" class="row" data-hook>
@@ -78,25 +78,16 @@
                             <a href="compare.html"><i class="dl-icon-compare2"></i></a>
                         </div>
                     </form>
-                    <div class="product-extra mb--40 mb-sm--20">
-                        <a href="#" class="font-size-12"><i class="fa fa-map-marker"></i>Find store near you</a>
-                        <a href="#" class="font-size-12"><i class="fa fa-exchange"></i>Delivery and return</a>
-                    </div>
                     <div class="product-summary-footer d-flex justify-content-between flex-sm-row flex-column">
                         <div class="product-meta">
                             <span class="sku_wrapper font-size-12">SKU: <span class="sku">REF. LA-887</span></span>
                             <span class="posted_in font-size-12">Categories:
-                                <a href="shop-sidebar.html">Fashions</a>
-                            </span>
-                            <span class="posted_in font-size-12">Tags:
-                                <a href="shop-sidebar.html">dress,</a>
-                                <a href="shop-sidebar.html">fashions,</a>
-                                <a href="shop-sidebar.html">women</a>
+                                <%= render partial: 'taxons' %>
                             </span>
                         </div>
-                        <div class="product-share-box">
+                        <!--<div class="product-share-box">
                             <span class="font-size-12">Share With</span>
-                            <!-- Social Icons Start Here -->
+                            <!-- Social Icons Start Here
                             <ul class="social social-small">
                                 <li class="social__item">
                                     <a href="facebook.com" class="social__link">
@@ -119,8 +110,8 @@
                                     </a>
                                 </li>
                             </ul>
-                            <!-- Social Icons End Here -->
-                        </div>
+                            <!-- Social Icons End Here
+                        </div>-->
                     </div>
                 </div>
             <!-- ############## END SIDEBAR SECTION ############ -->
@@ -129,4 +120,34 @@
       <!-- ############## Anything after the sidebar --- description etc. ############ -->
       </div>
     </div>
+</div>
+</div>
+<div class="bg-secondary padding-top-3x padding-bottom-2x mb-3 mt-12" id="details">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="h4">Details</h3>
+        <p class="mb-4">
+            <%= product_description(@product) rescue t('spree.product_has_no_description') %>
+        </p>
+        <!--<h3 class="h4">Features</h3>
+        <ul class="list-icon mb-4">
+          <li><i class="icon-check text-success"></i>Capture 4K30 Video and 12MP Photos</li>
+          <li><i class="icon-check text-success"></i>Game-Style Controller with Touchscreen</li>
+          <li><i class="icon-check text-success"></i>View Live Camera Feed</li>
+          <li><i class="icon-check text-success"></i>Full Control of HERO6 Black</li>
+          <li><i class="icon-check text-success"></i>Use App for Dedicated Camera Operation</li>
+        </ul>-->
+      </div>
+      <div class="col-md-6">
+        <div data-hook="product_properties">
+          <%= render partial: 'properties' %>
+        </div>
+
+        <div data-hook="promotions">
+          <%= render partial: 'promotions' %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
