@@ -4,11 +4,11 @@
 <div class="container mb-12"
 <div id="content" class="main-content-wrapper">
     <div class="page-content-inner enable-full-width">
-      <div id="wrapper" class="row" data-hook>
+      <div id="wrapper" class="row" data-hook="product_left_part_wrap">
         <div class="content-section col-5">
           <!-- ############## GALLERY SECTIONS ############ -->
           <div class="product-main-image">
-              <div class="product-image">
+              <div class="product-image" data-hook="product_images">
                   <div class="product-gallery">
 
                       <div class="product-gallery__large-image">
@@ -31,7 +31,7 @@
                       </div>
 
                       <div id="thumbnails" data-hook>
-
+                          <%= render partial: 'thumbnails' %>
                       </div>
                   </div>
               </div>
@@ -100,6 +100,10 @@
                         <div class="d-inline-block"><a class="social-button shape-rounded sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-rounded sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-rounded sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="socicon-instagram"></i></a><a class="social-button shape-rounded sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +"><i class="socicon-googleplus"></i></a></div>
                       </div>
                     </div>
+                  </div>
+
+                  <div id="cart-form" data-hook="cart_form">
+                    <%= render partial: 'cart_form' %>
                   </div>
             <!-- ############## END SIDEBAR SECTION ############ -->
           </div>
