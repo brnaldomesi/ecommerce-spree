@@ -1,5 +1,6 @@
 <%# no need for thumbnails unless there is more than one image %>
-<% if product.gallery.images.size > 1 %>
+
+<% if @product.gallery.images.size > 1 %>
    <ul class="product-thumbnails">
     <% product.gallery.images.each do |image| %>
       <% next if image.viewable_id != product.master.id %>
