@@ -1,4 +1,6 @@
 <!-- Main Content Wrapper Start -->
+<% cache [I18n.locale, current_pricing_options, @product] do %>
+<div data-hook="product_show" itemscope itemtype="http://schema.org/Product">
 <div class="container pb-12"
 <div id="content" class="main-content-wrapper">
     <div class="page-content-inner enable-full-width">
@@ -10,10 +12,10 @@
                   <div class="product-gallery">
                       <div class="product-gallery__large-image">
                           <figure class="product-gallery__image">
-                              <%= render partial: 'product_gallery', locals: { product: @product } %>
+                              <%= render partial: 'image' %>
                           </figure>
                           <figure class="product-gallery__image">
-                              <%= render partial: 'product_gallery', locals: { product: @product } %>
+                              <%= render partial: 'image' %>
                           </figure>
                           <figure class="product-gallery__image">
                               <%= render partial: 'product_gallery', locals: { product: @product } %>
@@ -25,6 +27,9 @@
                               <button class="action-btn btn-zoom-popup"><i class="dl-icon-zoom-in"></i></button>
                               <a href="https://www.youtube.com/watch?v=Rp19QD2XIGM" class="action-btn video-popup"><i class="dl-icon-format-video"></i></a>
                           </div>
+                      </div>
+                      <div id="thumbnails" data-hook>
+
                       </div>
                   </div>
                   <span class="product-badge new">New</span>
@@ -53,19 +58,17 @@
                         <a href="#" class="next"><i class="dl-icon-right"></i></a>
                     </div>
                     <div class="clearfix"></div>
-                    <h3 class="product-title">Waxed-effect pleated skirt</h3>
+                    <h3 class="product-title"><%= @product.name %></h3>
                     <span class="product-stock in-stock float-right">
                         <i class="dl-icon-check-circle1"></i>
                         in stock
                     </span>
                     <div class="product-price-wrapper mb--40 mb-md--10">
-                        <span class="money">$49.00</span>
-                        <span class="old-price">
-                            <span class="money">$60.00</span>
-                        </span>
+                        <span class="money"><%= @product.price %></span>
+
                     </div>
                     <div class="clearfix"></div>
-                    <p class="product-short-description mb--45 mb-sm--20">Donec accumsan auctor iaculis. Sed suscipit arcu ligula, at egestas magna molestie a. Proin ac ex maximus, ultrices justo eget, sodales orci. Aliquam egestas libero ac turpis pharetra, in vehicula lacus scelerisque. Vestibulum ut sem laoreet, feugiat tellus at, hendrerit arcu.</p>
+                    <p class="product-short-description mb--45 mb-sm--20">  <%= product_description(@product) rescue t('spree.product_has_no_description') %></p>
                     <form action="#" class="form--action mb--30 mb-sm--20">
                         <div class="product-action flex-row align-items-center">
                             <div class="quantity">
@@ -130,14 +133,6 @@
         <p class="mb-4">
             <%= product_description(@product) rescue t('spree.product_has_no_description') %>
         </p>
-        <!--<h3 class="h4">Features</h3>
-        <ul class="list-icon mb-4">
-          <li><i class="icon-check text-success"></i>Capture 4K30 Video and 12MP Photos</li>
-          <li><i class="icon-check text-success"></i>Game-Style Controller with Touchscreen</li>
-          <li><i class="icon-check text-success"></i>View Live Camera Feed</li>
-          <li><i class="icon-check text-success"></i>Full Control of HERO6 Black</li>
-          <li><i class="icon-check text-success"></i>Use App for Dedicated Camera Operation</li>
-        </ul>-->
       </div>
       <div class="col-md-6">
         <div data-hook="product_properties">
@@ -151,3 +146,6 @@
     </div>
   </div>
 </div>
+
+</div>
+<% end %>
