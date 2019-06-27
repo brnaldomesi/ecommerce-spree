@@ -34,6 +34,9 @@ Spree::Core::Engine.routes.draw do
     put '/checkout/registration', to: 'checkout#update_registration', as: :update_checkout_registration
 
     resources :account, controller: 'users'
+
+    match '/access' => 'users#access', as: 'user_access', via: [:get]
+    match '/access_login' => 'users#access_login', as: 'user_access_login', via: [:put, :post]
   end
 
   ##
