@@ -22,7 +22,7 @@ module Spree
     private
 
     def accurate_title
-      if resource.try(:product)
+      if params[:action] != 'index' && params[:id] && resource.try(:product)
         resource.product.meta_title.blank? ? resource.product.name : resource.product.meta_title
       else
         super
