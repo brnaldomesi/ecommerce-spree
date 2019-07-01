@@ -1,7 +1,23 @@
 module Spree
   module Admin
     ProductsController.class_eval do
+      before_action :load_master_product, only: [:new]
       before_action :set_current_user_id, only: [:create, :update, :clone]
+
+      def new
+        if @master_product
+          @product = @master_product.build_clone
+        else
+          @product.attributes = permitted_resource_params
+        end
+        super
+      end
+
+      protected
+
+      def load_master_product
+        @master_product = ::Spree::Product.where(id: permitted_resource_params[:master_product_id]).first if permitted_resource_params[:master_product_id]
+      end
 
       def set_current_user_id
         @object.user_id ||= spree_current_user.try(:id) if @object
@@ -14,7 +30,7 @@ module Spree
         return @collection if @collection
         params[:q] ||= {}
         params[:q][:s] ||= 'name asc'
-        logger.info "| spree_roles #{spree_current_user.spree_roles.collect(&:name)}, admin? #{spree_current_user.admin?}"
+        logger.info "| spree_roles #{spree_current_user ? spree_current_user.spree_roles.collect(&:name) : ' no-user '}, admin? #{spree_current_user.try(:admin?) }"
         # @search needs to be defined as this is passed to search_form_for
         @search = super.ransack(params[:q])
         @collection = @search.result.
