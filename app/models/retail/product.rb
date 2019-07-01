@@ -145,10 +145,11 @@ class Retail::Product < ::RetailScraperRecord
 
   ##
   # @return <Spree::Product>
-  def create_as_spree_product(force_recreate = false)
+  def create_as_spree_product(force_recreate = false, other_attributes = {})
     product = force_recreate ? nil : ::Retail::ProductToSpreeProduct.where(retail_product_id: id).first.try(:spree_product)
     unless product
       product = self.class.make_spree_product(self)
+      product.attributes = other_attributes if other_attributes.size > 0
       product.save
       ::Retail::ProductToSpreeProduct.create(retail_product_id: id, spree_product_id: product.id)
       product.copy_images_from_retail_product!(self)
