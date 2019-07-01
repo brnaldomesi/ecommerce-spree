@@ -9,9 +9,9 @@ module Spree
         new_product.deleted_at = nil
         new_product.updated_at = nil
         new_product.product_properties = reset_properties
-        new_product.price = product.price
         # new_product.master = duplicate_master
-        new_product.sku = nil if product.sku.blank?
+        new_product.price = product.price
+        new_product.sku = "COPY OF #{product.sku}" if product.sku.present? && !product.sku.start_with?('COPY OF ')
       end
       draft.option_types = product.option_types
       draft.master_product_id = product.id
