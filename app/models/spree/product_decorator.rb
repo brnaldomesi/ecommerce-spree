@@ -8,14 +8,35 @@ module Spree
 
     belongs_to :master_product, class_name: 'Spree::Product', foreign_key: :master_product_id
 
+    after_create :copy_from_master!
+
+
     def categories
       categories_taxon = ::Spree::CategoryTaxon.root
       self.taxons.where(parent_id: categories_taxon.id).first
     end
 
+    def build_clone
+      duplicator = ProductDuplicator.new(self)
+      duplicator.build_clone
+    end
+
     # @return <Array of Spree::Image>
     def copy_images_from_retail_product!(retail_product)
       retail_product.product_photos.collect{|product_photo| copy_from_retail_product_photo!(product_photo) }
+    end
+
+    def copy_from_master!
+      if master_product_id && master_product
+        master_variant = find_or_build_master
+        master_product.images.each do|image|
+          new_image = image.dup
+          new_image.assign_attributes(attachment: image.attachment.clone)
+          new_image.viewable_type = 'Spree::Variant'
+          new_image.viewable_id = master_variant.id
+          new_image.save
+        end
+      end
     end
 
     def create_categories_taxon!(retail_product)

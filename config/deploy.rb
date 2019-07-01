@@ -122,6 +122,14 @@ namespace :deploy do
     end
   end
 
+  desc 'Link current/shared folder to shared path'
+  task :link_shared_directory do
+    on roles(:app) do
+      execute "mv #{current_path}/shared #{current_path}/shared.old"
+      execute "ln -s #{shared_path} #{current_path}/"
+    end
+  end
+
   desc 'Copy fonts to public/assets as workaround of font path problem'
   task :copy_fonts_to_assets do
     on roles(:web) do
@@ -130,7 +138,8 @@ namespace :deploy do
   end
 
   # after  :finishing,    :compile_assets
-  after  :finishing,    :cleanup
+  before :finishing, :link_shared_directory
+  after  :finishing, :cleanup
   after  :finishing, :link_uploads
   after  :finishing, :copy_fonts_to_assets
 end
