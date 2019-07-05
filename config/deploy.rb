@@ -122,6 +122,14 @@ namespace :deploy do
     end
   end
 
+  desc 'Link log folder to shared path'
+  task :link_log_directory do
+    on roles(:web) do
+      execute "mv #{current_path}/log #{current_path}/log.old"
+      execute "ln -s #{shared_path}/log #{current_path}/"
+    end
+  end
+
   desc 'Link current/shared folder to shared path'
   task :link_shared_directory do
     on roles(:app) do
@@ -141,5 +149,6 @@ namespace :deploy do
   before :finishing, :link_shared_directory
   after  :finishing, :cleanup
   after  :finishing, :link_uploads
+  after  :finishing, :link_log_directory
   after  :finishing, :copy_fonts_to_assets
 end
