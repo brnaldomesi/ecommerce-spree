@@ -37,10 +37,25 @@ module Spree
     ##
     # Expect within inherited_resources controller w/ +resource+ available.
     def save_viewer_info
-      recent_product_ids = session[:recent_product_ids] ||
+      recent_product_ids = cookies[:recent_product_ids].present? ? JSON.parse( cookies[:recent_product_ids] ) : []
+      is_newly_viewed = false
       if spree_current_user
-        ::Users::ResourceAction.save_view_count_for(spree_current_user, resource)
+        ::Users::ResourceAction.save_resource_action_for(spree_current_user, resource) do|resource_action|
+          logger.info "| #{resource.class}(#{resource.id}) viewed by #{spree_current_user.login}(#{spree_current_user.id}) => #{resource.view_count + 1}"
+          is_newly_viewed = true
+        end
       else # only use cookies
+        unless recent_product_ids.include?(resource.id)
+          is_newly_viewed = true
+          recent_product_ids << resource.id
+          cookies[:recent_product_ids] = recent_product_ids.uniq.to_json
+        end
+      end
+
+      if is_newly_viewed
+        if resource.respond_to?(:view_count)
+          resource.update(view_count: resource.view_count.to_i + 1)
+        end
       end
     end
   end
