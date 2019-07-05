@@ -65,8 +65,12 @@ Rails.application.routes.draw do
   # Additions to Spree
   namespace :spree, path: '/' do
     resources :stores, only: [:show, :index]
+  end
 
-
+  ##
+  # Users
+  namespace :users do
+    resources :resource_action, only: [:index, :create, :destroy]
   end
 
   # Buyers
