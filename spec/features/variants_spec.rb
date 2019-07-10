@@ -87,15 +87,21 @@ RSpec.describe ::Spree::Product do
 
         puts '--- Another user viewing the variant'
         variant_to_view = product.variants_including_master.first
-        last_view_count = variant_to_view.view_count
+        last_product_view_count = product.view_count
+        last_variant_view_count = variant_to_view.view_count
         page.driver.get spree.variant_path(variant_to_view)
+        product.reload
         variant_to_view.reload
-        expect(variant_to_view.view_count).to eq(last_view_count + 1)
-        last_view_count = variant_to_view.view_count
+        expect(product.view_count).to eq(last_product_view_count + 1)
+        expect(product.view_count).to eq( product.variants_including_master.collect(&:view_count).sum )
+        expect(variant_to_view.view_count).to eq(last_variant_view_count + 1)
+
+        puts '--- Revisit variant again'
+        last_variant_view_count = variant_to_view.view_count
 
         page.driver.get spree.variant_path(variant_to_view)
         variant_to_view.reload
-        expect(variant_to_view.view_count).to eq(last_view_count)
+        expect(variant_to_view.view_count).to eq(last_variant_view_count)
 
       end
     end
