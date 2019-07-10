@@ -1,0 +1,41 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red246\green246\blue246;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c97255\c97255\c97255;}
+\margl1440\margr1440\vieww25700\viewh22020\viewkind0
+\deftab720
+\pard\pardeftab720\sl360\slmult1\partightenfactor0
+
+\f0\fs22 \cf2 \cb3 \expnd0\expndtw0\kerning0
+Version 1.1, edited by Brian, on 2019-07-10\
+\
+Calculate/stored variables that are important to search algorithm\
+\pard\pardeftab720\sl260\partightenfactor0
+\cf2 \
+User Payment Density - How often does a user complete payment for the item (buyer paying to seller, and seller paying to us)\
+Final Value Density - When offers are completed - average of final price on individual item\
+Positive Feedback - Combined sellers ratings value, rating for the item itself.\
+Engagements to Transactions - Views + Offers / transaction\
+Views to Transactions - Number of views it takes to get a completed transaction \
+View Count Density - Views per day (Or some period of time)\
+\
+Asking Price - Item\'92s price\
+Min TXN - Lowest a seller has accepted for a variant\
+GMS - Gross Merchandise Sales, total amount of sales for a given item\
+Transactions - Number of transactions \
+Engagements - Number of started transactions or offers\
+Views - Number of views\
+Days Listed - Length of time the item has been on the site\
+\
+Non Paying Buyers - User \'93purchased\'94 product and never tried to pay\
+Incomplete transactions - number of transactions for a variant that have not been completed\
+\
+Necessary values to fill in for test sort:\
+[ x ] Asking price\
+[    ] Views - Add random data from 100 views to 1 million views\
+[    ] Transactions  - Create anywhere from 0 transactions to 5,000\
+[    ] Engagements - Number of transactions + random from 0 to 10,000\
+[    ] GMS - for now calculate based on # transactions x asking price\
+[    ] Days Listed - 0 days to 365 days\
+\
+Once we see sort with these values being used we can tweak the weights that each value contributes to final sort.}

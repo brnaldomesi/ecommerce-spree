@@ -46,9 +46,9 @@ Buyer wanted products ==========================
 Migrate scraped products =======================
 [x] copy over Retail::Product & its classes over
 [x] add separate secondary DB connection config & set specifically for Retail::Product
-[ ] populate more taxon options
+[x] populate more taxon options
   [x] construct some sets of values for popular spec names
-  [ ] add those values into spree_products_taxons
+  [x] add those values into spree_products_taxons
 
 Implement search w/ ElasticSearch =======================
 [ ] Check out gem solidus_elastic_product

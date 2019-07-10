@@ -133,5 +133,11 @@ module Spree
       self.set_property(spec_name, value_s) if value_s.present?
     end
 
+    def recalculate_view_count!
+      total_count = self.variants_including_master.select('id,view_count').collect(&:view_count).sum
+      self.update(view_count: total_count) if total_count != view_count
+      total_count
+    end
+
   end # class_eval
 end
