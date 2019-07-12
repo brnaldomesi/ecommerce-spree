@@ -14,13 +14,13 @@
     %h6.search-results-title= t('spree.search_results', keywords: h(params[:keywords]))
 .row
   - variants.each do |product|
-    - url = spree.product_path(product, taxon_id: @taxon.try(:id))
+    - url = spree.variant_path(product, taxon_id: @taxon.try(:id))
     .col-lg-3.col-md-4.col-sm-4.col-6
       .product-card.mb-30
         %a.product-thumb{:href => "shop-single.html"}= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :large, itemprop: "image"), url, itemprop: 'url')
         .product-card-body
           .product-category
-            %a{:href => "#"} Smart home
+            %a{:href => "#"} taxon_id
           %h3.product-title= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name
           %h4.product-price
             - if price = product.price_for(current_pricing_options)
