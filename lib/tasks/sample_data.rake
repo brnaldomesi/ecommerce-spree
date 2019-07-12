@@ -46,10 +46,10 @@ namespace :sample_data do
   def create_variants_of_products(users)
     idx = -1
     products_query = ::Spree::Product.where(user_id: users.collect(&:id) ).where('master_product_id IS NULL')
-    puts "| These users have #{products_query.count} products; making duplicates for 1/3 of them"
+    puts "  These users have #{products_query.count} products; making duplicates for 1/3 of them"
     products_query.all.each do|product|
       idx += 1
-      puts "  #{idx}" if idx % 20 == 19
+      puts "  #{idx}" if idx % 20 == 1
       next unless idx % 3 == 2
       users_to_get_count = rand(3) + 2 - product.slave_products.count
       duplicates = []
@@ -60,6 +60,10 @@ namespace :sample_data do
         p2.save
 
         p2.copy_variants_from!(product)
+        p2.variants.each do|v2|
+          diff = rand(product.price / 2) - (product.price / 4) # from -1/4 to 1/4
+          v2.update(price: product.price + diff)
+        end
         duplicates << p2
       end
       duplicates[ (users_to_get_count / 2.0).floor, 2 ].each do|p|

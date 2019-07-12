@@ -48,8 +48,9 @@ module Spree
       other_product.variants_including_master.each do|v|
         v.option_values.each do|option_value|
           if v.is_master
-            self.master.option_values_variants =
-                ::Spree::OptionValuesVariant.find_or_create_by(variant_id: self.master.id, option_value_id: option_value.id)
+            new_ovv = ::Spree::OptionValuesVariant.find_or_create_by(variant_id: self.master.id, option_value_id: option_value.id)
+            self.master.option_values_variants.reload
+            new_ovv
           else
             self.variants.create(option_value_ids: [option_value.id], price: master.price)
           end
