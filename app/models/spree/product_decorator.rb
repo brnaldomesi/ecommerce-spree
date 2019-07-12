@@ -7,6 +7,7 @@ module Spree
     delegate :retail_product, to: :migration
 
     belongs_to :master_product, class_name: 'Spree::Product', foreign_key: :master_product_id
+    has_many :slave_products, class_name: 'Spree::Product', foreign_key: :master_product_id
 
     after_create :copy_from_master!
 
@@ -16,6 +17,23 @@ module Spree
       self.taxons.where(parent_id: categories_taxon.id).first
     end
 
+    def days_available
+      available_on ? ( (Time.zone.now - available_on) / 1.day.to_f ).round.to_i : 0
+    end
+    alias_method :days_listed, :days_available
+
+    alias_attribute :gms, :gross_merchandise_sales
+    alias_attribute :txn_count, :transaction_count
+
+    ##
+    # Instead of self.sku, this would check if there's master product for its sku.
+    def master_sku
+      master_product_id ? master_product.try(:sku) : sku
+    end
+
+    ####################################
+    # Action methods
+
     def build_clone
       duplicator = ProductDuplicator.new(self)
       duplicator.build_clone
@@ -24,6 +42,19 @@ module Spree
     # @return <Array of Spree::Image>
     def copy_images_from_retail_product!(retail_product)
       retail_product.product_photos.collect{|product_photo| copy_from_retail_product_photo!(product_photo) }
+    end
+
+    def copy_variants_from!(other_product)
+      other_product.variants_including_master.each do|v|
+        v.option_values.each do|option_value|
+          if v.is_master
+            self.master.option_values_variants =
+                ::Spree::OptionValuesVariant.find_or_create_by(variant_id: self.master.id, option_value_id: option_value.id)
+          else
+            self.variants.create(option_value_ids: [option_value.id], price: master.price)
+          end
+        end
+      end
     end
 
     def copy_from_master!
