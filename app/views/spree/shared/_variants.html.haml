@@ -6,38 +6,35 @@
 - content_for :head do
   - if paginated_variants.respond_to?(:total_pages)
     = rel_next_prev_link_tags paginated_variants
-
-%div(data-hook="products_search_results_heading")
-  - if variants.empty?
-    %div(data-hook="products_search_results_heading_no_results_found")
-      = t('spree.no_products_found')
-  - elsif params.key?(:keywords)
-    %div(data-hook="products_search_results_heading_results_found")
-      %h6.search-results-title #{ t('spree.search_results', keywords: h(params[:keywords])) }
-
+- if variants.empty?
+  %div{"data-hook" => "products_search_results_heading_no_results_found"}
+    = t('spree.no_products_found')
+- elsif params.key?(:keywords)
+  %div{"data-hook" => "products_search_results_heading_results_found"}
+    %h6.search-results-title= t('spree.search_results', keywords: h(params[:keywords]))
 .row
-  - variants.each do |variant|
-    - url = variant_path(variant, taxon_id: @taxon.try(:id))
-    %div(class="col-lg-3 col-md-4 col-sm-4 col-6")
-      %div(class="product-card mb-30")
-        %a(class="product-thumb" href="shop-single.html")
-          = link_to(render('spree/shared/image', image: variant.gallery.images.first, size: :large, itemprop: 'image'), url, itemprop: 'url')
+  - variants.each do |product|
+    - url = spree.product_path(product, taxon_id: @taxon.try(:id))
+    .col-lg-3.col-md-4.col-sm-4.col-6
+      .product-card.mb-30
+        %a.product-thumb{:href => "shop-single.html"}= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :large, itemprop: "image"), url, itemprop: 'url')
         .product-card-body
           .product-category
-            %a(href="#") Smart home
-          %h3.product-title
-            = link_to truncate(variant.product.name, length: 50), url, class: 'info', itemprop: 'name', title: variant.name
+            %a{:href => "#"} Smart home
+          %h3.product-title= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name
           %h4.product-price
-            - if price = variant.product.price_for(current_pricing_options)
-              %span(class="stext-105 cl3") #{price.to_html}
+            - if price = product.price_for(current_pricing_options)
+              / fix the price font
+              %span.stext-105.cl3
+                = price.to_html
         .product-button-group
-          %a(class="product-button btn-wishlist" href="#")
+          %a.product-button.btn-wishlist{:href => "#"}
             %i.icon-heart
             %span Wishlist
-          %a(class="product-button btn-compare" href="#")
+          %a.product-button.btn-compare{:href => "#"}
             %i.icon-repeat
             %span Compare
-          %a(class="product-button" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product" data-toast-message="successfuly added to cart!")
+          %a.product-button{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success", :href => "#"}
             %i.icon-shopping-cart
             %span To Cart
-- reset_cycle('classes')
+- reset_cycle("classes")
