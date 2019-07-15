@@ -21,10 +21,10 @@
     %div(data-hook="products_search_results_heading_results_found")
       %h6.search-results-title #{ t('spree.search_results', keywords: h(params[:keywords])) }
 
-.row2
+.row
   - variants.each do |variant|
     - url = variant_path(variant, taxon_id: @taxon.try(:id))
-    %div(class="col-lg-3 col-md-4 col-sm-6")
+    %div(class="col-lg-3 col-md-4 col-sm-4 col-6")
       %div(class="product-card mb-30")
         %a(class="product-thumb" href="shop-single.html")
           = link_to(render('spree/shared/image', image: variant.gallery.images.first, size: :large, itemprop: 'image'), url, itemprop: 'url')
@@ -47,7 +47,7 @@
             %i.icon-shopping-cart
             %span To Cart
           - if show_debug
-            %a.product-button(href="#" data-toggle="tooltip" data-html="true" title="Product #{variant.product_id}<br/>View Count: #{variant.view_count} (#{variant.product.view_count} in total)<br/>Txn Count: #{variant.txn_count}<br/>Engagement Count: #{variant.engagement_count}<br/>GMS: #{variant.gms}<br/>Days listed: #{variant.days_listed}")
+            %a.product-button(href="#" data-toggle="tooltip" data-html="true" title="<div style='text-align:left;'>Product #{variant.product_id}<br/>View Count: #{variant.view_count} (#{variant.product.view_count} in total)<br/>Txn Count: #{variant.txn_count}<br/>Engagement Count: #{variant.engagement_count}<br/>GMS: #{variant.gms}<br/>Days listed: #{variant.days_listed}<br/>Sorting rank: #{variant.sorting_rank}</div>")
               %i.icon-help-circle
               %span Stats
 - reset_cycle('classes')
