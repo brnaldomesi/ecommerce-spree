@@ -9,6 +9,8 @@ module Spree
     has_many :classifications, through: :product
     belongs_to :user, class_name: 'Spree::User'
 
+    delegate :transaction_count, :txn_count, :engagement_count, :gross_merchandise_sales, :gms, :days_available, :days_listed, to: :product
+
     #################################
     # Scopes copied from
 

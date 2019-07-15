@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_01_205315) do
+ActiveRecord::Schema.define(version: 2019_07_10_183251) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -484,6 +484,9 @@ ActiveRecord::Schema.define(version: 2019_07_01_205315) do
     t.integer "user_id"
     t.integer "master_product_id"
     t.integer "view_count", default: 0
+    t.integer "transaction_count", default: 0
+    t.integer "engagement_count", default: 0
+    t.float "gross_merchandise_sales", default: 0.0
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["master_product_id"], name: "index_spree_products_on_master_product_id"
@@ -1194,6 +1197,7 @@ ActiveRecord::Schema.define(version: 2019_07_01_205315) do
     t.string "country_code", limit: 16
     t.string "zipcode", limit: 64
     t.string "timezone", limit: 64
+    t.integer "non_paying_buyer_count", default: 0
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
     t.index ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
@@ -1245,6 +1249,7 @@ ActiveRecord::Schema.define(version: 2019_07_01_205315) do
     t.datetime "created_at", precision: 6
     t.integer "user_id"
     t.integer "view_count", default: 0
+    t.integer "incomplete_transaction_count", default: 0
     t.index ["position"], name: "index_spree_variants_on_position"
     t.index ["product_id"], name: "index_spree_variants_on_product_id"
     t.index ["sku"], name: "index_spree_variants_on_sku"

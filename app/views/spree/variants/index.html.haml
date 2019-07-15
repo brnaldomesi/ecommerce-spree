@@ -1,1 +1,7 @@
 = render partial: 'spree/shared/variants', locals: { variants: @variants }
+%br/
+%br/
+.container
+  .text-center.pt-1.mb-4
+    - if @variants.respond_to?(:total_pages)
+      = paginate @variants
