@@ -17,6 +17,9 @@ RSpec.describe ::Spree::Product do
   describe 'create product', type: :feature do
     # routes { Spree::Core::Engine.routes }
 
+    let :user_attr do
+      attributes_for(:basic_user)
+    end
     let(:sample_image_url) { 'http://digg.com/static/images/apple/apple-touch-icon-57.png' }
 
     context 'Convert from Retail::Product' do
@@ -26,9 +29,11 @@ RSpec.describe ::Spree::Product do
         expect(retail_product.leaf_site_category.mapped_taxon_id).not_to be_nil
 
         # is find_by_full_path
-        product = retail_product.create_as_spree_product
+        sku = 'ION8981'
+        product = retail_product.create_as_spree_product(false, sku: sku)
         expect(product.name).to eq(retail_product.title)
         expect(product.price).to eq(retail_product.price)
+        expect(product.sku).to eq(sku)
         expect(product.taxons.under_categories.first.id).to eq(retail_product.leaf_site_category.mapped_taxon_id)
 
         migration = ::Retail::ProductToSpreeProduct.where(retail_product_id: retail_product.id, spree_product_id: product.id).first
@@ -61,6 +66,19 @@ RSpec.describe ::Spree::Product do
         actual_product_photos_count = retail_product.product_photos.collect(&:image_url).compact.size
         expect(product.gallery.images.size).to eq( actual_product_photos_count )
 
+        # Another user wants post this product
+        user = sign_up_with(user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name] )
+        expect(user).not_to be_nil
+
+        page.driver.get spree.new_admin_product_path(product: { master_product_id: product.id } )
+        click_button 'Create'
+
+        latest_product = ::Spree::Product.last
+        expect(latest_product.id).not_to eq(product.id)
+        expect(latest_product.master_product_id).to eq(product.id)
+        expect(latest_product.user_id).to eq(user.id)
+        expect(latest_product.images.size).to eq(product.images.size)
+        expect(latest_product.sku).not_to eq(sku)
       end
     end
 

@@ -10,6 +10,10 @@ module Spree
     after_create :create_store!
     after_save :generate_address!
 
+    alias_attribute :npb_count, :non_paying_buyer_count
+
+    #######################################
+
     def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
       if login = conditions.delete(:login)
@@ -18,6 +22,9 @@ module Spree
         where(conditions.to_h).first
       end
     end
+
+    ######################################
+    # Action methods
 
 
     def create_store!

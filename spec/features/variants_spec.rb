@@ -14,7 +14,7 @@ RSpec.describe ::Spree::Product do
     cleanup_retail_products
   end
 
-  describe 'create product', type: :feature do
+  describe 'Create Variant', type: :feature do
     # routes { Spree::Core::Engine.routes }
 
     let(:sample_image_url) { 'http://digg.com/static/images/apple/apple-touch-icon-57.png' }
@@ -35,7 +35,7 @@ RSpec.describe ::Spree::Product do
         puts '---- Confirm email'
         confirm_email(user)
 
-        puts '---- Relogin w/ username'
+        puts '---- Re-login w/ username'
         visit logout_path
         sign_in(user)
 
@@ -78,8 +78,33 @@ RSpec.describe ::Spree::Product do
           expect( ability.can?(:manage, product) ).to be_truthy
           expect( another_ability.can?(:manage, product) ).not_to be_truthy
         end
+
+        puts '--- Another user trying to admin edit the product'
+        visit logout_path
+        sign_in(another_user)
+        page.driver.get spree.edit_admin_product_path(id: product.slug)
+        expect(page.response_headers['Location'].index('authorization_failure') ).not_to be_nil
+
+        puts '--- Another user viewing the variant'
+        variant_to_view = product.variants_including_master.first
+        last_product_view_count = product.view_count
+        last_variant_view_count = variant_to_view.view_count
+        page.driver.get spree.variant_path(variant_to_view)
+        product.reload
+        variant_to_view.reload
+        expect(product.view_count).to eq(last_product_view_count + 1)
+        expect(product.view_count).to eq( product.variants_including_master.collect(&:view_count).sum )
+        expect(variant_to_view.view_count).to eq(last_variant_view_count + 1)
+
+        puts '--- Revisit variant again'
+        last_variant_view_count = variant_to_view.view_count
+
+        page.driver.get spree.variant_path(variant_to_view)
+        variant_to_view.reload
+        expect(variant_to_view.view_count).to eq(last_variant_view_count)
+
       end
     end
 
-  end
+  end # describe
 end
