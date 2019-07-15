@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_183251) do
+ActiveRecord::Schema.define(version: 2019_07_15_151858) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -1250,9 +1250,11 @@ ActiveRecord::Schema.define(version: 2019_07_10_183251) do
     t.integer "user_id"
     t.integer "view_count", default: 0
     t.integer "incomplete_transaction_count", default: 0
+    t.string "sorting_rank", limit: 32, default: ""
     t.index ["position"], name: "index_spree_variants_on_position"
     t.index ["product_id"], name: "index_spree_variants_on_product_id"
     t.index ["sku"], name: "index_spree_variants_on_sku"
+    t.index ["sorting_rank"], name: "index_spree_variants_on_sorting_rank"
     t.index ["tax_category_id"], name: "index_spree_variants_on_tax_category_id"
     t.index ["track_inventory"], name: "index_spree_variants_on_track_inventory"
     t.index ["user_id"], name: "index_spree_variants_on_user_id"

@@ -3,6 +3,8 @@ module Spree
 
     require 'open-uri'
 
+    attr_accessor :has_sorting_rank_changes
+
     has_one :migration, class_name: 'Retail::ProductToSpreeProduct', foreign_key: :spree_product_id
     delegate :retail_product, to: :migration
 
@@ -10,6 +12,8 @@ module Spree
     has_many :slave_products, class_name: 'Spree::Product', foreign_key: :master_product_id
 
     after_create :copy_from_master!
+    before_update :set_update_attributes
+    after_update :update_variants!
 
 
     def categories
@@ -67,6 +71,19 @@ module Spree
           new_image.viewable_type = 'Spree::Variant'
           new_image.viewable_id = master_variant.id
           new_image.save
+        end
+      end
+    end
+
+    def set_update_attributes
+      self.has_sorting_rank_changes = (transaction_count_changed? || gross_merchandise_sales_changed?)
+    end
+
+    def update_variants!(force_to_update = false, &block)
+      if force_to_update || has_sorting_rank_changes
+        self.variants_including_master.each do|v|
+          yield v if block_given?
+          v.update_sorting_rank!
         end
       end
     end
