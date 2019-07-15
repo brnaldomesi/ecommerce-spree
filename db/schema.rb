@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_14_194222) do
+ActiveRecord::Schema.define(version: 2019_07_10_183251) do
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "friendly_id_slugs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "friendly_id_slugs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-  create_table "retail_product_to_spree_product", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "retail_product_to_spree_product", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "retail_product_id"
     t.integer "spree_product_id"
     t.datetime "created_at", null: false
@@ -54,16 +54,13 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["retail_product_id"], name: "index_retail_product_to_spree_product_on_retail_product_id"
   end
 
-  create_table "retail_scraper_records", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-  end
-
-  create_table "retail_stores_spree_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "retail_stores_spree_users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "retail_store_id"
     t.integer "spree_user_id"
     t.index ["retail_store_id"], name: "index_retail_stores_spree_users_on_retail_store_id"
   end
 
-  create_table "site_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "site_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "site_name", null: false
     t.integer "other_site_category_id"
     t.integer "mapped_taxon_id"
@@ -148,7 +145,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.string "attachment_file_name"
     t.string "type", limit: 75
     t.datetime "attachment_updated_at"
-    t.text "alt"
+    t.text "alt", limit: 16777215
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["viewable_id"], name: "index_assets_on_viewable_id"
@@ -161,7 +158,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.integer "calculable_id"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
-    t.text "preferences"
+    t.text "preferences", limit: 16777215
     t.index ["calculable_id", "calculable_type"], name: "index_spree_calculators_on_calculable_id_and_calculable_type"
     t.index ["id", "type"], name: "index_spree_calculators_on_id_and_type"
   end
@@ -265,7 +262,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
   create_table "spree_log_entries", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "source_type"
     t.integer "source_id"
-    t.text "details"
+    t.text "details", limit: 16777215
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["source_id", "source_type"], name: "index_spree_log_entries_on_source_id_and_source_type"
@@ -328,7 +325,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.string "shipment_state"
     t.string "payment_state"
     t.string "email"
-    t.text "special_instructions"
+    t.text "special_instructions", limit: 16777215
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.string "currency"
@@ -381,13 +378,13 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
   create_table "spree_payment_methods", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "type"
     t.string "name"
-    t.text "description"
+    t.text "description", limit: 16777215
     t.boolean "active", default: true
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.boolean "auto_capture"
-    t.text "preferences"
+    t.text "preferences", limit: 16777215
     t.string "preference_source"
     t.integer "position", default: 0
     t.boolean "available_to_users", default: true
@@ -419,7 +416,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
   end
 
   create_table "spree_preferences", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "value"
+    t.text "value", limit: 16777215
     t.string "key"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
@@ -472,11 +469,11 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
 
   create_table "spree_products", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.text "description"
+    t.text "description", limit: 16777215
     t.datetime "available_on"
     t.datetime "deleted_at"
     t.string "slug"
-    t.text "meta_description"
+    t.text "meta_description", limit: 16777215
     t.string "meta_keywords"
     t.integer "tax_category_id"
     t.integer "shipping_category_id"
@@ -486,6 +483,10 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.string "meta_title"
     t.integer "user_id"
     t.integer "master_product_id"
+    t.integer "view_count", default: 0
+    t.integer "transaction_count", default: 0
+    t.integer "engagement_count", default: 0
+    t.float "gross_merchandise_sales", default: 0.0
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["master_product_id"], name: "index_spree_products_on_master_product_id"
@@ -520,7 +521,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.integer "position"
     t.string "type"
     t.datetime "deleted_at"
-    t.text "preferences"
+    t.text "preferences", limit: 16777215
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["deleted_at"], name: "index_spree_promotion_actions_on_deleted_at"
@@ -575,7 +576,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.string "code"
-    t.text "preferences"
+    t.text "preferences", limit: 16777215
     t.index ["product_group_id"], name: "index_promotion_rules_on_product_group_id"
     t.index ["promotion_id"], name: "index_spree_promotion_rules_on_promotion_id"
   end
@@ -707,7 +708,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.string "number"
     t.string "state"
     t.integer "order_id"
-    t.text "memo"
+    t.text "memo", limit: 16777215
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.integer "stock_location_id"
@@ -729,7 +730,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.integer "customer_return_id"
     t.integer "reimbursement_id"
     t.integer "exchange_inventory_unit_id"
-    t.text "acceptance_status_errors"
+    t.text "acceptance_status_errors", limit: 16777215
     t.integer "preferred_reimbursement_type_id"
     t.integer "override_reimbursement_type_id"
     t.boolean "resellable", default: true, null: false
@@ -980,7 +981,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.decimal "amount_used", precision: 8, scale: 2, default: "0.0", null: false
     t.decimal "amount_authorized", precision: 8, scale: 2, default: "0.0", null: false
     t.string "currency"
-    t.text "memo"
+    t.text "memo", limit: 16777215
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
@@ -1012,8 +1013,8 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
   create_table "spree_stores", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "url"
-    t.text "meta_description"
-    t.text "meta_keywords"
+    t.text "meta_description", limit: 16777215
+    t.text "meta_keywords", limit: 16777215
     t.string "seo_title"
     t.string "mail_from_address"
     t.string "default_currency"
@@ -1029,7 +1030,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["user_id"], name: "index_spree_stores_on_user_id"
   end
 
-  create_table "spree_supplier_variants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "spree_supplier_variants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "supplier_id"
     t.integer "variant_id"
     t.decimal "cost", precision: 10
@@ -1039,7 +1040,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.index ["variant_id"], name: "index_spree_supplier_variants_on_variant_id"
   end
 
-  create_table "spree_suppliers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "spree_suppliers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.boolean "active", default: false, null: false
     t.integer "address_id"
     t.decimal "commission_flat_rate", precision: 8, scale: 2, default: "0.0", null: false
@@ -1114,7 +1115,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.string "icon_content_type"
     t.integer "icon_file_size"
     t.datetime "icon_updated_at"
-    t.text "description"
+    t.text "description", limit: 16777215
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.string "meta_title"
@@ -1196,6 +1197,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.string "country_code", limit: 16
     t.string "zipcode", limit: 64
     t.string "timezone", limit: 64
+    t.integer "non_paying_buyer_count", default: 0
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
     t.index ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
@@ -1212,7 +1214,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
   end
 
   create_table "spree_variant_property_rule_values", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "value"
+    t.text "value", limit: 16777215
     t.integer "position", default: 0
     t.integer "property_id"
     t.integer "variant_property_rule_id"
@@ -1246,6 +1248,8 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.datetime "updated_at", precision: 6
     t.datetime "created_at", precision: 6
     t.integer "user_id"
+    t.integer "view_count", default: 0
+    t.integer "incomplete_transaction_count", default: 0
     t.index ["position"], name: "index_spree_variants_on_position"
     t.index ["product_id"], name: "index_spree_variants_on_product_id"
     t.index ["sku"], name: "index_spree_variants_on_sku"
@@ -1281,6 +1285,18 @@ ActiveRecord::Schema.define(version: 2019_06_14_194222) do
     t.integer "zone_members_count", default: 0
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
+  end
+
+  create_table "users_resource_actions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "resource_type", limit: 64
+    t.integer "resource_id"
+    t.string "action", default: "VIEW"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_type", "resource_id"], name: "index_users_resource_actions_on_resource_type_and_resource_id"
+    t.index ["user_id", "action"], name: "index_users_resource_actions_on_user_id_and_action"
+    t.index ["user_id", "created_at"], name: "index_users_resource_actions_on_user_id_and_created_at"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

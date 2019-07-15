@@ -75,8 +75,8 @@ case ${1-help} in
 start_puma)
   start_puma
   ;;
-start_puma)
-  start_puma
+stop_puma)
+  stop_puma
   ;;
 reload_puma)
   reload_puma
@@ -91,7 +91,7 @@ stop_sidekiq)
 	stop_sidekiq
 	;;
 *)
-  echo "Usage: $0 <start_puma|start_puma|reload_puma|start_redis|start_sidekiq|stop_sidekiq>"
+  echo "Usage: $0 <start_puma|stop_puma|reload_puma|start_redis|start_sidekiq|stop_sidekiq>"
   checks
   exit
 esac

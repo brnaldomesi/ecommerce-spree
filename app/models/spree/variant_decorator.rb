@@ -4,8 +4,12 @@
 # joins.
 module Spree
   Variant.class_eval do
+    attr_accessor :has_view_count_changed
+
     has_many :classifications, through: :product
     belongs_to :user, class_name: 'Spree::User'
+
+    delegate :transaction_count, :txn_count, :engagement_count, :gross_merchandise_sales, :gms, :days_available, :days_listed, to: :product
 
     #################################
     # Scopes copied from
@@ -14,6 +18,10 @@ module Spree
     scope :descend_by_updated_at, -> { order(updated_at: :desc) }
     scope :ascend_by_name, -> { order(name: :asc) }
     scope :descend_by_name, -> { order(name: :desc) }
+
+    before_update :set_update_attributes
+    after_update :update_product
+
 
     def self.in_taxon(taxon)
       self.joins(product: [:classifications] ).where('spree_products_taxons.taxon_id' => taxon.self_and_descendants.pluck(:id))
@@ -103,6 +111,18 @@ module Spree
 
     def self.taxons_name_eq(name)
       group('spree_products.id').joins(:product[:taxons] ).where(Spree::Taxon.arel_table[:name].eq(name))
+    end
+
+    protected
+
+    def set_update_attributes
+      self.has_view_count_changed = true if view_count_changed?
+    end
+
+    def update_product
+      if has_view_count_changed
+        product.recalculate_view_count!
+      end
     end
 
     private
