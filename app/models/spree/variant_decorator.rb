@@ -113,6 +113,15 @@ module Spree
       group('spree_products.id').joins(:product[:taxons] ).where(Spree::Taxon.arel_table[:name].eq(name))
     end
 
+    ###########################################
+    # Outside update calls
+
+    def update_sorting_rank!
+      self.sorting_rank = sprintf('%09d,%010.2f', self.transaction_count * 0.5 * product.view_count, 1000000 - self.price.to_f)
+      self.save
+      self.sorting_rank
+    end
+
     protected
 
     def set_update_attributes

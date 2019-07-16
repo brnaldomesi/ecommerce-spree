@@ -7,6 +7,25 @@ namespace :sample_data do
     create_variants_of_products(users)
   end
 
+  task :update => :environment do
+    users = create_users_with_common_names
+    puts "Created #{users.size} users"
+    idx = -1
+    products_query = ::Spree::Product.where(user_id: users.collect(&:id) )
+    puts "  These users have #{products_query.count} products"
+    products_query.all.each do|product|
+      idx += 1
+      puts "  #{idx}" if idx % 20 == 1
+
+      product.update_variants!(true) do|v|
+        v.user_id = product.user_id
+        v.save
+      end
+    end
+  end
+
+  ################################
+
   def common_names
     unless @common_names
       @common_names = File.open(File.join(Rails.root, 'doc/common_names.txt') ).readlines.collect(&:strip)
@@ -57,6 +76,7 @@ namespace :sample_data do
         p2 = product.build_clone
         p2.view_count = rand(900) + 100
         p2.created_at = product.created_at + rand(365).days
+        p2.user_id = product.user_id
         p2.save
 
         p2.copy_variants_from!(product)
