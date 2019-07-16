@@ -51,7 +51,7 @@ module Spree
 
         def add_sort_scopes(base_scope)
           sort = @properties[:s] || @properties[:sort]
-          sort = 'gms desc' if sort.blank?
+          sort = 'sorting_rank desc' if sort.blank?
           sort = convert_sort_order(sort)
           sort_field = sort.split(' ')[0]
           base_scope.joins(:product).select("#{Spree::Variant.table_name}.*, #{sort_field} AS sort_field").order(sort.gsub(sort_field, 'sort_field') )
