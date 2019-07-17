@@ -11,35 +11,24 @@
         = render partial: 'spree/variants/variant_gallery', locals: { variant: @variant }
       / Product Info
       .col-md-6
-        .padding-top-2x.mt-2.hidden-md-up
-        .sp-categories.pb-3
-          %i.icon-tag
-          %a{:href => "#"} Drones,
-          %a{:href => "#"} Action cameras
+        - @variant.product.categories.each do|category_list|
+          .padding-top-2x.mt-2.hidden-md-up
+          .sp-categories.pb-3
+            %i.icon-tag
+            - category_list.each_with_index do|category, category_index|
+              = link_to(category.name + (category_index < category_list.size - 1 ? ', ' : ''))
         %h2.mb-3 #{@variant.name}
         %span.h3.d-block= display_price(@variant)
         %p.text-muted
           #{@variant.description.truncate(100, omission: "  <a class='scroll-to' href='#details'> More info</a>" ).html_safe}
         .row.margin-top-1x
-          - @variant.product.options.includes(:option_type).each do|option|
+          - @variant.option_values.includes(:option_type).each do|option_value|
+            - option_type = option_value.option_type
             .col-sm-6
               .form-group
-                %label(for="#{option.option_type.name}") Choose #{option.option_type.presentation}
-                = select_tag(option.option_type.name, options_from_collection_for_select(option.option_type.option_values, :name, :presentation), class:'form-control' )
-          .col-sm-6
-            .form-group
-              %label{:for => "size"} Choose color
-              %select#size.form-control
-                %option White/Gray/Black
-                %option Black
-                %option Black/White/Red
-          .col-sm-6
-            .form-group
-              %label{:for => "color"} Battery capacity
-              %select#color.form-control
-                %option 5100 mAh
-                %option 6200 mAh
-                %option 8000 mAh
+                %label(for="#{option_type.name}") #{option_type.presentation}:
+                %span #{option_value.presentation}
+
         .row.align-items-end.pb-4
           .col-sm-4
             .form-group.mb-0
@@ -55,9 +44,9 @@
             %button.btn.btn-primary.btn-block.m-0{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success"}
               %i.icon-bag
               Add to Cart
-        .pt-1.mb-4
-          %span.text-medium SKU:
-          \#21457832
+        - if @variant.product.sku.present?
+          .pt-1.mb-4
+            %span.text-medium SKU: #{@variant.product.sku}
   / Product Details
   #details.bg-secondary.padding-top-3x.padding-bottom-2x.mb-3
     .container
