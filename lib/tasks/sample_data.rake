@@ -24,6 +24,15 @@ namespace :sample_data do
     end
   end
 
+  task :filter_variants => :environment do
+    users = create_users_with_common_names
+    puts "Created #{users.size} users"
+    products_query = ::Spree::Product.where(user_id: users.collect(&:id) )
+    puts "  These users have #{products_query.count} products"
+
+    filter_variants_of_products(users)
+  end
+
   ################################
 
   def common_names
@@ -91,6 +100,29 @@ namespace :sample_data do
         p.engagement_count = p.txn_count + rand(500)
         p.gms = p.txn_count * p.price
         p.save
+      end
+    end
+  end
+
+  def filter_variants_of_products(users, option_types = nil)
+    idx = -1
+    option_types ||= Spree::OptionType.where(name: ['color', 'clothing color', 'device color'])
+    option_type_ids = option_types.collect(&:id)
+    option_type_ids_s = option_type_ids.collect(&:to_s).join(',')
+    products_query = ::Spree::Product.where(user_id: users.collect(&:id) )
+
+    puts "  These users have #{products_query.count} products"
+    puts "  Filtering out variants' other option types than #{option_types.collect(&:name)}"
+    products_query.all.each do|product|
+      idx += 1
+      puts "  #{idx}" if idx % 20 == 1
+      product.variants.to_a.each do|variant|
+        others_query = variant.option_values_variants.joins(:option_value).where("#{Spree::OptionValue.table_name}.option_type_id NOT IN (#{option_type_ids_s})" )
+        if others_query.count > 0
+          puts "  .. deleting #{others_query.count} values from product #{product.id}, variant #{variant.id}"
+          others_query.delete_all
+          variant.really_destroy! if variant.option_values_variants.reload.size.zero?
+        end
       end
     end
   end

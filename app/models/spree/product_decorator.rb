@@ -15,10 +15,14 @@ module Spree
     before_update :set_update_attributes
     after_update :update_variants!
 
-
+    # @return <nested Array of Array of Spree::Taxon> except 'Categories' root taxon.
     def categories
-      categories_taxon = ::Spree::CategoryTaxon.root
-      self.taxons.where(parent_id: categories_taxon.id).first
+      unless @categories
+        @categories = self.taxons.under_categories.collect do|taxon|
+            taxon.categories_in_path
+          end
+      end
+      @categories
     end
 
     def days_available

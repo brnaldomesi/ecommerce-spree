@@ -20,23 +20,19 @@
                       = render partial: 'variant_gallery', locals: { variant: @variant }
                     %figure.product-gallery__image
                       = render partial: 'variant_gallery', locals: { variant: @variant }
-                    /
-                      <div class="product-gallery__actions">
-                      <button class="action-btn btn-zoom-popup"><i class="dl-icon-zoom-in"></i></button>
-                      <a href="https://www.youtube.com/watch?v=Rp19QD2XIGM" class="action-btn video-popup"><i class="dl-icon-format-video"></i></a>
-                      </div>
                   #thumbnails
-                  / = render partial: 'thumbnails'
-            / ############## END GALLERY SECTION ############
+          / = render partial: 'thumbnails'
+          / ############## END GALLERY SECTION ############
           .col-7
             .make-me-sticky
               / ############## SIDEBAR SECTIONS ############
               .product-summary.mt--40.mt-md--10.mt-sm--30
-                .padding-top-2x.mt-2.hidden-md-up
-                .sp-categories.pb-3
-                  %i.icon-tag
-                  %a{:href => "#"} Drones,
-                  %a{:href => "#"} Action cameras
+                - @variant.product.categories.each do|category_list|
+                  .padding-top-2x.mt-2.hidden-md-up
+                  .sp-categories.pb-3
+                    %i.icon-tag
+                    - category_list.each_with_index do|category, category_index|
+                      = link_to(category.name + (category_index < category_list.size - 1 ? ', ' : ''))
                 %h2.mb-3= @variant.name
                 %span.h3.d-block
                   %del.text-muted= @variant.price
@@ -45,20 +41,12 @@
                   = product_description(@variant) rescue t('spree.product_has_no_description')
                   %a.scroll-to{:href => "#details"} More info
                 .row.margin-top-1x
-                  .col-sm-6
-                    .form-group
-                      %label{:for => "size"} Choose color
-                      %select#size.form-control
-                        %option White/Gray/Black
-                        %option Black
-                        %option Black/White/Red
-                  .col-sm-6
-                    .form-group
-                      %label{:for => "color"} Battery capacity
-                      %select#color.form-control
-                        %option 5100 mAh
-                        %option 6200 mAh
-                        %option 8000 mAh
+                  - @variant.option_values.includes(:option_type).each do|option_value|
+                    - option_type = option_value.option_type
+                    .col-sm-6
+                      .form-group
+                        %label(for="#{option_type.name}") #{option_type.presentation}:
+                        %span #{option_value.presentation}
                 .row.align-items-end.pb-4
                   .col-sm-4
                     .form-group.mb-0
@@ -71,13 +59,12 @@
                         %option 5
                   .col-sm-8
                     .pt-4.hidden-sm-up
-                    = succeed "data-toast-type=\"success\"" do
-                      %button.btn.btn-primary.btn-block.m-0
-                    %i.icon-bag
-                    Add to Cart
-              .pt-1.mb-4
-                %span.text-medium SKU:
-                \#21457832
+                    %button.btn.btn-primary.btn-block.m-0{"data-toast" => "", "data-toast-icon" => "icon-check-circle", "data-toast-message" => "successfuly added to cart!", "data-toast-position" => "topRight", "data-toast-title" => "Product", "data-toast-type" => "success"}
+                      %i.icon-bag
+                      Add to Cart
+              - if @variant.product.sku.present?
+                .pt-1.mb-4
+                  %span.text-medium SKU: #{@variant.product.sku}
               %hr.mb-2
                 .d-flex.flex-wrap.justify-content-between
                   .mt-2.mb-2
@@ -99,9 +86,9 @@
                       %a.social-button.shape-rounded.sb-google-plus{"data-placement" => "top", "data-toggle" => "tooltip", :href => "#", :title => "Google +"}
                         %i.socicon-googleplus
               #cart-form{"data-hook" => "cart_form"}
-              /  = render partial: 'cart_form'
-              / ############## END SIDEBAR SECTION ############
-          / ############## Anything after the sidebar --- description etc. ############
+  /  = render partial: 'cart_form'
+  / ############## END SIDEBAR SECTION ############
+  / ############## Anything after the sidebar --- description etc. ############
   #details.bg-secondary.padding-top-3x.padding-bottom-2x.mb-3.mt-40
     .container
       .row
@@ -113,4 +100,4 @@
           %div{"data-hook" => "product_properties"}
           /  = render partial: 'properties'
           %div{"data-hook" => "promotions"}
-          /  = render partial: 'promotions'
+            /  = render partial: 'promotions'
