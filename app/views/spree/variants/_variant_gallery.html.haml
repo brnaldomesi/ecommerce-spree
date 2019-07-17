@@ -2,7 +2,7 @@
   .gallery-wrapper
   - if variant.gallery.images.present?
     = render partial: 'spree/shared/image', locals: { image: variant.gallery.images.first, size: :large }
-  .product-carousel.gallery-wrapper
+  .product-carousel.owl-carousel.gallery-wrapper
     - variant.gallery.images.to_a.each_with_index do|image, index|
       .gallery-item(dash-hash="Image #{index}")
         = render partial: 'spree/shared/image', locals: { image: image }
