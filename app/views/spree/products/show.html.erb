@@ -1,7 +1,15 @@
 <!-- Main Content Wrapper Start -->
+<% content_for :footer_extra do %>
+<script type="text/javascript">
+$(function(){
+  $(".owl-carousel").owlCarousel({ navigation : true });
+});
+</script>
+<% end # footer_extra -%>
+
 <% cache [I18n.locale, current_pricing_options, @product] do %>
 <div data-hook="product_show" itemscope itemtype="http://schema.org/Product">
-<div class="container mb-12"
+<div class="container mb-12">
 <div id="content" class="main-content-wrapper">
     <div class="page-content-inner enable-full-width">
       <div id="wrapper" class="row" data-hook="product_left_part_wrap">
@@ -126,14 +134,10 @@
         <div data-hook="product_properties">
           <%= render partial: 'properties' %>
         </div>
-
-        <div data-hook="promotions">
-          <%= render partial: 'promotions' %>
-        </div>
       </div>
     </div>
   </div>
 </div>
 
 </div>
-<% end %>
+<% end # cache %>
