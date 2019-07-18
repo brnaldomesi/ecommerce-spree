@@ -6,7 +6,12 @@ $(function(){
 });
 </script>
 <% end # footer_extra -%>
-
+<% if spree_current_user && can?(:manage, @product) -%>
+  <div id='manage_actions' class='container alert alert-secondary text-right'>
+    <%= link_to('Edit Product', edit_admin_product_path(id: @product.id), class:'btn btn-warning') %>
+  </div>
+  <br/>
+<% end # manage_actions -%>
 <% cache [I18n.locale, current_pricing_options, @product] do %>
 <div data-hook="product_show" itemscope itemtype="http://schema.org/Product">
 <div class="container mb-12">

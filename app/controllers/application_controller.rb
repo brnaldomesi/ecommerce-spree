@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   SITE_WALL_NAME = ENV['SITE_WALL_NAME']
   SITE_WALL_PASSWORD = ENV['SITE_WALL_PASSWORD']
+  SITE_DOMAIN = ENV['SITE_DOMAIN']
 
   before_action :site_wall_authentication
 
@@ -21,6 +22,14 @@ class ApplicationController < ActionController::Base
     end
     authorize! :admin, record
     authorize! action, record
+  end
+
+  def default_url_options
+    if Rails.env.staging?
+      SITE_DOMAIN.present? ? {:host => SITE_DOMAIN } : { only_path: true }
+    else
+      {}
+    end
   end
 
   protected
