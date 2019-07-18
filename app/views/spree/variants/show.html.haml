@@ -1,7 +1,20 @@
 :ruby
   @variant ||= resource
   @product ||= @variant.product if @variant
+  @product_properties = @product.product_properties
+  show_debug = %w|development staging|.include?(Rails.env)
 
+- content_for :footer_extra do
+  :javascript
+    $(function(){
+      $(".owl-carousel").owlCarousel({ navigation : true });
+    });
+
+- if spree_current_user && can?(:manage, resource)
+  #manage_actions.container.alert.alert-secondary.text-right
+    = link_to('Edit Product', edit_admin_product_path(id: resource.product_id), class:'btn btn-warning')
+    = link_to('Edit Variant', edit_admin_product_variant_path(product_id: resource.product.slug, id: resource.id), class:'btn btn-warning') unless resource.is_master?
+    %br/
 / Main Content Wrapper Start
 - cache [I18n.locale, current_pricing_options, @variant] do
   %div{"data-hook" => "product_show"}>
@@ -18,8 +31,8 @@
                   .product-gallery__large-image
                     %figure.product-gallery__image
                       = render partial: 'variant_gallery', locals: { variant: @variant }
-                  #thumbnails
-          / = render partial: 'thumbnails'
+                  -##thumbnails
+                    -#= render partial: 'spree/products/thumbnails', locals: { product: @variant.product }
           / ############## END GALLERY SECTION ############
           .col-7
             .make-me-sticky
@@ -30,11 +43,15 @@
                   .sp-categories.pb-3
                     %i.icon-tag
                     - category_list.each_with_index do|category, category_index|
-                      = link_to(category.name + (category_index < category_list.size - 1 ? ', ' : ''))
+                      = link_to(category.name + (category_index < category_list.size - 1 ? ', ' : ''), seo_url(category))
                 %h2.mb-3= @variant.name
                 %span.h3.d-block
                   %del.text-muted= @variant.price
                   = @variant.price
+                - if show_debug && @variant.product.user
+                  %h4
+                    %strong Seller:
+                    #{@variant.product.user.username}
                 %p.text-muted
                   = product_description(@variant) rescue t('spree.product_has_no_description')
                   %a.scroll-to{:href => "#details"} More info
@@ -96,6 +113,6 @@
             = product_description(@variant) rescue t('spree.product_has_no_description')
         .col-md-6
           %div{"data-hook" => "product_properties"}
-          /  = render partial: 'properties'
+            = render partial: 'spree/products/properties'
           %div{"data-hook" => "promotions"}
-            /  = render partial: 'promotions'
+            = render partial: 'spree/products/promotions'
