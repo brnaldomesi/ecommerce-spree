@@ -5,6 +5,8 @@ module Spree
 
     attr_accessor :has_sorting_rank_changes
 
+    belongs_to :user, class_name: 'Spree::User'
+
     has_one :migration, class_name: 'Retail::ProductToSpreeProduct', foreign_key: :spree_product_id
     delegate :retail_product, to: :migration
 

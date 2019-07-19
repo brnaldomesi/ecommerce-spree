@@ -10,10 +10,16 @@ module Spree
         else
           @product.attributes = permitted_resource_params
         end
+        @product.option_types = ::Spree::OptionType.default_option_types
         super
       end
 
       protected
+
+      def permitted_resource_params
+        h = params[object_name].present? ? params.require(object_name).permit! : ActionController::Parameters.new.permit!
+        h.except(:supplier_ids)
+      end
 
       def authorize_admin
         logger.info "| current action: #{action}"
@@ -27,6 +33,8 @@ module Spree
       end
 
       def load_master_product
+        logger.info "| params #{params}"
+        logger.info "| present? #{params[object_name].present?}"
         @master_product = ::Spree::Product.where(id: permitted_resource_params[:master_product_id]).first if permitted_resource_params[:master_product_id]
       end
 
