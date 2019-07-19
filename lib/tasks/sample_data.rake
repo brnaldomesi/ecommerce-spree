@@ -109,7 +109,7 @@ namespace :sample_data do
     option_types ||= Spree::OptionType.where(name: ['color', 'clothing color', 'device color'])
     option_type_ids = option_types.collect(&:id)
     option_type_ids_s = option_type_ids.collect(&:to_s).join(',')
-    products_query = ::Spree::Product.where(user_id: users.collect(&:id) )
+    products_query = ::Spree::Product.all
 
     puts "  These users have #{products_query.count} products"
     puts "  Filtering out variants' other option types than #{option_types.collect(&:name)}"
