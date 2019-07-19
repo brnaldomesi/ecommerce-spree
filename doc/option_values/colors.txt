@@ -1,0 +1,179 @@
+Red
+Green
+Blue
+Black
+White
+Beige
+Brown
+Cyan
+Gray
+Gold
+Maroon
+Navy
+Orange
+Pink
+Purple
+Tan
+Teal
+Turquoise
+Yellow
+Baby Blue
+Beige / Black
+Beige / Blue
+Beige / Brown
+Beige / Maroon
+Beige / Gray
+Beige / Navy
+Beige / Purple
+Beige / Pink
+Black / Blue
+Beige / Tan
+Beige / Red
+Beige / White
+Black / Brown
+Black / Gold
+Black / Gray
+Black / Green
+Black / Maroon
+Black / Navy
+Black / Orange
+Black / Purple
+Black / Pink
+Black / Red
+Black / Tan
+Black / Teal
+Black / Turquoise
+Black / White
+Black / Yellow
+Blue / Brown
+Blue / Gold
+Blue / Gray
+Blue / Navy
+Blue / Orange
+Blue / Pink
+Blue / Purple
+Blue / Red
+Blue / White
+Blue / Turquoise
+Blue / Teal
+Blue / Yellow
+Brown / Gold
+Brown / Gray
+Brown / Navy
+Brown / Green
+Brown / Orange
+Brown / Pink
+Brown / Red
+Brown / Tan
+Brown / White
+Brown / Yellow
+Gold / Gray
+Gold / Green
+Gold / Maroon
+Gold / Navy
+Gold / Orange
+Gold / Pink
+Gold / Red
+Gold / Yellow
+Gold / White
+Gray / Green
+Gray / Maroon
+Gray / Navy
+Gray / Orange
+Gray / Purple
+Gray / Pink
+Gray / Red
+Gray / Tan
+Gray / Turquoise
+Gray / White
+Gray / Yellow
+Green / Navy
+Green / Orange
+Green / Pink
+Green / Red
+Green / Tan
+Green
+Green / White
+Green / Yellow
+Light Gray
+Light Green
+Light Orange
+Maroon / Navy
+Maroon / Pink
+Maroon / Red
+Maroon / White
+Navy / Orange
+Navy / Pink
+Navy / Red
+Navy / Tan
+Navy / Purple
+Navy / Teal
+Navy / Turquoise
+Navy / White
+Navy / Yellow
+Gold / Tan
+Orange / Red
+Orange / White
+Orange / Yellow
+Pink / Red
+Pink
+Pink / White
+Purple / Red
+Purple / White
+Red / Tan
+Red / Teal
+Red / White
+Red / Yellow
+Rose Gold
+Tan / White
+Tan / Yellow
+Teal / White
+Turquoise / White
+White / Yellow
+Baby Blue / Black
+Baby Blue / Blue
+Baby Blue / Brown
+Baby Blue / Gold
+Baby Blue / Gray
+Baby Blue / Navy
+Baby Blue / Orange
+Baby Blue / Pink
+Baby Blue / Purple
+Baby Blue / White
+Beige / Rose Gold
+Black / Light Gray
+Black / Light Green
+Black / Light Orange
+Black / Rose Gold
+Blue / Light Gray
+Blue / Light Green
+Blue / Light Orange
+Brown / Light Gray
+Brown / Rose Gold
+Gold / Light Gray
+Gold / Rose Gold
+Gray / Light Gray
+Gray / Light Green
+Gray / Light Orange
+Gray / Rose Gold
+Green / Light Gray
+Light Gray / Navy
+Light Gray / Orange
+Light Gray / Pink
+Light Gray / Purple
+Light Gray / Red
+Light Gray / Teal
+Light Gray / White
+Light Gray / Yellow
+Light Green / Navy
+Light Green / Orange
+Light Green / Teal
+Light Green / White
+Light Green / Yellow
+Light Orange / Navy
+Light Orange / Pink
+Light Orange / White
+Navy / Rose Gold
+Purple / Rose Gold
+Rose Gold / Turquoise
+Rose Gold / White
