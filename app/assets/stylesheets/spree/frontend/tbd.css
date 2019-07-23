@@ -432,7 +432,7 @@ padding: 0 4rem; } }
 /* STICKY SIDEBAR ***/
 /********************/
       .content-section {
-        min-height: 1000px;
+        min-height: 300px;
       }
 
       .sidebar-section {
@@ -441,7 +441,7 @@ padding: 0 4rem; } }
         width: 100%;
       }
 
-      .sidebar-item2 {
+      .sidebar-item2{
       	position: absolute;
       	top: 0;
       	left: 0;
@@ -463,6 +463,27 @@ padding: 0 4rem; } }
         padding: 0 15px;
       }
 
+.sidebar-item2{
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+
+
+.taxons-list > li{
+  font-size: 14px;
+  list-style-type: none;
+}
+
+.taxons-list > li > a{
+  color: black;
+  text-decoration: none;
+}
+
+.taxons-list > li > a:hover{
+  color: black;
+  text-decoration: underline;
+}
 
 /*************************/
 /* END STICKY SIDEBAR ***/
