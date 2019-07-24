@@ -116,23 +116,8 @@
 
       <% end %>
 
-      <div data-hook="admin_product_form_shipping_categories">
-        <%= f.field_container :shipping_categories do %>
-          <%= f.label :shipping_category_id, Spree::ShippingCategory.model_name.human, class: 'required' %>
-          <%= f.field_hint :shipping_category %>
-          <%= f.collection_select(:shipping_category_id, @shipping_categories, :id, :name, { }, { class: 'custom-select' }) %>
-          <%= f.error_message_on :shipping_category %>
-        <% end %>
-      </div>
-
-      <div data-hook="admin_product_form_tax_category">
-        <%= f.field_container :tax_category do %>
-          <%= f.label :tax_category_id, Spree::TaxCategory.model_name.human %>
-          <%= f.field_hint :tax_category %>
-          <%= f.collection_select(:tax_category_id, @tax_categories, :id, :name, { }, { class: 'custom-select' }) %>
-          <%= f.error_message_on :tax_category %>
-        <% end %>
-      </div>
+      <%= f.hidden_field(:shipping_category_id, value: ::Spree::ShippingCategory.default.try(:id) || 1 ) -%>
+      <%= f.hidden_field(:tax_category_id, value: ::Spree::TaxCategory.default.try(:id) || 1 ) -%>
     </div>
 
   </div>
