@@ -3,7 +3,6 @@ set -u
 set -e
 
 APP_ROOT=../
-ENV=development
 
 ###################
 # Functions
@@ -39,11 +38,16 @@ start_puma () {
     echo >&2 "| Already running" && exit 0
   else
     echo " .. starting Puma .. "
-    rails server -b 0.0.0.0 -p 3000 -e development;
+    if [ "$ENV" -eq "development" ]; then
+      rails server Puma -b /var/www/solidus_market/shared/sockets/puma.sock -b 0.0.0.0 -p 3000 -e development;
+    else
+      bundle exec puma -C config/puma.rb --daemon;
+    fi
   fi
 }
 
 stop_puma () {
+  bundle exec pumactl -S /var/www/solidus_market/shared/pids/puma.state -F /var/www/solidus_market/current/config/puma.rb stop
   kill_pid_of "puma 3.1"
 }
 
