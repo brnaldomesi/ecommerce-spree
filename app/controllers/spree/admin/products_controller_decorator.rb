@@ -21,6 +21,10 @@ module Spree
         h.except(:supplier_ids)
       end
 
+      def load_data
+        # skip these unnecessary data
+      end
+
       def authorize_admin
         logger.info "| current action: #{action}"
         if [:show, :edit].include?(action)
