@@ -10,13 +10,9 @@ FactoryBot.define do
   end
 
   factory :taxons, class: Spree::Taxon do
-    factory :categories_taxon do
-      position { 0 }
-      name { 'Categories' }
-      permalink { 'categories' }
-      depth { 0 }
-      taxonomy_id { ::Category.find_or_create_categories_taxonomy.id }
-    end
+    # position { 0 }
+    # depth { 0 }
+    taxonomy_id { ::Category.find_or_create_categories_taxonomy.id }
 
     factory :level_one_category_taxon, aliases: [:clothing_category_taxon] do
       name { 'Clothing' }
@@ -31,6 +27,11 @@ FactoryBot.define do
     factory :level_three_category_taxon, aliases: [:shirts_category_taxon] do
       name { 'Shirts' }
       permalink { 'categories/mens-clothing-shirts' }
+    end
+
+    factory :home_taxon do
+      name {'Home & Garden'}
+      permalink {'home-garden'}
     end
   end
 end

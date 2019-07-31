@@ -13,9 +13,7 @@ module Spree
     end
 
     def self.default_option_types
-      Rails.cache.fetch(DEFAULT_CACHE_KEY, expires_in: 12.hours) do
-        self.where(name: ['color', 'clothing color', 'size', 'clothing_size'] )
-      end
+      self.where(name: ['color', 'clothing color', 'size', 'clothing size', 'shoe size'] )
     end
 
     protected
