@@ -1,0 +1,16 @@
+- admin_breadcrumb link_to(plural_resource_name(Spree::Product), spree.admin_products_path)
+- admin_breadcrumb @master_product ? 'Your Listing of This Product' : t('spree.new_product')
+
+= render partial: 'spree/shared/error_messages', locals: { target: @product }
+
+= form_for [:admin, @product], method: :post, url: admin_products_path, html: { multipart: true } do |f|
+  %fieldset(data-hook="new_product")
+
+
+    - if @master_product || params[:form] == 'form_in_one'
+      = render partial: 'form_in_one', locals: { f: f }
+    - else
+      %legend(align="center") #{t('spree.new_product') }
+      = render partial: 'form', locals: { f: f }
+
+    = render partial: 'spree/admin/shared/new_resource_links'
