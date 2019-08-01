@@ -1,6 +1,9 @@
 module Spree
   module Admin
     ProductsController.class_eval do
+
+      helper 'spree/admin/navigation'
+
       before_action :load_master_product, only: [:new]
       before_action :load_variants, only: [:edit]
       before_action :set_current_user_id, only: [:create, :update, :clone]
