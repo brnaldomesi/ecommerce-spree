@@ -10,11 +10,14 @@
       $(".owl-carousel").owlCarousel({ navigation : true });
     });
 
-- if spree_current_user && can?(:manage, resource)
+- if spree_current_user
   #manage_actions.container.alert.alert-secondary.text-right
-    = link_to('Edit Product', edit_admin_product_path(id: resource.product_id), class:'btn btn-warning')
-    = link_to('Edit Variant', edit_admin_product_variant_path(product_id: resource.product.slug, id: resource.id), class:'btn btn-warning') unless resource.is_master?
-    %br/
+    - if can?(:manage, resource)
+      = link_to('Edit Product', edit_admin_product_path(id: resource.product_id), class:'btn btn-warning')
+      = link_to('Edit Variant', edit_admin_product_variant_path(product_id: resource.product.slug, id: resource.id), class:'btn btn-warning') unless resource.is_master?
+      %br/
+    - elsif can?(:manage, ::Spree::Product)
+      = link_to('List This Item', new_admin_product_path(product:{master_product_id: resource.product_id}), class:'btn btn-success' )
 / Main Content Wrapper Start
 - cache [I18n.locale, current_pricing_options, @variant] do
   %div{"data-hook" => "product_show"}>

@@ -3,7 +3,7 @@ module Spree
 
     require 'open-uri'
 
-    attr_accessor :has_sorting_rank_changes
+    attr_accessor :has_sorting_rank_changes, :uploaded_images, :image_alts, :image_viewable_ids
 
     belongs_to :user, class_name: 'Spree::User'
 
@@ -14,6 +14,7 @@ module Spree
     has_many :slave_products, class_name: 'Spree::Product', foreign_key: :master_product_id
 
     after_create :copy_from_master!
+    after_save :process_uploaded_images
     before_update :set_update_attributes
     after_update :update_variants!
 
@@ -39,6 +40,15 @@ module Spree
     # Instead of self.sku, this would check if there's master product for its sku.
     def master_sku
       master_product_id ? master_product.try(:sku) : sku
+    end
+
+    ##
+    # @return <Hash of Integer(:option_type_id) => Array of Spree::OptionValue>
+    def whole_hash_of_option_values
+      unless @hash_of_option_values
+        ::Spree::OptionValue.where(id: variants.collect{|v| v.option_values_variants.select('option_value_id').collect(&:option_value_id) }.flatten ).all.group_by(&:option_type_id)
+      end
+      @hash_of_option_values
     end
 
     ####################################
@@ -77,6 +87,27 @@ module Spree
           new_image.viewable_type = 'Spree::Variant'
           new_image.viewable_id = master_variant.id
           new_image.save
+        end
+      end
+    end
+
+    def process_uploaded_images
+      if uploaded_images
+        self.image_alts ||= []
+        self.image_viewable_ids ||= []
+        cur_position = (self.gallery.images.collect(&:position).max || 0) + 1
+        # logger.info "| Got uploaded_images:# #{uploaded_images}"
+        uploaded_images.each_with_index do|uploaded_image, index|
+          image_attr = uploaded_image.is_a?(::ActionDispatch::Http::UploadedFile) ?
+            { alt: image_alts[index], attachment: uploaded_image } :
+            uploaded_image
+          viewable_id = image_attr[:viewable_id] || image_viewable_ids[index]
+          image_attr[:viewable_id] = viewable_id.to_i if viewable_id # ensure it's Integer
+          image_attr[:viewable_type] ||= 'Spree::Variant'
+          image_attr[:position] = cur_position
+          img = ::Spree::Image.create(image_attr)
+          logger.warn "    valid? #{img.valid?}: #{img.errors.full_messages}" unless img.valid? || img.id
+          cur_position += 1
         end
       end
     end
