@@ -2,6 +2,7 @@ module Spree
   module Admin
     ProductsController.class_eval do
       before_action :load_master_product, only: [:new]
+      before_action :load_variants, only: [:edit]
       before_action :set_current_user_id, only: [:create, :update, :clone]
 
       def new
@@ -11,6 +12,11 @@ module Spree
           @product.attributes = permitted_resource_params
         end
         @product.option_types = ::Spree::OptionType.default_option_types
+        super
+      end
+
+      def update
+        @product.process_uploaded_images unless @product.changed?
         super
       end
 
@@ -25,8 +31,17 @@ module Spree
         # skip these unnecessary data
       end
 
+      ##
+      # Originally called by Spree::Admin::ImagesController#load_data
+      def load_variants
+        @product ||= Spree::Product.friendly.find(params[:product_id])
+        @variants = @product.variants.collect do |variant|
+          [variant.sku_and_options_text, variant.id]
+        end
+        @variants.insert(0, [t('spree.all'), @product.master.id])
+      end
+
       def authorize_admin
-        logger.info "| current action: #{action}"
         if [:show, :edit].include?(action)
           load_resource
           @object.user_id ||= spree_current_user.admin? ?
@@ -37,8 +52,6 @@ module Spree
       end
 
       def load_master_product
-        logger.info "| params #{params}"
-        logger.info "| present? #{params[object_name].present?}"
         @master_product = ::Spree::Product.where(id: permitted_resource_params[:master_product_id]).first if permitted_resource_params[:master_product_id]
       end
 

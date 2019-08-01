@@ -1,0 +1,67 @@
+:javascript
+  var productImageArrayIndex = 1;
+  function addMoreProductImageRow() {
+    var html = $("#new_product_image_row").html().replace("new_product_image_row", "another_row_3")
+    $(".product-image-row").parent().append("<tr id='new_product_image_row_" + productImageArrayIndex + "'>" + html + "</tr>");
+    productImageArrayIndex++;
+    }
+
+= hidden_field_tag(:form, params[:form])
+= f.hidden_field(:master_product_id)
+= f.hidden_field(:shipping_category_id, value: ::Spree::ShippingCategory.default.try(:id) || 1 )
+= f.hidden_field(:tax_category_id, value: ::Spree::TaxCategory.default.try(:id) || 1 )
+%legend(align="center") Product Info
+%div(data-hook="admin_product_form_fields")
+  .row
+    %div(class="left col-9" data-hook="admin_product_form_left")
+      %div(data-hook="admin_product_form_name")
+        = f.field_container :name do
+          = f.label :name, class: 'required'
+          = f.text_field :name, class: 'fullwidth title', required: true
+          = f.error_message_on :name
+      %div(data-hook="admin_product_form_description")
+        = f.field_container :description do
+          = f.label :description
+          = f.text_area :description, {rows: "#{unless @product.has_variants? then '22' else '15' end}", class: 'fullwidth'}
+          = f.error_message_on :description
+    %div(class="right col-3" data-hook="admin_product_form_right")
+      %div(data-hook="admin_product_form_price")
+        = f.field_container :price do
+          = f.label :price, class: Spree::Config.require_master_price ? 'required' : ''
+          = render 'spree/admin/shared/number_with_currency', f: f, |
+            amount_attr: :price, |
+            required: Spree::Config.require_master_price, |
+            currency: Spree::Config.default_pricing_options.currency
+          = f.error_message_on :price
+  .row
+    - admin_breadcrumb(plural_resource_name(Spree::Image))
+
+-#%div(id="new_image" class="hidden")
+  -#= render '/spree/admin/images/new', product: @product, image: Spree::Image.new(viewable: @product)
+
+%fieldset.no-border-bottom
+  %legend(align="center") Main Images
+
+  %table(id="main_images_table" class="table index sortable inline-editable-table" data-hook="images_table" data-sortable-link="#{@product.try(:id) ? update_positions_admin_product_images_url(@product) : ''}" )
+    %colgroup
+      %col(style="width: 5%")
+      %col(style="width: 10%")
+      - if @product.has_variants?
+        %col(style="width: 40%")
+      %col(style="width: 30%")
+      %col(style="width: 15%")
+
+    %thead
+      %tr(data-hook="images_header")
+        %th
+        %th #{ t('spree.thumbnail') }
+        - if @product.has_variants?
+          %th #{ Spree::Variant.model_name.human }
+        %th #{ Spree::Image.human_attribute_name(:alt) }
+        %th(class="actions")
+
+    %tbody
+      = render partial: 'spree/admin/images/image_row', collection: @product.gallery.images, as: :image
+      = render partial: 'product_upload_image', locals: { f: f, row_id: 'new_product_image_row' }
+  .pull-right
+    %button(type='button' class='btn btn-secondary' onclick="addMoreProductImageRow()") More Image
