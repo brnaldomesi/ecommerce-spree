@@ -6,6 +6,7 @@ module Spree
 
       before_action :load_master_product, only: [:new]
       before_action :load_variants, only: [:edit, :update]
+      before_action :setup_property, only: [:new, :edit], if: -> { can?(:create, model_class) }
       before_action :setup_variant_property_rules, only: [:edit]
       before_action :set_current_user_id, only: [:create, :update, :clone]
 
@@ -34,10 +35,8 @@ module Spree
             # somehow extra params_attrs[:id] pops out w/o the :option_value_ids or that being only String
             url_params[:ovi] += param_attrs[:option_value_ids] if param_attrs[:option_value_ids].is_a?(Array)
           end
-          spree.admin_product_product_properties_path(@product, url_params)
-        else
-          spree.edit_admin_product_path(@product)
         end
+        spree.edit_admin_product_path(@product, form: params[:form])
       end
 
       def permitted_resource_params
@@ -60,9 +59,12 @@ module Spree
       end
 
       # From spree/admin/product_properties_controller.rb
-      def setup_variant_property_rules
-        @product.product_properties.build # from setup_property sibling method
+      def setup_property
+        @product.product_properties.build
+      end
 
+      # From spree/admin/product_properties_controller.rb
+      def setup_variant_property_rules
         @option_types = @product.variant_option_values_by_option_type
         @option_value_ids = (params[:ovi] || []).reject(&:blank?).map(&:to_i)
         @variant_property_rule = @product.find_variant_property_rule(@option_value_ids) || @product.variant_property_rules.build
