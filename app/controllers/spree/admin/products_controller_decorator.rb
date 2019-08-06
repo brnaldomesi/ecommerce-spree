@@ -16,7 +16,7 @@ module Spree
         else
           @product.attributes = permitted_resource_params
         end
-        @product.option_types = ::Spree::OptionType.default_option_types
+        @product.option_types = ::Spree::OptionType.default_option_types(@product.categories.flatten.collect(&:name) )
         super
       end
 
