@@ -21,6 +21,7 @@ RSpec.describe ::Spree::Product do
       attributes_for(:basic_user)
     end
     let(:sample_image_url) { 'http://digg.com/static/images/apple/apple-touch-icon-57.png' }
+    let(:sample_image_path) { File.join(ActionDispatch::IntegrationTest.fixture_path, 'files/color_markers.jpg') }
 
     context 'Convert from Retail::Product' do
       it 'Convert from sample product' do
@@ -79,6 +80,29 @@ RSpec.describe ::Spree::Product do
         expect(latest_product.user_id).to eq(user.id)
         expect(latest_product.images.size).to eq(product.images.size)
         expect(latest_product.sku).not_to eq(sku)
+      end
+    end
+
+    context 'Create Product Via Page Request' do
+      let :user_attr do
+        attributes_for(:basic_user)
+      end
+      let :product_attr do
+        attributes_for(:basic_product)
+      end
+
+      it 'Create Product with Images' do
+        user = sign_up_with(user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name] )
+        confirm_email(user)
+        visit logout_path
+        sign_in(user)
+
+        page.driver.post admin_products_path(
+              product: product_attr.merge( uploaded_images:[ { attachment: fixture_file_upload(sample_image_path, type: 'image/jpg') } ] )
+            )
+        product = ::Spree::Product.where(user_id: user.id).last
+        expect(product).not_to be_nil
+        binding.pry # TODO: debug
       end
     end
 

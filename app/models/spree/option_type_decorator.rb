@@ -12,7 +12,7 @@ module Spree
       !name.to_sanitized_keyword_name.match(VALID_OPTION_NAME_REGEX).nil?
     end
 
-    def self.default_option_types
+    def self.default_option_types(category_names = [])
       self.where(name: ['color', 'clothing color', 'size', 'clothing size', 'shoe size'] )
     end
 
