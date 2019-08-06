@@ -1,0 +1,15 @@
+<% admin_breadcrumb(link_to plural_resource_name(Spree::Product), spree.admin_products_path) %>
+<% admin_breadcrumb(link_to @product.name, spree.admin_product_path(@product)) %>
+
+<% content_for :tabs do %>
+  <nav>
+    <ul class="tabs" data-hook="admin_product_tabs">
+      <%= content_tag :li, class: ('active' if current == 'Product Details') do %>
+        <%= link_to t('spree.product_details'), spree.edit_admin_product_url(@product) %>
+      <% end if can?(:admin, Spree::Product) %>
+      <%= content_tag :li, class: ('active' if current == 'Variants') do %>
+        <%= link_to plural_resource_name(Spree::Variant), spree.admin_product_variants_url(@product) %>
+      <% end if can?(:admin, Spree::Variant) %>
+    </ul>
+  </nav>
+<% end %>
