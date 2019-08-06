@@ -40,6 +40,9 @@ Spree::Core::Engine.routes.draw do
   end
 
   ##
+  # Seller
+
+  ##
   # Buyer
 
   resources :variants

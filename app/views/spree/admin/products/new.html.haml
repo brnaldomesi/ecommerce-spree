@@ -7,7 +7,7 @@
   %fieldset(data-hook="new_product")
 
 
-    - if @master_product || params[:form] == 'form_in_one'
+    - if @master_product || Rails.env.development? || params[:form] == 'form_in_one'
       = render partial: 'form_in_one', locals: { f: f }
     - else
       %legend(align="center") #{t('spree.new_product') }

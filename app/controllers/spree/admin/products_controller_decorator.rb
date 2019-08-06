@@ -1,8 +1,13 @@
 module Spree
   module Admin
     ProductsController.class_eval do
+
+      helper 'spree/admin/navigation'
+
       before_action :load_master_product, only: [:new]
-      before_action :load_variants, only: [:edit]
+      before_action :load_variants, only: [:edit, :update]
+      before_action :setup_property, only: [:new, :edit], if: -> { can?(:create, model_class) }
+      before_action :setup_variant_property_rules, only: [:edit]
       before_action :set_current_user_id, only: [:create, :update, :clone]
 
       def new
@@ -22,6 +27,18 @@ module Spree
 
       protected
 
+      def location_after_save
+        if updating_variant_property_rules?
+          url_params = {}
+          url_params[:ovi] = []
+          params[:product][:variant_property_rules_attributes].each do |_index, param_attrs|
+            # somehow extra params_attrs[:id] pops out w/o the :option_value_ids or that being only String
+            url_params[:ovi] += param_attrs[:option_value_ids] if param_attrs[:option_value_ids].is_a?(Array)
+          end
+        end
+        spree.edit_admin_product_path(@product, form: params[:form])
+      end
+
       def permitted_resource_params
         h = params[object_name].present? ? params.require(object_name).permit! : ActionController::Parameters.new.permit!
         h.except(:supplier_ids)
@@ -39,6 +56,19 @@ module Spree
           [variant.sku_and_options_text, variant.id]
         end
         @variants.insert(0, [t('spree.all'), @product.master.id])
+      end
+
+      # From spree/admin/product_properties_controller.rb
+      def setup_property
+        @product.product_properties.build
+      end
+
+      # From spree/admin/product_properties_controller.rb
+      def setup_variant_property_rules
+        @option_types = @product.variant_option_values_by_option_type
+        @option_value_ids = (params[:ovi] || []).reject(&:blank?).map(&:to_i)
+        @variant_property_rule = @product.find_variant_property_rule(@option_value_ids) || @product.variant_property_rules.build
+        @variant_property_rule.values.build if can?(:create, Spree::VariantPropertyRuleValue)
       end
 
       def authorize_admin
