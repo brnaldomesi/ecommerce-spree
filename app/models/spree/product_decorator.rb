@@ -92,7 +92,7 @@ module Spree
     end
 
     def process_uploaded_images
-      if uploaded_images
+      if uploaded_images.present?
         self.image_alts ||= []
         self.image_viewable_ids ||= []
         cur_position = (self.gallery.images.collect(&:position).max || 0) + 1
@@ -103,6 +103,7 @@ module Spree
             uploaded_image
           viewable_id = image_attr[:viewable_id] || image_viewable_ids[index]
           image_attr[:viewable_id] = viewable_id.to_i if viewable_id # ensure it's Integer
+          image_attr[:viewable_id] ||= self.master.try(:id)
           image_attr[:viewable_type] ||= 'Spree::Variant'
           image_attr[:position] = cur_position
           img = ::Spree::Image.create(image_attr)

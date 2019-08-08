@@ -67,4 +67,19 @@ module ProductsSpecHelper
       %w|cotton silk metal aluminum|.each{|_m| create("option_value_#{_m}".to_sym, option_type: option_type_material) }
     end
   end
+
+  #################################
+  # Capybara
+
+  def fill_into_product_form(product_attr)
+    product_attr.each_pair do|k, v|
+      if v
+        begin
+          find(:xpath, "//*[@name='product[#{k}]']").set(v )
+        rescue Capybara::ElementNotFound
+          puts "** Cannot find product field #{k}"
+        end
+      end
+    end
+  end
 end

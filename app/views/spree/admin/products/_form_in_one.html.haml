@@ -16,7 +16,7 @@
 = f.hidden_field(:master_product_id)
 = f.hidden_field(:shipping_category_id, value: ::Spree::ShippingCategory.default.try(:id) || 1 )
 = f.hidden_field(:tax_category_id, value: ::Spree::TaxCategory.default.try(:id) || 1 )
-%legend(align="center") Product Info
+%legend(align="center") #{t('spree.product_info')}
 %div(data-hook="admin_product_form_fields")
   .row
     %div(class="left col-9" data-hook="admin_product_form_left")
@@ -57,7 +57,7 @@
       %div(data-hook="admin_product_form_price")
         = f.field_container :price do
           = f.label :price, class: Spree::Config.require_master_price ? 'required' : '' do
-            Price
+            = t('spree.price')
           = render 'spree/admin/shared/number_with_currency', f: f, |
             amount_attr: :price, |
             required: Spree::Config.require_master_price, |
@@ -71,8 +71,7 @@
 
 %br/
 %fieldset.no-border-bottom
-  %legend(align="center") Main Images
-
+  %legend(align="center") #{t('spree.main_images')}
   %table(id="main_images_table" class="table index sortable inline-editable-table" data-hook="images_table" data-sortable-link="#{@product.try(:id) ? update_positions_admin_product_images_path(@product) : ''}" )
     %colgroup
       %col(style="width: 5%")
@@ -103,7 +102,7 @@
 - if @product.id
   %br/
   %fieldset.no-border-bottom
-    %legend(align="center") Variants
+    %legend(align="center") #{t('spree.variant')}
     %table(class="table index sortable inline-editable-table" data-sortable-link="#{update_positions_admin_product_variants_path(@product) }")
       %colgroup
         %col(style="width: 5%")
@@ -118,10 +117,9 @@
           %th.actions
       %tbody
         = render partial: 'product_variant_row', collection: @product.variants, as: :variant, locals: { product: @product }
-        -# @product.variants.each do |variant|
 
     .pull-right
-      = link_to('New Variant', new_admin_product_variant_path([@product] ), class:'btn btn-secondary' )
+      = link_to(t('spree.new_variant'), new_admin_product_variant_path([@product] ), class:'btn btn-secondary' )
 %br/
 %fieldset.no-border-bottom
   %legend(align="center") #{ plural_resource_name(Spree::ProductProperty) }

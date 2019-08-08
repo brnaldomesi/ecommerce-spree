@@ -8,6 +8,7 @@ include UsersSpecHelper
 RSpec.describe ::Spree::Product do
   before(:all) do
     setup_all_for_posting_products
+    Capybara.ignore_hidden_elements = false
   end
 
   after(:all) do
@@ -97,12 +98,25 @@ RSpec.describe ::Spree::Product do
         visit logout_path
         sign_in(user)
 
-        page.driver.post admin_products_path(
-              product: product_attr.merge( uploaded_images:[ { attachment: fixture_file_upload(sample_image_path, type: 'image/jpg') } ] )
-            )
+        visit new_admin_product_path(form:'form_in_one')
+        expect(page.driver.status_code).to eq 200
+
+        fill_into_product_form(product_attr)
+        find_all(:xpath, "//input[@name='product[uploaded_images][][attachment]']").last.attach_file(sample_image_path)
+        click_on('Create')
+
         product = ::Spree::Product.where(user_id: user.id).last
         expect(product).not_to be_nil
-        binding.pry # TODO: debug
+        expect(product.master).not_to be_nil
+        if product_attr[:taxon_ids].present?
+          current_taxon_ids = product.taxons.collect(&:id)
+          product_attr[:taxon_ids].split(',').each do|_tid|
+            expect(current_taxon_ids).to include(_tid.to_i )
+          end
+        end
+        expect(product.gallery.images.size).to eq(1)
+        expect(product.name).to eq(product_attr[:name])
+        expect(product.description[0,20] ).to eq(product_attr[:description][0,20] )
       end
     end
 
