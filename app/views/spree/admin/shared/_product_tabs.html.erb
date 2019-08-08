@@ -10,6 +10,9 @@
       <%= content_tag :li, class: ('active' if current == 'Variants') do %>
         <%= link_to plural_resource_name(Spree::Variant), spree.admin_product_variants_url(@product) %>
       <% end if can?(:admin, Spree::Variant) %>
+      <%= content_tag :li, class: ('active' if current == 'Product Properties') do %>
+        <%= link_to plural_resource_name(Spree::ProductProperty), spree.admin_product_product_properties_url(@product) %>
+      <% end if can?(:admin, Spree::ProductProperty) && @product.id && !@product.deleted? %>
     </ul>
   </nav>
 <% end %>
