@@ -1499,6 +1499,7 @@ en:
     logout: Logout
     logs: Logs
     look_for_similar_items: Look for similar items
+    main_images: Main Images
     make_refund: Make refund
     make_sure_the_above_reimbursement_amount_is_correct: Make sure the above reimbursement
       amount is correct
@@ -1756,6 +1757,7 @@ en:
     product_has_no_description: This product has no description
     product_not_available_in_this_currency: This product is not available in the selected
       currency.
+    product_info: Product Info
     product_properties: Product Properties
     product_rule:
       choose_products: Choose products

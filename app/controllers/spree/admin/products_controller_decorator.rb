@@ -16,7 +16,7 @@ module Spree
         else
           @product.attributes = permitted_resource_params
         end
-        @product.option_types = ::Spree::OptionType.default_option_types(@product.categories.flatten.collect(&:name) )
+        preload_option_types(@product)
         super
       end
 
@@ -106,6 +106,16 @@ module Spree
             per(Spree::Config[:admin_products_per_page])
         @collection = @collection.where(user_id: spree_current_user.try(:id) ) if spree_current_user && !spree_current_user.admin?
         @collection
+      end
+
+      ##
+      # Requires product initialized
+      def preload_option_types(product)
+        categories = product.id ? product.categories : []
+        if product.taxon_ids.present? && categories.blank?
+          categories = ::Spree::Taxon.where(id: product.taxon_ids).all.collect(&:categories_in_path)
+        end
+        product.option_types = ::Spree::OptionType.default_option_types(categories.to_a.flatten.collect(&:name) )
       end
 
     end # eval
