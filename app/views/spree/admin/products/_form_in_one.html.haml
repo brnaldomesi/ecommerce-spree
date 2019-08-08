@@ -63,8 +63,6 @@
             required: Spree::Config.require_master_price, |
             currency: Spree::Config.default_pricing_options.currency
           = f.error_message_on :price
-  .row
-    - admin_breadcrumb(plural_resource_name(Spree::Image))
 
 -#%div(id="new_image" class="hidden")
   -#= render '/spree/admin/images/new', product: @product, image: Spree::Image.new(viewable: @product)
