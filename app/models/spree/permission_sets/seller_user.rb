@@ -8,8 +8,7 @@ module Spree
 
         # from Spree::PermissionSets::ProductManagement
         ::Spree::ProductUserRelation::MANAGEABLE_CLASSES.each do|klass|
-          next unless klass.new.respond_to?(:user_id)
-          can :manage, klass, user_id: user.id
+          can :manage, klass, user_id: user.id if klass.new.respond_to?(:user_id)
           can [:new, :create], klass
         end
 

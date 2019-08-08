@@ -19,6 +19,7 @@ module Spree
     scope :ascend_by_name, -> { order(name: :asc) }
     scope :descend_by_name, -> { order(name: :desc) }
 
+    before_create :set_defaults
     before_update :set_update_attributes
     after_update :update_product
 
@@ -136,6 +137,9 @@ module Spree
 
     private
 
+    def set_defaults
+      self.user_id ||= product.user_id
+    end
 
     def self.prepare_taxon_conditions(taxons)
       ids = taxons.map { |taxon| taxon.self_and_descendants.pluck(:id) }.flatten.uniq

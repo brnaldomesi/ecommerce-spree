@@ -79,6 +79,8 @@ RSpec.describe ::Spree::Product do
         expect(latest_product.id).not_to eq(product.id)
         expect(latest_product.master_product_id).to eq(product.id)
         expect(latest_product.user_id).to eq(user.id)
+        expect(latest_product.master).not_to be_nil
+        expect(latest_product.master.user_id).to eq(user.id)
         expect(latest_product.images.size).to eq(product.images.size)
         expect(latest_product.sku).not_to eq(sku)
       end

@@ -1,5 +1,5 @@
 - admin_breadcrumb link_to(plural_resource_name(Spree::Product), spree.admin_products_path)
-- admin_breadcrumb @master_product ? 'Your Listing of This Product' : t('spree.new_product')
+- admin_breadcrumb @master_product ? t('spree.your_listing_of_this_product') : t('spree.new_product')
 
 = render partial: 'spree/shared/error_messages', locals: { target: @product }
 
