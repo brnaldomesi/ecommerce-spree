@@ -47,6 +47,9 @@ Spree::Core::Engine.routes.draw do
 
   resources :variants
 
+
+  get '/cart_link_dropdown', to: 'orders#cart_link_dropdown', as: 'cart_link_dropdown'
+
 end
 
 Rails.application.routes.draw do

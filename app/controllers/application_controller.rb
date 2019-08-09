@@ -1,12 +1,14 @@
 class ApplicationController < ActionController::Base
   include ControllerHelpers::PageFlow
   include Spree::Core::ControllerHelpers::Auth
+  include Spree::Core::ControllerHelpers::Order
 
   SITE_WALL_NAME = ENV['SITE_WALL_NAME']
   SITE_WALL_PASSWORD = ENV['SITE_WALL_PASSWORD']
   SITE_DOMAIN = ENV['SITE_DOMAIN']
 
   before_action :site_wall_authentication
+  before_action :load_cart
 
   ##
   # These from
@@ -29,6 +31,18 @@ class ApplicationController < ActionController::Base
       SITE_DOMAIN.present? ? {:host => SITE_DOMAIN } : { only_path: true }
     else
       {}
+    end
+  end
+
+  #
+  # From spree/orders_controller.rb#edit
+  def load_cart
+    if request.method == 'GET'
+      unless @order
+        @order = current_order || Spree::Order.incomplete.find_or_initialize_by(guest_token: cookies.signed[:guest_token])
+        authorize! :read, @order, cookies.signed[:guest_token]
+        associate_user
+      end
     end
   end
 
