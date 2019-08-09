@@ -85,50 +85,20 @@
       </div>
       <% end # not logged in %>
     </div>
-    <div class="toolbar-item"><a href="cart.html">
+    <div class="toolbar-item" id="toolbar_item_cart_link_dropdown"><%= link_to spree.cart_path do -%>
       <div>
-        <span class="cart-icon"><i class="icon-shopping-cart"></i><span class="count-label">3   </span></span><span class="text-label">Cart</span>
+        <span class="cart-icon"><i class="icon-shopping-cart"></i><span class="count-label"><%= order_in_cart.line_items.count -%></span></span><span class="text-label">Cart</span>
       </div>
-    </a>
+      <% end -%>
       <div class="toolbar-dropdown cart-dropdown widget-cart hidden-on-mobile">
-        <!-- Entry-->
-        <div class="entry">
-          <div class="entry-thumb"><a href="shop-single.html"><img src="/img/shop/widget/04.jpg" alt="Product"></a>
-          </div>
-          <div class="entry-content">
-            <h4 class="entry-title"><a href="shop-single.html">Canon EOS M50 Mirrorless Camera</a></h4>
-            <span class="entry-meta">1 x $910.00</span>
-          </div>
-          <div class="entry-delete"><i class="icon-x"></i></div>
-        </div>
-        <!-- Entry-->
-        <div class="entry">
-          <div class="entry-thumb"><a href="shop-single.html"><img src="/img/shop/widget/05.jpg" alt="Product"></a>
-          </div>
-          <div class="entry-content">
-            <h4 class="entry-title"><a href="shop-single.html">Apple iPhone X 256 GB Space Gray</a></h4>
-            <span class="entry-meta">1 x $1,450.00</span>
-          </div>
-          <div class="entry-delete"><i class="icon-x"></i></div>
-        </div>
-        <!-- Entry-->
-        <div class="entry">
-          <div class="entry-thumb"><a href="shop-single.html"><img src="/img/shop/widget/06.jpg" alt="Product"></a>
-          </div>
-          <div class="entry-content">
-            <h4 class="entry-title"><a href="shop-single.html">HP LaserJet Pro Laser Printer</a></h4>
-            <span class="entry-meta">1 x $188.50</span>
-          </div>
-          <div class="entry-delete"><i class="icon-x"></i></div>
-        </div>
+        <%= render partial: 'spree/orders/order_line_item_dropdown_entry', collection: order_in_cart.line_items, as: :line_item %>
+
         <div class="text-right">
-          <p class="text-gray-dark py-2 mb-0"><span class='text-muted'>Subtotal:</span> &nbsp;$2,548.50</p>
+          <p class="text-gray-dark py-2 mb-0"><span class='text-muted'>Subtotal:</span> &nbsp;<%= order_in_cart.display_total -%></p>
         </div>
         <div class="d-flex">
-          <div class="pr-2 w-50"><a class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">Expand Cart</a>
-          </div>
-          <div class="pl-2 w-50"><a class="btn btn-primary btn-sm btn-block mb-0" href="checkout.html">Checkout</a>
-          </div>
+          <% # TODO: minimize size of last loop to partial # <div class="pr-2 w-50"><a class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">Expand Cart</a></div> -%>
+          <% # TODO: show only when only 1 seller <div class="pl-2 w-50"><a class="btn btn-primary btn-sm btn-block mb-0" href="checkout.html">Checkout</a></div> -%>
         </div>
       </div>
     </div>
@@ -201,7 +171,7 @@
               </ul>
             </li>
             <li><a href="shop-single.html">Single Product</a></li>
-            <li><a href="cart.html">Cart</a></li>
+            <li><%= link_to t('spree.cart'), spree.cart_path -%></li>
             <li class="has-children">
               <span><a href="checkout-address.html">Checkout</a><span class="sub-menu-toggle"></span></span>
               <ul class="slideable-submenu">
@@ -345,7 +315,7 @@
       </div>
     </div>
   </div>
-  
+
       <%= render partial: 'spree/shared/main_nav_bar' if store_menu? %>
       <%= render partial: 'spree/shared/sticky_nav_bar' %>
 

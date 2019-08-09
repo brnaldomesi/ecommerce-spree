@@ -42,5 +42,9 @@
                </div>
       <% end %>
     </div>
-    
+
 <% reset_cycle("classes") %>
+
+<% if paginated_products.respond_to?(:total_pages) %>
+  <div class="text-center"><%= paginate paginated_products %></div>
+<% end %>
