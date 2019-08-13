@@ -1,0 +1,20 @@
+:ruby
+  @body_id = 'cart'
+%div(data-hook="cart_container" class="container")
+  %h1= t('spree.shopping_cart')
+  - if @order.line_items.empty?
+    %div(data-hook="empty_cart")
+      %p= t('spree.your_cart_is_empty')
+      %p= link_to t('spree.continue_shopping'), products_path, class: 'button continue'
+  - else
+    %div(data-hook="outside_cart_form")
+      %div(data-hook="inside_cart_form")
+        %div(data-hook="cart_items")
+          = render partial: 'spree/orders/form_in_seller_groups', locals: { order: @order }
+    #empty-cart(data-hook="")
+      = form_tag empty_cart_path, method: :put do
+        %p#clear_cart_link(data-hook="")
+          = submit_tag t('spree.empty_cart'), class: 'button gray'
+          = t('spree.or')
+          = link_to t('spree.continue_shopping'), products_path, class: 'continue button gray'
+      -#= render template: 'spree/coupon_codes/new'
