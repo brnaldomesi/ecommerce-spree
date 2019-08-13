@@ -1,0 +1,40 @@
+:ruby
+  # Expected locals
+  #   order <Spree::Order> could be defined by the variable iterating the collection.
+
+= render 'spree/shared/error_messages', target: order
+- order.line_items.includes(:variant).joins(variant: [:user] ).to_a.group_by{|item| item.variant.user_id }.each_pair do|seller_id, line_items|
+  - next if seller_id.nil?
+  = form_for @order, url: update_cart_path, html: {id: 'update-cart'} do |order_form|
+    %table(id="cart-detail" data-hook="cart-detail" class="table table-hover")
+      %thead
+        %tr(data-hook="cart_items_headers")
+          %th.cart-item-description-header(scope="col" colspan="2")
+            = t('spree.items')
+            - if seller_id && (user = line_items.first.variant.user )
+              from seller #{ link_to(user.display_name, user_path(user), title: seller_id ) }
+          %th(scope="col" class="cart-item-price-header")= t('spree.price')
+          %th(scope="col" class="cart-item-quantity-header")= t('spree.qty')
+          %th(scope="col" class="cart-item-total-header")= t('spree.total')
+          %th(scope="col" class="cart-item-delete-header")
+      %tbody(id="line_items" data-hook)
+        = render partial: 'spree/orders/line_item', collection: line_items, locals: { order_form: order_form }
+      - if order.adjustments.nonzero.exists? || order.line_item_adjustments.nonzero.exists? || order.shipment_adjustments.nonzero.exists? || order.shipments.any?
+        %tr.cart-subtotal
+          %td(colspan="4" align='right')
+            %h5= t('spree.cart_subtotal', count: order.line_items.sum(:quantity))
+          %td
+            %h5= order.display_item_total
+          %td
+        = render 'spree/orders/adjustments'
+      %tr.cart-total
+        %td(colspan="3" data-hook="cart_buttons")
+          = button_tag t('spree.update'), class: 'primary btn btn-primary', id: 'update-button'
+          = button_tag class: 'button checkout primary btn btn-success', id: 'checkout-link', name: 'checkout' do
+            = t('spree.checkout')
+        %td(colspan="3" align='right')
+          %h5
+            = t('spree.total')
+            = order.display_total
+    .links.columns.sixteen.alpha.omega
+  %br/

@@ -5,6 +5,7 @@
 //= require bootstrap.min
 //= require spree/spree
 //= require spree/frontend/card.min
+//= require spree/frontend/cart
 //= require spree/frontend/modernizr.min
 //= require spree/frontend/plugins
 //= require spree/frontend/main
