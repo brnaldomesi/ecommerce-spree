@@ -20,22 +20,22 @@
       = link_to('List This Item', new_admin_product_path(product:{master_product_id: resource.product_id}), class:'btn btn-success' )
 / Main Content Wrapper Start
 - cache [I18n.locale, current_pricing_options, @variant] do
-  %div{"data-hook" => "product_show"}>
+  %div(data-hook="product_show")
   .container
     .container.mb-12
     #content.main-content-wrapper
       .page-content-inner.enable-full-width
-        #wrapper.row{"data-hook" => "product_left_part_wrap"}
+        #wrapper.row(data-hook="product_left_part_wrap")
           .content-section.col-5
             / ############## GALLERY SECTIONS ############
             .product-main-image
-              .product-image{"data-hook" => "product_images"}
+              .product-image(data-hook="product_images")
                 .product-gallery
                   .product-gallery__large-image
                     %figure.product-gallery__image
                       = render partial: 'variant_gallery', locals: { variant: @variant }
-                  -##thumbnails
-                    -#= render partial: 'spree/products/thumbnails', locals: { product: @variant.product }
+                  #thumbnails
+                    = render partial: 'spree/products/thumbnails', locals: { product: @variant.product }
           / ############## END GALLERY SECTION ############
           .col-7
             .make-me-sticky
@@ -73,7 +73,7 @@
           %p.mb-4
             = product_description(@variant) rescue t('spree.product_has_no_description')
         .col-md-6
-          %div{"data-hook" => "product_properties"}
+          %div(data-hook="product_properties")
             = render partial: 'spree/products/properties'
-          %div{"data-hook" => "promotions"}
+          %div(data-hook="promotions")
             = render partial: 'spree/products/promotions'
