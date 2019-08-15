@@ -1,0 +1,52 @@
+<%
+content_for :footer_extra do -%>
+<script type="text/javascript">
+  $(function(){
+    $("#search_bar_taxon_dropdown_menu a").click(function(e){
+      e.preventDefault();
+      $("#search_bar_taxon_select").val( $(this).attr('data') );
+      $("#search_bar_taxon_dropdown_menu").css('display', 'none');
+    })
+  });
+</script>
+<% end # -%>
+<% @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::CategoryTaxon.top_categories %>
+<%= form_tag spree.products_path, method: :get do %>
+  <% cache [I18n.locale, @taxons] do %>
+    <div id="search-bar" data-hook="search-bar" class="search-box-wrap d-flex">
+      <div class="search-box-inner align-self-center">
+        <div class="search-box d-flex">
+          <div class="btn-group categories-btn">
+            <%= select_tag :taxon,
+                           options_for_select([[t('spree.categories'), '']] + @taxons.map { |t| [t.name, t.id] },
+                           @taxon ? @taxon.id : params[:taxon]), 'aria-label'=>'Taxon', id:'search_bar_taxon_select', class:'' -%>
+            <div class="dropdown">
+            <button type="button" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'
+                           class='btn dropdown-toggle' id='search_bar_taxon_dropdown' ></button>
+            <div class="dropdown-menu mega-dropdown" aria-labelledby="search_bar_taxon_dropdown" id="search_bar_taxon_dropdown_menu">
+              <% 0.upto( (@taxons.size / 4.0).ceil ) do|group_index|
+                subtaxons = @taxons[group_index * 4, 4] %>
+                <div class="row">
+                <% subtaxons.each do|taxon| %>
+                  <div class="col-sm-3">
+                    <a role="button" href="#" class="d-block navi-link text-center mb-30" data="<%= taxon.id -%>">
+                      <% if taxon.icon && taxon.icon.url.present? && !taxon.icon.url.ends_with?('default_taxon.png') -%>
+                        <img class="d-block" src="<%= taxon.icon.url -%>" alt="<%= taxon.name -%>">
+                      <% end -%>
+                      <span class="text-gray-dark"><%= taxon.name -%></span>
+                    </a>
+                  </div>
+                <% end # subtaxons %>
+                </div>
+              <% end # each group of taxons -%>
+            </div>
+            </div>
+          </div>
+          &nbsp;&nbsp;
+          <%= search_field_tag :keywords, params[:keywords], placeholder: t('spree.search_placeholder'), class:'form-control' %>
+          <button type="submit"><i class="icon-search"></i></button>
+        </div>
+      </div>
+    </div>
+<% end # cache
+end # form  -%>
