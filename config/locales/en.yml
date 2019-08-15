@@ -1909,6 +1909,7 @@ en:
     say_yes: 'Yes'
     scope: Scope
     search: Search
+    search_placeholder: Go shoppn, search for anything!
     search_results: Search results for '%{keywords}'
     searching: Searching
     secure_connection_type: Secure Connection Type
