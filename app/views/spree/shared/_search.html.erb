@@ -25,7 +25,9 @@ content_for :footer_extra do -%>
                            class='btn dropdown-toggle' id='search_bar_taxon_dropdown' ></button>
             <div class="dropdown-menu mega-dropdown" aria-labelledby="search_bar_taxon_dropdown" id="search_bar_taxon_dropdown_menu">
               <% 0.upto( (@taxons.size / 4.0).ceil ) do|group_index|
-                subtaxons = @taxons[group_index * 4, 4] %>
+                subtaxons = @taxons[group_index * 4, 4]
+                next if subtaxons.nil?
+                %>
                 <div class="row">
                 <% subtaxons.each do|taxon| %>
                   <div class="col-sm-3">
