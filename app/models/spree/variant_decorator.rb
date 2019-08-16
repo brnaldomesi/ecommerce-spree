@@ -68,6 +68,13 @@ module Spree
       where("#{Spree::OptionValue.table_name}.name = ? OR #{Spree::ProductProperty.table_name}.value = ?", value, value)
     end
 
+    def self.like_any(fields, values)
+      conditions = fields.product(values).map do |(field, value)|
+        Spree::Product.arel_table[field].matches("%#{value}%")
+      end
+      where conditions.inject(:or)
+    end
+
     def self.in_name(words)
       like_any([:name], prepare_words(words))
     end
@@ -111,7 +118,7 @@ module Spree
     end
 
     def self.taxons_name_eq(name)
-      group('spree_products.id').joins(:product[:taxons] ).where(Spree::Taxon.arel_table[:name].eq(name))
+      group("#{Spree::Product.quoted_table_name}.id").joins(:product[:taxons] ).where(Spree::Taxon.arel_table[:name].eq(name))
     end
 
     ###########################################

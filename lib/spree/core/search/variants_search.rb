@@ -20,7 +20,7 @@ module Spree
         protected
 
         def get_base_scope
-          base_scope = Spree::Variant.includes(:product).where(nil)
+          base_scope = Spree::Variant.joins(:product).where(nil)
           base_scope = base_scope.in_taxon(@properties[:taxon]) unless @properties[:taxon].blank?
           base_scope = get_conditions_for(base_scope, @properties[:keywords])
           base_scope = add_search_scopes(base_scope)
@@ -59,7 +59,7 @@ module Spree
 
         SORT_ORDER_ALIASES = {
             'gms' => "#{Spree::Product.table_name}.gross_merchandise_sales"
-          }
+          } unless defined?(SORT_ORDER_ALIASES)
         ##
         # Some order attribute might be short alias.
         def convert_sort_order(order)
