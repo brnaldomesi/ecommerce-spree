@@ -7,10 +7,10 @@
   %fieldset(data-hook="new_product")
 
 
-    - if @master_product || Rails.env.development? || params[:form] == 'form_in_one'
-      = render partial: 'form_in_one', locals: { f: f }
-    - else
-      %legend(align="center") #{t('spree.new_product') }
-      = render partial: 'form', locals: { f: f }
+    -# if @master_product || Rails.env.development? || params[:form] == 'form_in_one'
+    = render partial: 'form_in_one', locals: { f: f }
+    -# else
+    -#  %legend(align="center") #{t('spree.new_product') }
+    -#  = render partial: 'form', locals: { f: f }
 
     = render partial: 'spree/admin/shared/new_resource_links'
