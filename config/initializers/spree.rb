@@ -66,3 +66,6 @@ Spree::Config[:require_master_price] = false
 
 Spree::Auth::Config[:confirmable] = true
 Spree::Auth::Config.draw_frontend_routes = false
+
+# Admin preferences
+Spree::Config.preferences[:admin_products_per_page] = 30
