@@ -34,8 +34,6 @@
                   .product-gallery__large-image
                     %figure.product-gallery__image
                       = render partial: 'variant_gallery', locals: { variant: @variant }
-                  #thumbnails
-                    = render partial: 'spree/products/thumbnails', locals: { product: @variant.product }
           / ############## END GALLERY SECTION ############
           .col-7
             .make-me-sticky
