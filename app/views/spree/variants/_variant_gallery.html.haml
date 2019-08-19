@@ -1,9 +1,36 @@
+- variant.product.variants_including_master.collect do|v|
+  :css
+    .tmb-#{v.id}{ opacity: #{v.id == variant.id ? 1.0 : 0.3}; }
+
+:css
+  .tmb-all { opacity: 1.0 !important; }
+
+- content_for :footer_extra do
+  :javascript
+    function refreshImageAndThumbnails(e) {
+      var variantId = $(this).attr('value');
+      console.log('Variant ID: ' + variantId);
+      $('.vtmb').css('opacity', 0.3);
+      $('.tmb-all').css('opacity', 1.0);
+      $('.tmb-' + variantId).css('opacity', 1.0);
+      var firstThumb = $('.tmb-' + variantId)[0];
+    }
+    function loadImageOfThumbnail(e) {
+      e.preventDefault();
+      $(".product-gallery > img").attr("src", $(this).attr('href') );
+    }
+
+    $(function(){
+      $("input[name='variant_id']").change(refreshImageAndThumbnails);
+      $(".product-thumbnails a[href]").click(loadImageOfThumbnail);
+    });
 .product-gallery
   .gallery-wrapper
   - if variant.gallery.images.present?
     = render partial: 'spree/shared/image', locals: { image: variant.gallery.images.first, size: :large }
   .product-carousel.owl-carousel.gallery-wrapper
-    - variant.gallery.images.to_a.each_with_index do|image, index|
-      .gallery-item(dash-hash="Image #{index}")
-        = render partial: 'spree/shared/image', locals: { image: image }
+    -# variant.gallery.images.to_a.each_with_index do|image, index|
+    -#  .gallery-item(dash-hash="Image #{index}")
+    -#  = render partial: 'spree/shared/image', locals: { image: image }
+  #thumbnails
     = render partial: 'spree/products/thumbnails', locals: { product: variant.product }
