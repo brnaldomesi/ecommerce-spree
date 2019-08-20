@@ -64,9 +64,6 @@
             currency: Spree::Config.default_pricing_options.currency
           = f.error_message_on :price
 
--#%div(id="new_image" class="hidden")
-  -#= render '/spree/admin/images/new', product: @product, image: Spree::Image.new(viewable: @product)
-
 %br/
 %fieldset.no-border-bottom
   %legend(align="center") #{t('spree.main_images')}

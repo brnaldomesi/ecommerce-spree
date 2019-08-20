@@ -3,14 +3,15 @@
   # Expected locals:
   #   line_item <Spree::LineItem>
   variant = line_item.variant
-.entry
-  .entry-thumb
-    = link_to(render('spree/shared/image', image: (variant.gallery.images.first || variant.product.gallery.images.first), size: :small), variant.product)
-  .entry-content
-    %h4.entry-title
-      = link_to(line_item.name, variant.product)
-    %span.entry-meta
-      #{line_item.quantity} x #{line_item.display_amount.to_html}
-  .entry-delete
-    = link_to '#', class:'delete text-danger', id: "delete_#{dom_id(line_item)}" do
-      %i.icon-x
+- if variant
+  .entry
+    .entry-thumb
+      = link_to(render('spree/shared/image', image: (variant.gallery.images.first || variant.product.gallery.images.first), size: :small), variant.product)
+    .entry-content
+      %h4.entry-title
+        = link_to(line_item.name, variant.product)
+      %span.entry-meta
+        #{line_item.quantity} x #{line_item.display_amount.to_html}
+    .entry-delete
+      = link_to '#', class:'delete text-danger', id: "delete_#{dom_id(line_item)}" do
+        %i.icon-x
