@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
   include Spree::Core::ControllerHelpers::Auth
   include Spree::Core::ControllerHelpers::Order
 
-  SITE_WALL_NAME = ENV['SITE_WALL_NAME']
-  SITE_WALL_PASSWORD = ENV['SITE_WALL_PASSWORD']
-  SITE_DOMAIN = ENV['SITE_DOMAIN']
+  %w|SITE_WALL_NAME SITE_WALL_PASSWORD SITE_DOMAIN|.each do|var_name|
+    self.const_set var_name, SystemSetting.settings[var_name]
+  end
 
   before_action :site_wall_authentication
   before_action :load_cart
