@@ -152,3 +152,9 @@ namespace :deploy do
   after  :finishing, :link_log_directory
   after  :finishing, :copy_fonts_to_assets
 end
+
+task :env do
+  on roles(:all) do
+    execute 'env'
+  end
+end
