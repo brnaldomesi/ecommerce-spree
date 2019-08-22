@@ -43,12 +43,32 @@ module Spree
     end
 
     ##
-    # @return <Hash of Integer(:option_type_id) => Array of Spree::OptionValue>
-    def whole_hash_of_option_values
-      unless @hash_of_option_values
-        ::Spree::OptionValue.where(id: variants.collect{|v| v.option_values_variants.select('option_value_id').collect(&:option_value_id) }.flatten ).all.group_by(&:option_type_id)
+    # @return <Hash of Integer(:option_type_id) => Array of Spree::OptionValue, where each contains a set of variant_ids>
+    def hash_of_option_type_ids_and_values
+      unless @hash_of_option_type_ids_and_values
+        option_value_id_to_variant_ids = ActiveSupport::HashWithIndifferentAccess.new
+        variants.each do|v|
+          v.option_values_variants.select('option_value_id').each do|ovv|
+            list = option_value_id_to_variant_ids[ovv.option_value_id] || []
+            list << v.id
+            option_value_id_to_variant_ids[ovv.option_value_id] = list
+          end
+        end
+        own_option_values = ::Spree::OptionValue.includes(:option_type).
+          where(id: option_value_id_to_variant_ids.keys ).
+          order("#{::Spree::OptionType.table_name}.position").all
+        own_option_values.each do|ov|
+          ov.variant_ids = option_value_id_to_variant_ids[ov.id]
+        end
+        @hash_of_option_type_ids_and_values = own_option_values.group_by(&:option_type_id)
       end
-      @hash_of_option_values
+      @hash_of_option_type_ids_and_values
+    end
+
+    ##
+    # @return <Hash of >
+    def build_option_values_hash
+
     end
 
     ####################################

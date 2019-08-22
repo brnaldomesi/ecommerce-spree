@@ -1,5 +1,11 @@
 <%# no need for thumbnails unless there is more than one image
 %>
+<style type="text/css">
+.product-thumbnails > li { background-color: #eeeeee; }
+.product-thumbnails > li a > img { position: relative; top: 20%; }
+.tmb-active { opacity: 1.0 !important; box-shadow: 4px 4px 3px #ccc !important; }
+.tmb-inactive { opacity: 0.3 !important; box-shadow: none !important; }
+</style>
 <% if product.gallery.images.size > 1 %>
    <ul class="product-thumbnails">
     <% product.gallery.images.each do |image| %>
