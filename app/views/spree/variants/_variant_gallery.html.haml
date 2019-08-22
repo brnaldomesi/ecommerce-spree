@@ -1,18 +1,15 @@
-- variant.product.variants_including_master.collect do|v|
-  :css
-    .tmb-#{v.id}{ opacity: #{v.id == variant.id ? 1.0 : 0.3}; }
-
-:css
-  .tmb-all { opacity: 1.0 !important; }
-
 - content_for :footer_extra do
   :javascript
-    function refreshImageAndThumbnails(e) {
+    function activateVariant(e) {
       var variantId = $(this).attr('value');
-      console.log('Variant ID: ' + variantId);
-      $('.vtmb').css('opacity', 0.3);
-      $('.tmb-all').css('opacity', 1.0);
-      $('.tmb-' + variantId).css('opacity', 1.0);
+      //console.log('Variant ID: ' + variantId);
+      refreshImageAndThumbnails(variantId);
+    }
+    function refreshImageAndThumbnails(variantId) {
+      $('.vtmb').addClass('tmb-inactive');
+      $('.tmb').addClass('tmb-inactive');
+      $('.tmb-all').removeClass('tbm-inactive').addClass('tmb-active');
+      $('.tmb-' + variantId).removeClass('tmb-inactive').addClass('tmb-active');
       var firstThumb = $('.tmb-' + variantId)[0];
     }
     function loadImageOfThumbnail(e) {
@@ -21,7 +18,8 @@
     }
 
     $(function(){
-      $("input[name='variant_id']").change(refreshImageAndThumbnails);
+      refreshImageAndThumbnails('#{variant.id}');
+      $("input[name='variant_id']").change(activateVariant);
       $(".product-thumbnails a[href]").click(loadImageOfThumbnail);
     });
 .product-gallery
