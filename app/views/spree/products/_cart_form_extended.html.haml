@@ -11,33 +11,50 @@
     background-color: #f0f0f0; opacity: 0.5; }
 
 :javascript
-  var selectedVariantIds = [];
+  var selectedSetOfVariantIds = [];
+  var selectedVariantId;
   function selectOptionValue(e) {
     var data = $(this).attr('data');
     if (data && data != "") {
       $('.option-value-button').removeClass('btn-current');
       $(this).addClass('btn-current');
-      selectedVariantIds = data.split(" ");
-      selectedVariantIds.forEach(function(variantId){
-        $(".secondary-option-type-row .option-value-button").each(function(idx){
-          var otherData = $(this).attr('data');
-          var otherVariantIds = otherData.split(' ');
-          if (otherVariantIds.indexOf(variantId) == -1) {
-            $(this).removeClass('btn-available').addClass('btn-unavailable');
-          } else {
-            $(this).removeClass('btn-unavailable').addClass('btn-available');
-          }
-          // console.log("* has "+ variantId +"? " + otherVariantIds);
-        });
+      selectedSetOfVariantIds = data.split(" ");
+      if (typeof(refreshImageAndThumbnails) == 'function'){ refreshImageAndThumbnails(selectedSetOfVariantIds[0] ); }
+      if (selectedSetOfVariantIds.length == 1) {
+        selectedVariantId = selectedSetOfVariantIds[0];
+        document.forms["cart_form"]["variant_id"].value = selectedVariantId;
+      }
+      $(".secondary-option-type-row .option-value-button").each(function(idx){
+        var otherData = $(this).attr('data');
+        var otherVariantIds = otherData.split(' ');
+        var commonVariantIds = otherVariantIds.filter(value => selectedSetOfVariantIds.includes(value));
+        if (commonVariantIds.length < 1) {
+          $(this).removeClass('btn-available').addClass('btn-unavailable');
+        } else {
+          $(this).removeClass('btn-unavailable').addClass('btn-available');
+        }
+        // console.log("* has "+ variantId +"? " + otherVariantIds);
       });
+    }
+  }
+  function selectSecondaryOptionValue(e) {
+    var data = $(this).attr('data');
+    if (data && data != "") {
+      var curVariantIds = data.split(" ");
+      var commonVariantIds = curVariantIds.filter(value => selectedSetOfVariantIds.includes(value));
+      selectedVariantId = commonVariantIds[0];
+      document.forms["cart_form"]["variant_id"].value = selectedVariantId;
+      console.log("| selected: " + selectedSetOfVariantIds +" vs cur " + curVariantIds );
+      console.log("| selectedVariantId = "+ selectedVariantId );
     }
   }
 
   $(function(){
     $('#option_type_row_1 .option-value-button').click(selectOptionValue);
+    $('.secondary-option-type-row .option-value-button').click(selectSecondaryOptionValue);
   });
 
-= form_for :order, url: populate_orders_path do |f|
+= form_for :order, url: populate_orders_path, html:{ name:'cart_form' } do |f|
   #inside-product-cart-form(data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="http://schema.org/Offer")
     - if @product.variants_and_option_values_for(current_pricing_options).any?
       #product-variants(class="columns five alpha")
