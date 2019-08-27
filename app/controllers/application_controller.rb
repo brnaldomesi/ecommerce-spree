@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include Spree::Core::ControllerHelpers::Order
 
   %w|SITE_WALL_NAME SITE_WALL_PASSWORD SITE_DOMAIN|.each do|var_name|
-    self.const_set var_name, SystemSetting.settings[var_name]
+    self.const_set var_name, ENV[var_name] || SystemSetting.settings[var_name]
   end
 
   before_action :site_wall_authentication
