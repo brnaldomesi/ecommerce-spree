@@ -55,6 +55,10 @@ module Spree
       ip.present? && ip != '127.0.0.1'
     end
 
+    def send_confirmation_notification?
+      !Rails.env.test?
+    end
+
     protected
 
     def set_defaults
