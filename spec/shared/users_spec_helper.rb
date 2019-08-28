@@ -1,14 +1,18 @@
 module UsersSpecHelper
 
   def sign_up_with(email, password, username = nil, display_name = nil)
-    visit signup_path
-    fill_in 'Email', with: email
-    fill_in 'Username', with: username if username
-    fill_in 'Display Name', with: display_name if display_name
-    fill_in 'Password', with: password
-    fill_in 'Password Confirmation', with: password
-    click_button 'Create'
-
+    begin
+      visit signup_path
+      fill_in 'Email', with: email
+      fill_in 'Username', with: username if username
+      fill_in 'Display Name', with: display_name if display_name
+      fill_in 'Password', with: password
+      fill_in 'Password Confirmation', with: password
+      click_button 'Create'
+    rescue Exception => e
+      raise e unless e.is_a?(::Errno::ECONNREFUSED) # test mail recipient service like mailcatcher not running
+      puts "** Ignore exception during registration request: #{e}"
+    end
     user = Spree::User.last
     expect(user.email).to eq(email)
     expect(user.username).not_to be_nil if username
