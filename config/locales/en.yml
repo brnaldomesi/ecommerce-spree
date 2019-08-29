@@ -735,6 +735,7 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+  site_name: Shoppn
   spree:
     abbreviation: Abbreviation
     accept: Accept
@@ -2210,3 +2211,4 @@ en:
       solidus:
         long: "%B %d, %Y %-l:%M %p"
         short: "%b %-d '%y %-l:%M%P"
+  welcome_to_site: Welcome to shoppn

@@ -4,7 +4,7 @@ module Spree
 
     validates_format_of :username, with: USERNAME_REGEXP, allow_blank: true
 
-    has_one :store, class_name: 'Spree::Store', foreign_key: 'user_id'
+    has_one :store, class_name: 'Spree::Store', foreign_key: 'user_id', dependent: :destroy
 
     before_save :set_defaults
     after_create :create_store!
