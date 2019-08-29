@@ -2,6 +2,10 @@ module Spree
   UsersController.class_eval do
     helper 'spree/admin/navigation'
 
+    def index
+
+    end
+
     def access
 
     end
