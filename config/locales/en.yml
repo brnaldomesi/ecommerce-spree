@@ -735,6 +735,15 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+  payment:
+    which_payment_methods: Which payment processors do you take?
+    payment_methods_you_take: Payment processors you take
+    best_payment_method: The best and most secure way to receive your payments
+    connect_with_paypal: Connect with PayPal
+    select_other_payment_methods: Select other payment processors
+    other_ways_to_get_paid: Other ways to get paid
+    choose_a_payment_method: Choose a payment processor from our list of approved processors
+    selected_payment_methods: Selected payment processors
   site_name: Shoppn
   spree:
     abbreviation: Abbreviation
