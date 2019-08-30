@@ -1,0 +1,47 @@
+:ruby
+  first_payment_method = @available_payment_methods.first
+  show_paypal = first_payment_method.is_a?(Spree::PaymentMethod::PayPal) &&
+    params[:show_other_payment_methods] != 'true'
+
+.container
+  .row
+    .col-sm-1.col-md-3
+    .col-sm-10.col-md-6
+      - if @available_payment_methods.size > 0
+        %h3
+          %strong=t('payment.which_payment_methods')
+        %br/
+        .card
+          .card-body.p-5
+            = form_for(Spree::StorePaymentMethod.new) do|f|
+              - if show_paypal
+                = f.hidden_field(:payment_method_id, value: first_payment_method.id)
+                .text-center
+                  %h4=t('payment.best_payment_method')
+                  = f.button(type:'submit', class:'btn btn-primary rounded-pill') do
+                    = image_tag('/assets/icons/payments/paypal_white_icon_only_22.png')
+                    = t('payment.connect_with_paypal')
+              - else
+                %p
+                  = image_tag('/assets/icons/payments/credit_cards_all.png')
+                %strong=t('payment.other_ways_to_get_paid')
+                %br/
+                %span=t('payment.choose_a_payment_method')
+                %br/
+                %br/
+                = f.select(:payment_method_id, payment_methods_select_options, class:'form-control' )
+                &nbsp;&nbsp;
+                = f.submit('Add', class:'btn btn-sm btn-primary rounded-pill')
+                %br/
+      - else # no @available_payment_methods
+        %h5=t('payment.selected_payment_methods')
+        .card
+          %ul.list-group.list-group-flush
+            - @store_payment_methods.each do|spm|
+              %li.list-group-item
+                = spm.payment_method.name
+      - if show_paypal
+        .pull-right
+          = link_to(store_payment_method_path(show_other_payment_methods: true)) do
+            %strong=t('payment.select_other_payment_methods')
+    .col-sm-1.col-md-3

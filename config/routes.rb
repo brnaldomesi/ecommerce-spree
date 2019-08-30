@@ -41,6 +41,8 @@ Spree::Core::Engine.routes.draw do
 
   ##
   # Seller
+  resources :store_payment_methods
+  get '/accepted_payments', to: 'store_payment_methods#index', as: 'accepted_payments'
 
   ##
   # Buyer

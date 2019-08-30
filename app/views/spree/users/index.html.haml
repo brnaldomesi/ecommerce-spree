@@ -1,0 +1,9 @@
+.container
+  %br/
+  .card
+    .card-header
+      %h4.card-title= t('spree.my_account')
+    %ul.list-group.list-group-flush
+      %li.list-group-item
+        = link_to(t('payment.payment_methods_you_take'), accepted_payments_path )
+  %br/
