@@ -744,6 +744,7 @@ en:
     other_ways_to_get_paid: Other ways to get paid
     choose_a_payment_method: Choose a payment processor from our list of approved processors
     selected_payment_methods: Selected payment processors
+    finish_and_go_to_dashboard: Finish and go to dashboard
   site_name: Shoppn
   spree:
     abbreviation: Abbreviation
