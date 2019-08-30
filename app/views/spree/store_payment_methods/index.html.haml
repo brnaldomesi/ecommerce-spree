@@ -11,6 +11,12 @@
         %h3
           %strong=t('payment.which_payment_methods')
         %br/
+        - if params[:added_payment_method_id] && (added_payment_method = ::Spree::PaymentMethod.where(id: params[:added_payment_method_id]).first )
+          .alert.alert-success.text-center.pt-5
+            %h4
+              -# TODO: = image_tag("/assets/icons/payments/#{added_payment_method.name.downcase.underscore}.png")
+              #{added_payment_method.name} Successfully Added
+          %br/
         .card
           .card-body.p-5
             = form_for(Spree::StorePaymentMethod.new) do|f|
@@ -24,8 +30,8 @@
               - else
                 %p
                   = image_tag('/assets/icons/payments/credit_cards_all.png')
-                %strong=t('payment.other_ways_to_get_paid')
-                %br/
+                %h6
+                  %strong=t('payment.other_ways_to_get_paid')
                 %span=t('payment.choose_a_payment_method')
                 %br/
                 %br/
@@ -41,7 +47,11 @@
               %li.list-group-item
                 = spm.payment_method.name
       - if show_paypal
-        .pull-right
-          = link_to(store_payment_method_path(show_other_payment_methods: true)) do
+        .pull-right.mt-1
+          = link_to(store_payment_methods_path(show_other_payment_methods: true)) do
             %strong=t('payment.select_other_payment_methods')
+
+      %br/
+      %br/
+      = link_to(t('payment.finish_and_go_to_dashboard'), account_index_path, class:'btn btn-secondary text-white bg-dark')
     .col-sm-1.col-md-3

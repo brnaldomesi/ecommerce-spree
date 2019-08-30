@@ -16,7 +16,7 @@ module Spree
       params.permit!
       @store_payment_method = ::Spree::StorePaymentMethod.new(params[:store_payment_method])
       @store_payment_method.store_id = spree_current_user.store.id
-      create!(notice: '') { store_payment_methods_path }
+      create!(notice: '') { store_payment_methods_path(added_payment_method_id: @store_payment_method.payment_method_id) }
     end
 
     private
@@ -30,7 +30,7 @@ module Spree
       cur_payment_method_ids = collection.collect(&:payment_method_id)
       @available_payment_methods = ::Spree::PaymentMethod.all.order('position asc').to_a
       @available_payment_methods.delete_if do|pm|
-        cur_payment_method_ids.include?(pm.id)
+        cur_payment_method_ids.include?(pm.id) || (pm.is_a?(::Spree::PaymentMethod::PayPal) && params[:show_other_payment_methods] )
       end
     end
 
