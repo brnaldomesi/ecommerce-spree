@@ -2,6 +2,8 @@ module Spree
   UsersController.class_eval do
     helper 'spree/admin/navigation'
 
+    before_action :check_confirm_page_to_go, only: [:index]
+
     def index
     end
 
