@@ -47,7 +47,7 @@ module Spree
       else
         nil
       end
-    rescue ArgumentError => e
+    rescue Timeout::Error, ArgumentError => e
       ::Spree::User.logger.warn "Problem in fetching location of #{current_sign_in_ip}: #{e}"
     end
 
