@@ -26,6 +26,10 @@ module Spree
     ######################################
     # Action methods
 
+    # Find or create one
+    def fetch_store
+      @store ||= self.store || create_store!
+    end
 
     def create_store!
       ::Spree::Store.find_or_create_by(user_id: id) do|store|

@@ -46,7 +46,7 @@ $(function(){
                 <div class="product-summary mt--40 mt-md--10 mt-sm--30">
                     <div class="padding-top-2x mt-2 hidden-md-up"></div>
                     <div class="sp-categories pb-3"><i class="icon-tag"></i><a href="#">Drones,</a><a href="#">Action cameras</a></div>
-                    <h2 class="mb-3"><%= @product.name %></h2><span class="h3 d-block">
+                    <h2 class="mb-3" title="<%= @product.user.fetch_store.try(:name) -%> (<%= @product.user.fetch_store.try(:id) -%>)"><%= @product.name %></h2><span class="h3 d-block">
                       <del class="text-muted"><%= @product.price %></del>&nbsp; <%= @product.price %></span>
                     <p class="text-muted"><%= product_description(@product) rescue t('spree.product_has_no_description') %>&nbsp;&nbsp;<a href='#details' class='scroll-to'>More info</a></p>
 

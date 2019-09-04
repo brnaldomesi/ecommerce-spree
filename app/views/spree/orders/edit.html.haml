@@ -10,7 +10,7 @@
     %div(data-hook="outside_cart_form")
       %div(data-hook="inside_cart_form")
         %div(data-hook="cart_items")
-          = render partial: 'spree/orders/form_in_seller_groups', locals: { order: @order }
+          = render partial: 'spree/orders/form_in_seller_groups', locals: { orders: @orders }
     #empty-cart(data-hook="")
       = form_tag empty_cart_path, method: :put do
         %p#clear_cart_link(data-hook="")
