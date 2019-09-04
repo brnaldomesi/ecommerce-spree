@@ -47,7 +47,9 @@ module Spree
       else
         nil
       end
-    rescue Timeout::Error, ArgumentError => e
+    rescue Timeout::Error, JSON::ParserError
+      ::Spree::User.logger.warn 'Problem with request to GeoIp API'
+    rescue ArgumentError => e
       ::Spree::User.logger.warn "Problem in fetching location of #{current_sign_in_ip}: #{e}"
     end
 
