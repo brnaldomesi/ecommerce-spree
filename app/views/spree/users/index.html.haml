@@ -6,4 +6,6 @@
     %ul.list-group.list-group-flush
       %li.list-group-item
         = link_to(t('payment.payment_methods_you_take'), accepted_payments_path )
+      %li.list-group-item
+        = link_to(t('store.your_items'), user_path(id: spree_current_user.id) )
   %br/
