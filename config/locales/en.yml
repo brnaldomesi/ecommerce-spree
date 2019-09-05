@@ -963,7 +963,8 @@ en:
           create_order: Create order for this user
       variants:
         edit:
-          edit_variant: Edit Variant
+          edit_this_variant: Edit This Variant
+          modify_variants: Modify Variants
         form:
           dimensions: Dimensions
           pricing: Pricing
