@@ -16,5 +16,5 @@
         %p#clear_cart_link(data-hook="")
           = submit_tag t('spree.empty_cart'), class: 'button gray'
           = t('spree.or')
-          = link_to t('spree.continue_shopping'), products_path, class: 'continue button gray'
+          = link_to t('spree.continue_shopping'), cookies[:recent_shopping_path] || products_path, class: 'continue button gray'
       -#= render template: 'spree/coupon_codes/new'

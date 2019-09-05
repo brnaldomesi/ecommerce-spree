@@ -1,11 +1,6 @@
 ::Spree::OrdersController.class_eval do
   include Spree::Core::ControllerHelpers::Cart
 
-  ##
-  # The cart has changed to handle multi-seller orders.
-  def edit
-    load_cart
-  end
 
   ##
   # Sets @current_store ahead based on variant. After that same as original method.

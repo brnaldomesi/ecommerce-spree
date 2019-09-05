@@ -36,7 +36,7 @@
           %tr.cart-total
             %td(colspan="3" data-hook="cart_buttons")
               = button_tag t('spree.update'), class: 'primary btn btn-primary', id: 'update-button'
-              = button_tag class: 'button checkout primary btn btn-success', id: 'checkout-link', name: 'checkout' do
+              = link_to checkout_state_path(state:'address', order_id: order.id), class: 'checkout primary btn btn-success', id: 'checkout-link', name: 'checkout' do
                 = t('spree.checkout')
             %td(colspan="3" align='right')
               %h5
