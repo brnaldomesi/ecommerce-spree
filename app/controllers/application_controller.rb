@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include ControllerHelpers::PageFlow
   include Spree::Core::ControllerHelpers::Auth
   include Spree::Core::ControllerHelpers::Order
+
+  require File.join(Rails.root, 'lib/spree/core/controller_helpers/cart') # somehow the config/application.rb cannot load lib/*
   include Spree::Core::ControllerHelpers::Cart
 
   %w|SITE_WALL_NAME SITE_WALL_PASSWORD SITE_DOMAIN|.each do|var_name|
