@@ -16,7 +16,7 @@ Spree::Core::ControllerHelpers::Order.module_eval do
 
     @current_order = ::Spree::Order.find(params[:order_id]) if params[:order_id]
     @current_order ||= find_order_by_token_or_user(options)
-    logger.info "| current_order: #{@current_order}, w/ current_order_params #{current_order_params}"
+    logger.debug "| current_order: #{@current_order}, w/ current_order_params #{current_order_params}"
 
     if options[:create_order_if_necessary] && (@current_order.nil? || @current_order.completed?)
       @current_order = Spree::Order.new(new_order_params)
