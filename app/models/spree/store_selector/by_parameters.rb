@@ -11,9 +11,9 @@ module Spree
       # Chooses the current store based on a request.
       # @return [Spree::Store]
       def store
-        store_id = store_id
-        ::Spree::User.logger.info "| ByParameters: store_id #{store_id}"
-        store = store_id ? ::Spree::Store.where(id: store_id).first : nil
+        _store_id = store_id
+        ::Spree::User.logger.info "| ByParameters: store_id #{_store_id}"
+        store = _store_id ? ::Spree::Store.where(id: _store_id).first : nil
         store || Spree::Store.new
       end
 
@@ -23,14 +23,18 @@ module Spree
       LOAD_STORE_ACTIONS = %w|show edit update destroy|
       LOAD_STORE_CONTROLLERS = %w|spree/stores|
 
+      def params
+        @request.try(:params) || {}
+      end
+
       def store_id
-        store_id = params[:store_id]
-        unless store_id
+        _store_id = params[:store_id]
+        unless _store_id
           if LOAD_STORE_CONTROLLERS.include?(params[:controller]) && LOAD_STORE_ACTIONS.include?(params[:action])
-            store_id = params[:id]
+            _store_id = params[:id]
           end
         end
-        store_id
+        _store_id
       end
     end
   end

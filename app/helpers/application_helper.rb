@@ -12,7 +12,11 @@ module ApplicationHelper
     ''
   end
 
-  def order_in_cart
-    @order
+  def orders_in_cart
+    @orders
+  end
+
+  def cart_items
+    @cart_items ||= @orders.collect(&:line_items).flatten
   end
 end

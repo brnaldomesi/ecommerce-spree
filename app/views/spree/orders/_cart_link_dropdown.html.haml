@@ -2,16 +2,16 @@
   %div
     %span.cart-icon
       %i.icon-shopping-cart
-      %span.count-label #{ order_in_cart.try(:line_items).try(:count) || 0 }
+      %span.count-label #{ cart_items.try(:count) || 0 }
     %span.text-label #{t('spree.cart')}
-- if order_in_cart && order_in_cart.line_items.try(:count) > 0
+- if cart_items && cart_items.count > 0
   %div(class="toolbar-dropdown cart-dropdown widget-cart hidden-on-mobile")
-    = render partial: 'spree/orders/order_line_item_dropdown_entry', collection: order_in_cart.line_items, as: :line_item
+    = render partial: 'spree/orders/order_line_item_dropdown_entry', collection: cart_items, as: :line_item
     .text-right
       %p(class="text-gray-dark py-2 mb-0")
         %span.text-muted #{t('spree.subtotal') }:
         &nbsp;
-        = order_in_cart.display_total
+        = orders_in_cart.collect(&:display_total).sum
     .d-flex
       - # TODO: minimize size of last loop to partial # <div class="pr-2 w-50"><a class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">Expand Cart</a></div> -%>
       - # TODO: show only when only 1 seller <div class="pl-2 w-50"><a class="btn btn-primary btn-sm btn-block mb-0" href="checkout.html">Checkout</a></div> -%>
