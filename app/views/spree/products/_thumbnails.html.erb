@@ -1,26 +1,20 @@
 <%# no need for thumbnails unless there is more than one image
 %>
-<style type="text/css">
-.product-thumbnails > li { background-color: #eeeeee; }
-.product-thumbnails > li a > img { position: relative; top: 20%; }
-.tmb-active { opacity: 1.0 !important; box-shadow: 4px 4px 3px #ccc !important; }
-.tmb-inactive { opacity: 0.3 !important; box-shadow: none !important; }
-</style>
-<% if product.gallery.images.size > 1 %>
-   <ul class="product-thumbnails">
+<% if product.has_variants? %>
+  <ul class="product-thumbnails">
+    <% product.variants.each do |variant| %>
+      <li class='tmb-all tmb-<%= variant.id %>'>
+        <%= link_to(image_tag(variant.gallery.images.first.url(:mini)), variant.gallery.images.first.url(:product)) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <ul class="product-thumbnails">
     <% product.gallery.images.each do |image| %>
       <% next if image.viewable_id != product.master.id %>
       <li class='tmb-all tmb-<%= image.viewable_id %>'>
         <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
       </li>
     <% end %>
-    <% if product.has_variants? %>
-      <% product.gallery.images.each do |image| %>
-        <% next if image.viewable_id == product.master.id %>
-        <li class='vtmb tmb-<%= image.viewable_id %>'>
-          <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
-        </li>
-      <% end %>
-    <% end %>
-   </ul>
+  </ul>
 <% end %>

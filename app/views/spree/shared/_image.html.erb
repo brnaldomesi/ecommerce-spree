@@ -3,7 +3,7 @@
 
 <% if image_url = image.try(:url, size)  %>
   <% if image_alt = image.try(:alt) %>
-    <%= image_tag image_url, alt: image_alt, itemprop: itemprop %>
+    <%= image_tag image_url, alt: image_alt, itemprop: itemprop, class: "image_preview" %>
   <% else %>
     <%= image_tag image_url, itemprop: itemprop %>
   <% end %>

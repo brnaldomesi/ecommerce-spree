@@ -67,6 +67,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {:host => APP_HOST, :port => '3000', :protocol => 'http'}
   config.action_mailer.preview_path = "#{Rails.root}/tmp/mailers/previews"
 
+
+  config.assets.cache_store = :null_store  # Disables the Asset cache
+  config.sass.cache = false  # Disable the SASS compiler cache
+  
   # Paperclip
   Paperclip.options[:log] = false
 end
