@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   include Spree::Core::ControllerHelpers::Auth
   include Spree::Core::ControllerHelpers::Order
 
+  require File.join(Rails.root, 'lib/spree/core/controller_helpers/cart') # somehow the config/application.rb cannot load lib/*
+  include Spree::Core::ControllerHelpers::Cart
+
   %w|SITE_WALL_NAME SITE_WALL_PASSWORD SITE_DOMAIN|.each do|var_name|
     self.const_set var_name, ENV[var_name] || SystemSetting.settings[var_name]
   end
@@ -31,18 +34,6 @@ class ApplicationController < ActionController::Base
       SITE_DOMAIN.present? ? {:host => SITE_DOMAIN } : { only_path: true }
     else
       {}
-    end
-  end
-
-  #
-  # From spree/orders_controller.rb#edit
-  def load_cart
-    if request.method == 'GET'
-      unless @order
-        @order = current_order || Spree::Order.incomplete.find_or_initialize_by(guest_token: cookies.signed[:guest_token])
-        authorize! :read, @order, cookies.signed[:guest_token]
-        associate_user
-      end
     end
   end
 

@@ -1,19 +1,6 @@
 ::Spree::OrdersController.class_eval do
+  include Spree::Core::ControllerHelpers::Cart
 
-  ##
-  # The cart has changed to handle multi-seller orders.
-  def edit
-    @orders = Spree::Order.includes(:store).incomplete.where(guest_token: cookies.signed[:guest_token])
-    if @orders.blank?
-      @orders = []
-    else
-      authorize! :read, @orders.first, cookies.signed[:guest_token]
-
-      @orders.each do|order| # do what associate_user does
-        order.associate_user!(try_spree_current_user) if order.user.blank? || order.email.blank?
-      end
-    end
-  end
 
   ##
   # Sets @current_store ahead based on variant. After that same as original method.
