@@ -6,7 +6,7 @@ class CreateSiteCategories < ActiveRecord::Migration[5.2]
       t.integer :mapped_taxon_id
       t.integer :parent_id
       t.integer :position, default: 1
-      t.string  :name, limit: 255
+      t.string  :name, limit: 191
       t.integer :lft
       t.integer :rgt
       t.integer :depth, default: 0

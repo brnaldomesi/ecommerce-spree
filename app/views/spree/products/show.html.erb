@@ -14,82 +14,86 @@ $(function(){
 <% end # manage_actions -%>
 <% cache [I18n.locale, current_pricing_options, @product] do %>
 <div data-hook="product_show" itemscope itemtype="http://schema.org/Product">
-<div class="container mb-12">
-<div id="content" class="main-content-wrapper">
-    <div class="page-content-inner enable-full-width">
-      <div id="wrapper" class="row" data-hook="product_left_part_wrap">
-        <div class="content-section col-5">
-          <!-- ############## GALLERY SECTIONS ############ -->
-          <div class="product-main-image">
-              <div class="product-image" data-hook="product_images">
-                  <div class="product-gallery">
+  <div class="container mb-12">
+    <div id="content" class="main-content-wrapper">
+        <div class="page-content-inner enable-full-width">
+          <div id="wrapper" class="row" data-hook="product_left_part_wrap">
+            <ul class="breadcrumbs">
+            <% @product.taxons.each do |taxon| %>
+              <li><%= link_to taxon.name, seo_url(taxon) %></li>
+            <% end %>
+            </ul>
+            <div class="content-section col-5">
+              <!-- ############## GALLERY SECTIONS ############ -->
+              <div class="product-main-image">
+                  <div class="product-image" data-hook="product_images">
+                      <div class="product-gallery">
 
-                      <div class="product-gallery__large-image">
-                          <figure class="product-gallery__image">
-                              <%= render partial: 'spree/variants/variant_gallery', locals: { variant: @product.master } %>
-                          </figure>
-                          <!--<div class="product-gallery__actions">
-                              <button class="action-btn btn-zoom-popup"><i class="dl-icon-zoom-in"></i></button>
-                              <a href="https://www.youtube.com/watch?v=Rp19QD2XIGM" class="action-btn video-popup"><i class="dl-icon-format-video"></i></a>
-                          </div>-->
+                          <div class="product-gallery__large-image">
+                              <figure class="product-gallery__image">
+                                  <%= render partial: 'spree/variants/variant_gallery', locals: { variant: @product.variants.first } %>
+                              </figure>
+                              <!--<div class="product-gallery__actions">
+                                  <button class="action-btn btn-zoom-popup"><i class="dl-icon-zoom-in"></i></button>
+                                  <a href="https://www.youtube.com/watch?v=Rp19QD2XIGM" class="action-btn video-popup"><i class="dl-icon-format-video"></i></a>
+                              </div>-->
+                          </div>
                       </div>
                   </div>
-              </div>
 
+                </div>
+              <!-- ############## END GALLERY SECTION ############ -->
             </div>
-          <!-- ############## END GALLERY SECTION ############ -->
-        </div>
 
-      <div class="col-7">
-          <div class="make-me-sticky">
-            <!-- ############## SIDEBAR SECTIONS ############ -->
-                <div class="product-summary mt--40 mt-md--10 mt-sm--30">
-                    <div class="padding-top-2x mt-2 hidden-md-up"></div>
-                    <div class="sp-categories pb-3"><i class="icon-tag"></i><a href="#">Drones,</a><a href="#">Action cameras</a></div>
-                    <h2 class="mb-3" title="<%= @product.user.fetch_store.try(:name) -%> (<%= @product.user.fetch_store.try(:id) -%>)"><%= @product.name %></h2><span class="h3 d-block">
-                      <del class="text-muted"><%= @product.price %></del>&nbsp; <%= @product.price %></span>
-                    <p class="text-muted"><%= product_description(@product) rescue t('spree.product_has_no_description') %>&nbsp;&nbsp;<a href='#details' class='scroll-to'>More info</a></p>
+            <div class="col-7">
+                <div class="make-me-sticky">
+                  <!-- ############## SIDEBAR SECTIONS ############ -->
+                      <div class="product-summary mt--40 mt-md--10 mt-sm--30">
+                          <div class="padding-top-2x mt-2 hidden-md-up"></div>
+                          <h2 class="mb-3" title="<%= @product.user.fetch_store.try(:name) -%> (<%= @product.user.fetch_store.try(:id) -%>)"><%= @product.name %></h2><span class="h3 d-block">
+                            <del class="text-muted"><%= @product.price %></del>&nbsp; <%= @product.price %></span>
+                          <p class="text-muted"><%= product_description(@product) rescue t('spree.product_has_no_description') %>&nbsp;&nbsp;<a href='#details' class='scroll-to'>More info</a></p>
 
-                    <hr class="mb-2">
-                    <div class="d-flex flex-wrap justify-content-between">
-                      <div class="mt-2 mb-2">
-                        <button class="btn btn-outline-secondary btn-sm btn-wishlist"><i class="icon-heart"></i>&nbsp;To Wishlist</button>
-                        <button class="btn btn-outline-secondary btn-sm btn-compare"><i class="icon-repeat"></i>&nbsp;Compare</button>
-                      </div>
-                      <div class="mt-2 mb-2"><span class="text-muted">Share:&nbsp;&nbsp;</span>
-                        <div class="d-inline-block"><a class="social-button shape-rounded sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-rounded sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-rounded sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="socicon-instagram"></i></a><a class="social-button shape-rounded sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +"><i class="socicon-googleplus"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
+                          <hr class="mb-2">
+                          <div class="d-flex flex-wrap justify-content-between">
+                            <div class="mt-2 mb-2">
+                              <button class="btn btn-outline-secondary btn-sm btn-wishlist"><i class="icon-heart"></i>&nbsp;To Wishlist</button>
+                              <button class="btn btn-outline-secondary btn-sm btn-compare"><i class="icon-repeat"></i>&nbsp;Compare</button>
+                            </div>
+                            <div class="mt-2 mb-2"><span class="text-muted">Share:&nbsp;&nbsp;</span>
+                              <div class="d-inline-block"><a class="social-button shape-rounded sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-rounded sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-rounded sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="socicon-instagram"></i></a><a class="social-button shape-rounded sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +"><i class="socicon-googleplus"></i></a></div>
+                            </div>
+                          </div>
+                        </div>
 
-                  <div id="cart-form" data-hook="cart_form">
-                    <%= render partial: 'cart_form_extended' %>
-                  </div>
-            <!-- ############## END SIDEBAR SECTION ############ -->
+                        <div id="cart-form" data-hook="cart_form">
+                          <%= render partial: 'cart_form_extended' %>
+                        </div>
+                  <!-- ############## END SIDEBAR SECTION ############ -->
+                </div>
+            </div>
+          <!-- ############## Anything after the sidebar --- description etc. ############ -->
           </div>
-      </div>
-      <!-- ############## Anything after the sidebar --- description etc. ############ -->
-      </div>
+        </div>
     </div>
-</div>
-</div>
-<br/>
-<br/>
-<div class="bg-secondary padding-top-2x padding-bottom-2x mb-3 mt-40 container" id="details">
-  <div class="row">
-    <div class="col-md-6">
-      <h3 class="h4">Details</h3>
-      <p class="mb-4">
-          <%= product_description(@product) rescue t('spree.product_has_no_description') %>
-      </p>
-    </div>
-    <div class="col-md-6">
-      <div data-hook="product_properties">
-        <%= render partial: 'properties' %>
+  </div>
+  <br/>
+  <br/>
+  <div class="bg-secondary padding-top-2x padding-bottom-2x mb-3 mt-40 container" id="details">
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="h4">Details</h3>
+        <p class="mb-4">
+            <%= product_description(@product) rescue t('spree.product_has_no_description') %>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div data-hook="product_properties">
+          <%= render partial: 'properties' %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 </div>
 <% end # cache %>

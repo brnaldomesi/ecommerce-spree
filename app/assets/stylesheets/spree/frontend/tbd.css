@@ -240,7 +240,7 @@ padding-right: 1.5rem; } }
 -moz-flex-basis: 63%;
 -ms-flex-preferred-size: 63%;
 flex-basis: 63%;
-max-width: 63% !important; } }
+max-width: 100% !important; } }
 
 @media (min-width: 87.5em) {
 .page-content-inner.enable-full-width:not(.enable-page-sidebar) .product-main-image {

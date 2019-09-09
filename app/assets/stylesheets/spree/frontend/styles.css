@@ -6790,7 +6790,6 @@ video {
   margin: 0;
   padding: 0;
   list-style: none;
-  text-align: right;
 }
 
 .breadcrumbs > li {
@@ -6831,7 +6830,6 @@ video {
   margin-right: 6px;
   font-family: feather;
   font-size: 14px;
-  content: '\e979';
   vertical-align: middle;
 }
 
@@ -7641,7 +7639,12 @@ video {
   }
 }
 
-.sp-categories > a, .sp-categories i {
+.breadcrumbs {
+  width: 100%;
+  color: #999999;
+}
+
+.breadcrumbs a, .breadcrumbs i {
   display: inline-block;
   margin-right: 3px;
   color: #999999;
@@ -7650,12 +7653,36 @@ video {
   vertical-align: middle;
 }
 
-.sp-categories > a {
+.breadcrumbs a {
   transition: color .25s;
 }
 
-.sp-categories > a:hover {
+.breadcrumbs a:hover {
   color: #0055ff;
+}
+
+ul.breadcrumbs {
+  padding: 10px 16px;
+  list-style: none;
+}
+ul.breadcrumbs li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumbs li+li:before {
+  padding: 8px;
+  color: black;
+  content: ">";
+  color: #999999;
+  font-size: 13px;
+}
+ul.breadcrumbs li a {
+  /*color: #0275d8;*/
+  text-decoration: none;
+}
+ul.breadcrumbs li a:hover {
+  color: #01447e;
+  /*text-decoration: underline;*/
 }
 
 .product-gallery {
@@ -7663,6 +7690,21 @@ video {
   padding-top: 0px;
   padding-right: 0px;
   padding-left: 0px;
+  flex-direction: row;
+}
+
+.product-gallery .thumbnails {
+  min-width: 100px;
+}
+
+.product-thumbnails > li { 
+  background-color: #eeeeee; 
+}
+
+.product-gallery .gallery-wrapper img {
+  margin: 0 auto;
+  width: 100%;
+  padding: 1em;
 }
 
 .product-gallery .product-carousel {
@@ -7693,6 +7735,7 @@ video {
   margin-right: -15px;
   margin-left: -15px;
   padding: 6px;
+  max-width: 96px;
   list-style: none;
   align-content: center;
   text-align: center;
@@ -7726,6 +7769,12 @@ video {
   opacity: 1;
 }
 
+.product-thumbnails > li a > img {
+  position: relative;
+  width: 80%;
+  margin: 10% auto;
+}
+
 .product-gallery .video-btn {
   position: absolute;
   top: 12px;
@@ -7736,6 +7785,20 @@ video {
 .product-gallery .video-btn > a {
   width: 60px;
   height: 60px;
+}
+
+.product-gallery .product-carousel {
+  display: none;
+}
+
+.tmb-active { 
+  opacity: 1.0 !important; 
+  box-shadow: 4px 4px 3px #ccc !important; 
+}
+
+.tmb-inactive { 
+  opacity: 0.3 !important; 
+  box-shadow: none !important; 
 }
 
 .category-card {
