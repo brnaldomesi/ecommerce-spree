@@ -23,7 +23,7 @@ $(function(){
               <li><%= link_to taxon.name, seo_url(taxon) %></li>
             <% end %>
             </ul>
-            <div class="content-section col-5">
+            <div class="content-section col-7">
               <!-- ############## GALLERY SECTIONS ############ -->
               <div class="product-main-image">
                   <div class="product-image" data-hook="product_images">
@@ -31,7 +31,9 @@ $(function(){
 
                           <div class="product-gallery__large-image">
                               <figure class="product-gallery__image">
-                                  <%= render partial: 'spree/variants/variant_gallery', locals: { variant: @product.variants.first } %>
+                                  <% if @product.variants.first %>
+                                    <%= render partial: 'spree/variants/variant_gallery', locals: { variant: @product.variants.first } %>
+                                  <% end %>
                               </figure>
                               <!--<div class="product-gallery__actions">
                                   <button class="action-btn btn-zoom-popup"><i class="dl-icon-zoom-in"></i></button>
@@ -45,25 +47,31 @@ $(function(){
               <!-- ############## END GALLERY SECTION ############ -->
             </div>
 
-            <div class="col-7">
+            <div class="col-5">
                 <div class="make-me-sticky">
                   <!-- ############## SIDEBAR SECTIONS ############ -->
                       <div class="product-summary mt--40 mt-md--10 mt-sm--30">
                           <div class="padding-top-2x mt-2 hidden-md-up"></div>
-                          <h2 class="mb-3" title="<%= @product.user.fetch_store.try(:name) -%> (<%= @product.user.fetch_store.try(:id) -%>)"><%= @product.name %></h2><span class="h3 d-block">
-                            <del class="text-muted"><%= @product.price %></del>&nbsp; <%= @product.price %></span>
-                          <p class="text-muted"><%= product_description(@product) rescue t('spree.product_has_no_description') %>&nbsp;&nbsp;<a href='#details' class='scroll-to'>More info</a></p>
-
-                          <hr class="mb-2">
-                          <div class="d-flex flex-wrap justify-content-between">
-                            <div class="mt-2 mb-2">
-                              <button class="btn btn-outline-secondary btn-sm btn-wishlist"><i class="icon-heart"></i>&nbsp;To Wishlist</button>
-                              <button class="btn btn-outline-secondary btn-sm btn-compare"><i class="icon-repeat"></i>&nbsp;Compare</button>
+                          <div>
+                            <div class="col-md-6">
+                              <div>
+                                <span><%= @product.taxons.last ? @product.taxons.last.name : '' %></span>
+                              </div>
+                              <div>
+                                <h6><%= @product.name %></h6>
+                              </div>
                             </div>
-                            <div class="mt-2 mb-2"><span class="text-muted">Share:&nbsp;&nbsp;</span>
-                              <div class="d-inline-block"><a class="social-button shape-rounded sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-rounded sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-rounded sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="socicon-instagram"></i></a><a class="social-button shape-rounded sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +"><i class="socicon-googleplus"></i></a></div>
+                            <div class="col-md-6 text-right">
+                              <h2>
+                                $<%= @product.price %>
+                              </h2>
                             </div>
                           </div>
+
+                          <div class="padding-top-2x mt-2 clear">
+                            
+                          </div>
+
                         </div>
 
                         <div id="cart-form" data-hook="cart_form">
