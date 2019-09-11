@@ -7985,3 +7985,61 @@ ul.breadcrumbs li a:hover {
 .post-title > a:hover {
   color: #0055ff;
 }
+
+.clear {
+  clear: both;
+  display: block;
+}
+
+.product-gallery .gallery-wrapper {
+  width: 535px;
+}
+
+.product-gallery .thumbnails {
+  width: 100px;
+}
+
+.full-width-btn {
+  display: block;
+  width: 100%;
+  background: black;
+  color: white;
+  font-weight: bold!important;
+  position: relative;
+  height: 46px;
+  margin-top: 8px;
+  margin-right: 12px;
+  margin-bottom: 8px;
+  padding: 0 22px;
+  transform: translateZ(0);
+  transition: all .4s;
+  border: 2px solid;
+  border-radius: 8px;
+  color: #505050;
+  font-family: "Rubik", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  letter-spacing: .025em;
+  line-height: 44px;
+  white-space: nowrap;
+  cursor: pointer;
+  vertical-align: middle;
+  text-transform: none;
+  text-decoration: none;
+  text-align: center;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn-bg-white {
+  background: white;
+  color: black;
+}
+
+.btn-bg-black {
+  background: black;
+  color: white;
+}

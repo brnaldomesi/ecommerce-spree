@@ -5,6 +5,10 @@
   #   @variant <Spree::Variant> for page like showing variant as main resource/model.
 :css
   .option-value-button { background: none; border: solid 1px #666666; border-radius: 0.5em; }
+  .color-box { float: left; width: 49px; height: 49px; border-radius: 49px; margin-right: 10px; margin-top:3px; margin-left: 3px; cursor: pointer; }
+  .color-box.selected { border-style: solid; margin-top:0; margin-left: 0; margin-right: 13px; }
+  .color-box.unavailable { opacity: .4; }
+  .color-box svg { width: 44px; height: 44px; }
   .btn-current { color: white; background-color: black; }
   .btn-available { cursor: pointer; text-decoration: none; opacity: 1.0; }
   .btn-unavailable { cursor: not-allowed; text-decoration: line-through #999999;
@@ -61,15 +65,17 @@
         - option_type_index = 0
         - @product.hash_of_option_type_ids_and_values.each_pair do|option_type_id, option_values|
           - option_type_index += 1
-          %div(class="row option-type-row#{option_type_index>1 ? ' secondary-option-type-row' : ''}" id='option_type_row_#{option_type_index}')
-            %label
-              %strong=option_values.first.option_type.presentation
-              %br/
-              - option_values.each do|option_value|
-                - is_current_variant = @variant ? option_value.variant_ids.include?(@variant.id) : false
+          %strong=option_values.first.option_type.presentation
+          %div(class="option-type-row#{option_type_index>1 ? ' secondary-option-type-row' : ''}" id='option_type_row_#{option_type_index}')
+            - option_values.each do|option_value|
+              - is_current_variant = @variant ? option_value.variant_ids.include?(@variant.id) : false
+              - if option_values.first.option_type.presentation == 'Color'
+                = render partial: 'spree/shared/color_box', locals: { color_values: option_value.extra_value }
+              - else
                 %button(type='button' class="btn btn-sm #{is_current_variant ? 'btn-current' : ''} option-value-button" data="#{option_value.variant_ids.collect(&:to_s).join(' ')}")=option_value.presentation
+          .clear
         %br/
-        %ul
+        %ul.hide
           - @product.variants_and_option_values_for(current_pricing_options).each_with_index do |variant, index|
             %li
               = radio_button_tag 'variant_id', variant.id, index == 0 || @variant.try(:id) == variant.id, 'data-price' => variant.price_for(current_pricing_options)
@@ -83,7 +89,7 @@
     - else
       = hidden_field_tag 'variant_id', @product.master.id
     - if @product.price_for(current_pricing_options) and !@product.price.nil?
-      %div(data-hook="product_price" class="columns five #{ !@product.has_variants? ? 'alpha' : 'omega' }")
+      %div(data-hook="product_price" class="hidden columns five #{ !@product.has_variants? ? 'alpha' : 'omega' }")
         #product-price
           %h6.product-section-title= t('spree.price')
           %div
@@ -100,8 +106,13 @@
           = button_tag class: 'large primary', id: 'add-to-cart-button', type: :submit do
             = t('spree.add_to_cart')
     - else
-      %div(data-hook="product_price")
+      %div(data-hook="product_price" class="hidden")
         #product-price
           %br/
           %div
             %span.price.selling(itemprop="price")= t('spree.product_not_available_in_this_currency')
+    .mt-2.mb-2
+      = button_tag class: 'full-width-btn btn-bg-black', id: 'add-to-cart-button', type: :submit do
+        = t('spree.add_to_cart')
+      = button_tag class: 'full-width-btn btn-bg-white', id: 'add-to-cart-button', type: :button do
+        = 'Save to wishlist'
