@@ -2,6 +2,7 @@
   first_payment_method = @available_payment_methods.first
   show_paypal = first_payment_method.is_a?(Spree::PaymentMethod::PayPal) &&
     params[:show_other_payment_methods] != 'true'
+  user_paypal = collection.find{|spm| spm.payment_method.is_a?(Spree::PaymentMethod::PayPal) }
 
 .container
   .row
@@ -11,23 +12,38 @@
         %h3
           %strong=t('payment.which_payment_methods')
         %br/
-        - if params[:added_payment_method_id] && (added_payment_method = ::Spree::PaymentMethod.where(id: params[:added_payment_method_id]).first )
+        - if (added_pm = added_payment_method)
           .alert.alert-success.text-center.pt-5
             %h4
-              -# TODO: = image_tag("/assets/icons/payments/#{added_payment_method.name.downcase.underscore}.png")
-              #{added_payment_method.name} Successfully Added
+              -# TODO: = image_tag("/assets/icon/payments/#{added_pm.name.downcase.underscore}.png")
+              #{added_pm.name} Successfully Added
+          %br/
+        - if collection.size > 0
+          %table.table
+            %tbody
+              - collection.each do|spm|
+                %tr(id="store_payment_method_row_#{spm.id}")
+                  %td
+                    = link_to(spm.payment_method.name, spm)
+                  %td
+                    = link_to(store_payment_method_path(id: spm.id, show_other_payment_methods: params[:show_other_payment_methods]), method: :delete, class:'delete-resource fa fa-trash icon_link with-tip no-text', 'data-confirm' => t('spree.are_you_sure_delete') ) do
+                      %span.fa.fa-trash Remove
           %br/
         .card
+          .card-header
+            %h5
+              %strong Add More
           .card-body.p-5
-            = form_for(Spree::StorePaymentMethod.new) do|f|
-              - if show_paypal
+            - if show_paypal
+              = form_for(user_paypal || Spree::StorePaymentMethod.new) do|f|
                 = f.hidden_field(:payment_method_id, value: first_payment_method.id)
                 .text-center
                   %h4=t('payment.best_payment_method')
                   = f.button(type:'submit', class:'btn btn-primary rounded-pill') do
                     = image_tag('/assets/icon/payments/paypal_white_icon_only_22.png')
                     = t('payment.connect_with_paypal')
-              - else
+            - else
+              = form_for(Spree::StorePaymentMethod.new) do|f|
                 %p
                   = image_tag('/assets/icon/payments/credit_cards_all.png')
                 %h6

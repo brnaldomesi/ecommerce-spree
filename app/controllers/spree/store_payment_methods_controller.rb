@@ -19,10 +19,17 @@ module Spree
       create!(notice: '') { store_payment_methods_path(added_payment_method_id: @store_payment_method.payment_method_id) }
     end
 
+    def destroy
+      super do|f|
+        flash[:notice] = ''
+        f.html { redirect_to store_payment_methods_path(show_other_payment_methods: params[:show_other_payment_methods], deleted_payment_method_id: resource.try(:payment_method_id) ) }
+      end
+    end
+
     private
 
     def collection
-      @collection = ::Spree::StorePaymentMethod.where(store_id: spree_current_user.store.id).all
+      @collection = ::Spree::StorePaymentMethod.where(store_id: spree_current_user.fetch_store.id).includes(:payment_method).all
       instance_variable_set("@#{controller_name}", @collection)
     end
 
