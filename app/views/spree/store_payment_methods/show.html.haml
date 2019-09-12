@@ -1,0 +1,16 @@
+.container
+  .card
+    .card-header
+      %h5 #{resource.payment_method.name}
+    .card-body
+      %br/
+      = form_for(resource) do|f|
+        %table.table.table-no-border
+          %tbody
+            %tr
+              %td.text-right
+                = f.label(:account_parameters) { t('spree.account_id') }
+              %td=f.text_field(:account_parameters, class:'form-control')
+            %tr
+              %td(colspan="2" class="text-right")
+                = f.submit(t('spree.update'), class:'btn btn-primary' )
