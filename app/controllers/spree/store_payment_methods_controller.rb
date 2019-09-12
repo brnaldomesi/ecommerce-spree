@@ -15,7 +15,7 @@ module Spree
     end
 
     def create
-      @store_payment_method = ::Spree::StorePaymentMethod.new( resource_params )
+      @store_payment_method = ::Spree::StorePaymentMethod.new( params[:store_payment_method] )
       @store_payment_method.store_id = spree_current_user.store.id
       create!(notice: '') { store_payment_methods_path(added_payment_method_id: @store_payment_method.payment_method_id) }
     end

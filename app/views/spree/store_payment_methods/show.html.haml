@@ -9,7 +9,7 @@
           %tbody
             %tr
               %td.text-right
-                = f.label(:account_parameters) { t('spree.account_id') }
+                = f.label(:account_parameters) { resource.payment_method.account_reference_label }
               %td=f.text_field(:account_parameters, class:'form-control')
             %tr
               %td(colspan="2" class="text-right")
