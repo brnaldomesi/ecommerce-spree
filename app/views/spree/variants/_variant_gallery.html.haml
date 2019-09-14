@@ -31,6 +31,6 @@
       - variant.images.to_a.each_with_index do|image, index|
         = render partial: 'spree/shared/image', locals: { image: image, size: :large }
 .product-carousel.owl-carousel.gallery-wrapper
-  - variant.gallery.images.to_a.each_with_index do|image, index|
+  - variant.product.gallery.images.to_a.each_with_index do|image, index|
     .gallery-item(dash-hash="Image #{index}")
-      = render partial: 'spree/shared/image', locals: { image: image }
+      = render partial: 'spree/shared/image', locals: { image: image, size: :large }

@@ -2,7 +2,11 @@
 <% content_for :footer_extra do %>
 <script type="text/javascript">
 $(function(){
-  $(".owl-carousel").owlCarousel({ navigation : true });
+  $(".owl-carousel").owlCarousel({ 
+    navigation : true,
+    items: 1,
+    loop: true
+  });
 });
 </script>
 <% end # footer_extra -%>
@@ -23,11 +27,26 @@ $(function(){
               <li><%= link_to taxon.name, seo_url(taxon) %></li>
             <% end %>
             </ul>
-            <div class="content-section col-7">
+            <div class="padding-top-2x mt-2 hidden-sm-up product-info-basic">
+              <div class="col-9 product-title">
+                <div class="product-taxon">
+                  <span><%= @product.taxons.last ? @product.taxons.last.name : '' %></span>
+                </div>
+                <div class="product-title">
+                  <h6><%= @product.name %></h6>
+                </div>
+              </div>
+              <div class="col-3 text-right product-price">
+                <h2>
+                  $<%= @product.price %>
+                </h2>
+              </div>
+            </div>
+            <div class="content-section col-lg-7 col-md-7 col-sm-7">
               <!-- ############## GALLERY SECTIONS ############ -->
               <div class="product-main-image">
                   <div class="product-image" data-hook="product_images">
-                      <div class="product-gallery">
+                      <div class="product-gallery-wrapper">
 
                           <div class="product-gallery__large-image">
                               <figure class="product-gallery__image">
@@ -47,21 +66,20 @@ $(function(){
               <!-- ############## END GALLERY SECTION ############ -->
             </div>
 
-            <div class="col-5">
+            <div class="col-lg-5 col-md-5 col-sm-5">
                 <div class="make-me-sticky">
                   <!-- ############## SIDEBAR SECTIONS ############ -->
                       <div class="product-summary mt--40 mt-md--10 mt-sm--30">
-                          <div class="padding-top-2x mt-2 hidden-md-up"></div>
-                          <div>
-                            <div class="col-md-6">
-                              <div>
+                          <div class="product-info-basic">
+                            <div class="col-9 product-title">
+                              <div class="product-taxon">
                                 <span><%= @product.taxons.last ? @product.taxons.last.name : '' %></span>
                               </div>
-                              <div>
+                              <div class="product-title">
                                 <h6><%= @product.name %></h6>
                               </div>
                             </div>
-                            <div class="col-md-6 text-right">
+                            <div class="col-3 text-right product-price">
                               <h2>
                                 $<%= @product.price %>
                               </h2>

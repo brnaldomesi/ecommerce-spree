@@ -7744,16 +7744,16 @@ ul.breadcrumbs li a:hover {
 
 .product-gallery .product-thumbnails > li {
   display: inline-block;
-  margin: 5px 3px;
+  margin: 8px 3px;
   align-self: center;
+  box-shadow: 3px 3px 3px #cccccc80;
 }
 
 .product-gallery .product-thumbnails > li > a {
-  display: block;
+  display: flex;
   width: 94px;
-  height: 94px;
+  height: 110px;
   transition: all .25s;
-  border: 1px solid #e5e5e5;
   border-radius: 5px;
   background-color: #ffffff;
   opacity: .75;
@@ -7773,7 +7773,7 @@ ul.breadcrumbs li a:hover {
 .product-thumbnails > li a > img {
   position: relative;
   width: 80%;
-  margin: 10% auto;
+  margin: auto;
 }
 
 .product-gallery .video-btn {
@@ -7794,7 +7794,7 @@ ul.breadcrumbs li a:hover {
 
 .tmb-active { 
   opacity: 1.0 !important; 
-  box-shadow: 4px 4px 3px #ccc !important; 
+  /*box-shadow: 4px 4px 3px #ccc !important; */
 }
 
 .tmb-inactive { 
@@ -8049,6 +8049,15 @@ ul.breadcrumbs li a:hover {
   padding-top: 1em;
 }
 
+.product-info-basic {
+  display: flex;
+  width: 100%;
+}
+
+.product-info-basic .product-price {
+  margin: auto;
+}
+
 li.tmb-all {
   position: relative;
 }
@@ -8064,26 +8073,61 @@ ul.variant-thumbnails {
 }
 
 ul.product-thumbnails li.tmb-all:hover ul.variant-thumbnails {
-  display: block;
+  display: flex;
 }
 
 ul.variant-thumbnails li {
   float: left;
   width: 94px;
   margin-right: 10px;
-  box-shadow: 4px 4px 3px #ccc;
+  box-shadow: 2px 2px 2px #ccc;
   background-color: #eeeeee;
 }
 
 ul.variant-thumbnails li a {
-  display: block;
+  display: flex;
   width: 94px;
-  height: 94px;
+  height: 110px;
   transition: all .25s;
-  border: 1px solid #e5e5e5;
   border-radius: 5px;
   background-color: #ffffff;
   opacity: .75;
   overflow: hidden;
 }
 
+.product-carousel.gallery-wrapper {
+  display: none;
+}
+
+@media (max-width: 1160px) {
+  .product-gallery .gallery-wrapper {
+    width: 100%!important;
+  }
+}
+
+@media (max-width: 576px) {
+  .breadcrumbs {
+    display: none;
+  }
+
+  .product-gallery {
+    display: none;
+  }
+
+  .make-me-sticky .product-summary {
+    display: none;
+  }
+
+  .product-carousel.gallery-wrapper {
+    display: block;
+  }
+
+  .owl-carousel .owl-stage {
+    /*display: flex;*/
+  }
+
+  .owl-carousel .owl-item img {
+      width: 300px;
+      height: 100%;
+  }
+}
