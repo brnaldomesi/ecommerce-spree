@@ -5492,14 +5492,16 @@ video {
 .widget-featured-posts > .entry .entry-thumb > a,
 .widget-featured-products > .entry .entry-thumb > a,
 .widget-cart > .entry .entry-thumb > a {
-  display: block;
+  display: flex;
   overflow: hidden;
-  width: 80px;
-  background: #999;
+  width: 64px;
+  height: 72px;
+  /*background: #999;*/
 }
 
 .widget-cart > .entry .entry-thumb > a img {
   opacity: .7;
+  margin: auto;
 }
 
 .widget-featured-posts > .entry .entry-thumb > a > img,
@@ -8014,14 +8016,11 @@ ul.breadcrumbs li a:hover {
   font-weight: bold!important;
   position: relative;
   height: 46px;
-  margin-top: 8px;
   margin-right: 12px;
-  margin-bottom: 8px;
   padding: 0 22px;
   transform: translateZ(0);
   transition: all .4s;
   border: 2px solid black;
-  border-radius: 8px;
   color: #505050;
   font-family: "Rubik", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -8046,9 +8045,27 @@ ul.breadcrumbs li a:hover {
   color: black;
 }
 
+.btn-bg-white:hover {
+  background: #ccc;
+  color: #222;
+}
+
 .btn-bg-black {
   background: black;
   color: white;
+}
+
+.btn-bg-black:hover {
+  background: #333;
+  color: #ccc;
+}
+
+.brnd-4 {
+  border-radius: 4px;
+}
+
+.brnd-6 {
+  border-radius: 6px;
 }
 
 .product-summary {
@@ -8103,6 +8120,10 @@ ul.variant-thumbnails li a {
 
 .product-carousel.gallery-wrapper {
   display: none;
+}
+
+.v-flex {
+  flex-direction: column;
 }
 
 @media (max-width: 1160px) {
