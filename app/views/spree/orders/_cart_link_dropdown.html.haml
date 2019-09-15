@@ -7,8 +7,10 @@
 - if cart_items && cart_items.count > 0
   %div(class="toolbar-dropdown cart-dropdown widget-cart hidden-on-mobile")
     = render partial: 'spree/orders/order_line_item_dropdown_entry', collection: cart_items, as: :line_item
-    .d-flex
-      .pr-2.w-50
-        = link_to 'Checkout Now', '/cart', class: 'btn btn-primary btn-sm btn-block mb-0'
+    .d-flex.v-flex
+      .mb-2.w-100
+        = link_to 'Checkout Now', '/checkout', class: 'full-width-btn btn-bg-black brnd-4'
+      .mb-2.w-100
+        = link_to 'Go to cart', '/cart', class: 'full-width-btn btn-bg-white brnd-4'
       - # TODO: minimize size of last loop to partial # <div class="pr-2 w-50"><a class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">Expand Cart</a></div> -%>
       - # TODO: show only when only 1 seller <div class="pl-2 w-50"><a class="btn btn-primary btn-sm btn-block mb-0" href="checkout.html">Checkout</a></div> -%>
