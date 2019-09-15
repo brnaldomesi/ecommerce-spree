@@ -10,8 +10,10 @@
     .entry-content
       %h4.entry-title
         = link_to(line_item.name, variant.product)
-      %span.entry-meta
+      %span.entry-meta.entry-var
+        - variant.option_values.each do | value, idx |
+          #{value.presentation}
+          - if idx != variant.option_values.length - 1
+            -
+      %span.entry-meta.entry-qty
         #{line_item.quantity} x #{line_item.display_amount.to_html}
-    .entry-delete
-      = link_to '#', class:'delete text-danger', id: "delete_#{dom_id(line_item)}" do
-        %i.icon-x
