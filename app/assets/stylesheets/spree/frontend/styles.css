@@ -22,7 +22,7 @@
   border-bottom-left-radius: 5px;
   background-color: #ffffff;
   line-height: 1.5;
-  box-shadow: 0 7px 22px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
 .toolbar-dropdown > li, .site-header .site-menu > ul > li .sub-menu > li {
@@ -3944,7 +3944,7 @@ a.card {
 
 .toolbar-dropdown.cart-dropdown {
   right: 0;
-  width: 280px;
+  width: 300px;
   padding: 20px;
 }
 
@@ -5493,8 +5493,13 @@ video {
 .widget-featured-products > .entry .entry-thumb > a,
 .widget-cart > .entry .entry-thumb > a {
   display: block;
-  border-radius: 5px;
   overflow: hidden;
+  width: 80px;
+  background: #999;
+}
+
+.widget-cart > .entry .entry-thumb > a img {
+  opacity: .7;
 }
 
 .widget-featured-posts > .entry .entry-thumb > a > img,
@@ -5549,7 +5554,7 @@ video {
   position: relative;
   padding-right: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px dashed #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 .widget-cart > .entry:last-child {
@@ -6317,6 +6322,7 @@ video {
 }
 
 .site-header .toolbar {
+  margin-right: 20px;
   -ms-flex-preferred-size: auto;
       flex-basis: auto;
   -webkit-box-flex: 0;
