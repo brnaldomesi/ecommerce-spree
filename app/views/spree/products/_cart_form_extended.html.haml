@@ -31,7 +31,7 @@
                 %button(type='button' class="btn btn-sm #{is_current_variant ? 'btn-current' : ''} option-value-button" data="#{option_value.variant_ids.collect(&:to_s).join(' ')}")=option_value.presentation
           .clear
         %br/
-        %ul
+        %ul.hide
           - @product.variants_and_option_values_for(current_pricing_options).each_with_index do |variant, index|
             %li
               = radio_button_tag 'variant_id', variant.id, index == 0 || @variant.try(:id) == variant.id, 'data-price' => variant.price_for(current_pricing_options)
