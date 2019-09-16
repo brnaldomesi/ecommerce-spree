@@ -12,7 +12,7 @@ namespace :sample_products do
     puts "At directory #{root_dir}"
 
     Dir.foreach(root_dir) do|top_dir|
-      next if top_dir.size < 3 || File.file?(top_dir)
+      next if top_dir.size < 3 || top_dir.starts_with?('.') || File.file?(top_dir)
 
       import_from_this_directory(root_dir, [top_dir] )
 
@@ -61,7 +61,7 @@ namespace :sample_products do
 
     images = []
     Dir.foreach(full_path) do|sub_dir|
-      next if sub_dir.size < 3
+      next if sub_dir.size < 3 || sub_dir.starts_with?('.')
       unless File.file?(sub_dir)
         product_h = import_from_this_directory(root_path, folder_names + [sub_dir], sub_cat)
 
