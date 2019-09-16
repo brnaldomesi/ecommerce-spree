@@ -8060,6 +8060,31 @@ ul.breadcrumbs li a:hover {
   color: #ccc;
 }
 
+.option-type-row {
+  margin-top: 20px;
+}
+
+.option-type-row .btn {
+  background: white;
+  color: black;
+  font-size: 12pt;
+}
+
+.option-type-row .btn.selected {
+  background: black;
+  color: white;
+}
+
+.option-type-row .btn.selected:hover {
+  background: #333;
+  color: #ccc;
+}
+
+.option-type-row .btn:hover {
+  background: #ccc;
+  color: #222;
+}
+
 .brnd-4 {
   border-radius: 4px;
 }
@@ -8118,6 +8143,10 @@ ul.variant-thumbnails li a {
   overflow: hidden;
 }
 
+.product-thumbnails .tmb-all.unavailable {
+  opacity: .3 !important;
+}
+
 .product-carousel.gallery-wrapper {
   display: none;
 }
@@ -8147,6 +8176,10 @@ ul.variant-thumbnails li a {
 
   .product-carousel.gallery-wrapper {
     display: block;
+  }
+
+  .page-banner {
+    display: none;
   }
 
   .owl-carousel .owl-stage {

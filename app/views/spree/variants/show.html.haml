@@ -5,10 +5,7 @@
   show_debug = %w|development staging|.include?(Rails.env)
 
 - content_for :footer_extra do
-  :javascript
-    $(function(){
-      / $(".owl-carousel").owlCarousel({ navigation : true });
-    });
+  = javascript_include_tag 'spree/frontend/product'
 
 - if spree_current_user
   #manage_actions.container.alert.alert-secondary.text-right

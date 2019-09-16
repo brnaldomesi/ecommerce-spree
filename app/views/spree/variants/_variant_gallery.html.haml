@@ -1,22 +1,5 @@
 - content_for :footer_extra do
   :javascript
-    function activateVariant(e) {
-      var variantId = $(this).attr('value');
-      //console.log('Variant ID: ' + variantId);
-      refreshImageAndThumbnails(variantId);
-    }
-    function refreshImageAndThumbnails(variantId) {
-      $('.vtmb').addClass('tmb-inactive');
-      $('.tmb').addClass('tmb-inactive');
-      $('.tmb-all').removeClass('tbm-inactive').addClass('tmb-active');
-      $('.tmb-' + variantId).removeClass('tmb-inactive').addClass('tmb-active');
-      var firstThumb = $('.tmb-' + variantId)[0];
-    }
-    function loadImageOfThumbnail(e) {
-      e.preventDefault();
-      $(".product-gallery > img").attr("src", $(this).attr('href') );
-    }
-
     $(function(){
       refreshImageAndThumbnails('#{variant.id}');
       $("input[name='variant_id']").change(activateVariant);
