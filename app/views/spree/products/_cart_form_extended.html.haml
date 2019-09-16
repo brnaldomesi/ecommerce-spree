@@ -14,50 +14,6 @@
   .btn-unavailable { cursor: not-allowed; text-decoration: line-through #999999;
     background-color: #f0f0f0; opacity: 0.5; }
 
-:javascript
-  var selectedSetOfVariantIds = [];
-  var selectedVariantId;
-  function selectOptionValue(e) {
-    var data = $(this).attr('data');
-    if (data && data != "") {
-      $('.option-value-button').removeClass('btn-current');
-      $(this).addClass('btn-current');
-      selectedSetOfVariantIds = data.split(" ");
-      if (typeof(refreshImageAndThumbnails) == 'function'){ refreshImageAndThumbnails(selectedSetOfVariantIds[0] ); }
-      if (selectedSetOfVariantIds.length == 1) {
-        selectedVariantId = selectedSetOfVariantIds[0];
-        document.forms["cart_form"]["variant_id"].value = selectedVariantId;
-      }
-      $(".secondary-option-type-row .option-value-button").each(function(idx){
-        var otherData = $(this).attr('data');
-        var otherVariantIds = otherData.split(' ');
-        var commonVariantIds = otherVariantIds.filter(value => selectedSetOfVariantIds.includes(value));
-        if (commonVariantIds.length < 1) {
-          $(this).removeClass('btn-available').addClass('btn-unavailable');
-        } else {
-          $(this).removeClass('btn-unavailable').addClass('btn-available');
-        }
-        // console.log("* has "+ variantId +"? " + otherVariantIds);
-      });
-    }
-  }
-  function selectSecondaryOptionValue(e) {
-    var data = $(this).attr('data');
-    if (data && data != "") {
-      var curVariantIds = data.split(" ");
-      var commonVariantIds = curVariantIds.filter(value => selectedSetOfVariantIds.includes(value));
-      selectedVariantId = commonVariantIds[0];
-      document.forms["cart_form"]["variant_id"].value = selectedVariantId;
-      console.log("| selected: " + selectedSetOfVariantIds +" vs cur " + curVariantIds );
-      console.log("| selectedVariantId = "+ selectedVariantId );
-    }
-  }
-
-  $(function(){
-    $('#option_type_row_1 .option-value-button').click(selectOptionValue);
-    $('.secondary-option-type-row .option-value-button').click(selectSecondaryOptionValue);
-  });
-
 = form_for :order, url: populate_orders_path, html:{ name:'cart_form' } do |f|
   #inside-product-cart-form(data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="http://schema.org/Offer")
     - if @product.variants_and_option_values_for(current_pricing_options).any?
@@ -65,17 +21,17 @@
         - option_type_index = 0
         - @product.hash_of_option_type_ids_and_values.each_pair do|option_type_id, option_values|
           - option_type_index += 1
-          %strong=option_values.first.option_type.presentation
           %div(class="option-type-row#{option_type_index>1 ? ' secondary-option-type-row' : ''}" id='option_type_row_#{option_type_index}')
+            %h6=option_values.first.option_type.presentation
             - option_values.each do|option_value|
               - is_current_variant = @variant ? option_value.variant_ids.include?(@variant.id) : false
               - if option_values.first.option_type.presentation == 'Color'
-                = render partial: 'spree/shared/color_box', locals: { color_values: option_value.extra_value }
+                = render partial: 'spree/shared/color_box', locals: { color_values: option_value.extra_value, var_ids: option_value.variant_ids.collect(&:to_s).join(' ') }
               - else
                 %button(type='button' class="btn btn-sm #{is_current_variant ? 'btn-current' : ''} option-value-button" data="#{option_value.variant_ids.collect(&:to_s).join(' ')}")=option_value.presentation
           .clear
         %br/
-        %ul.hide
+        %ul
           - @product.variants_and_option_values_for(current_pricing_options).each_with_index do |variant, index|
             %li
               = radio_button_tag 'variant_id', variant.id, index == 0 || @variant.try(:id) == variant.id, 'data-price' => variant.price_for(current_pricing_options)

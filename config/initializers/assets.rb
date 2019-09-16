@@ -15,5 +15,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Enable the asset pipeline
 
 Rails.application.config.assets.enabled = true
-Rails.application.config.assets.precompile += %w(admin.css admin.js spree/frontend spree/frontend/checkout)
+Rails.application.config.assets.precompile += %w(admin.css admin.js spree/frontend spree/frontend/checkout spree/frontend/product)
 Rails.application.config.assets.precompile.uniq!

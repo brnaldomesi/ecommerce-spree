@@ -1,14 +1,6 @@
 <!-- Main Content Wrapper Start -->
 <% content_for :footer_extra do %>
-<script type="text/javascript">
-$(function(){
-  $(".owl-carousel").owlCarousel({ 
-    navigation : true,
-    items: 1,
-    loop: true
-  });
-});
-</script>
+<%= javascript_include_tag 'spree/frontend/product' %>
 <% end # footer_extra -%>
 <% if spree_current_user && can?(:manage, @product) -%>
   <div id='manage_actions' class='container alert alert-secondary text-right'>
