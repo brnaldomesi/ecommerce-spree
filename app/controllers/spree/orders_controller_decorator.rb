@@ -7,7 +7,7 @@
   def populate
 
     variant  = Spree::Variant.includes(:user).find(params[:variant_id])
-    @current_store = variant.user.store
+    @current_store = variant.user.fetch_store
     @order = current_order(store_id: params[:store_id] || @current_store.id, create_order_if_necessary: true)
     authorize! :update, @order, cookies.signed[:guest_token]
 
