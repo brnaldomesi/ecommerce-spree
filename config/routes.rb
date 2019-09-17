@@ -55,7 +55,7 @@ Spree::Core::Engine.routes.draw do
 end
 
 Rails.application.routes.draw do
-  default_url_options :host => (Rails.env.production? ? 'tbdmarket.com' : 'localhost')
+  default_url_options :host => (Rails.env.production? ? 'shoppn.com' : 'localhost')
 
   # This line mounts Solidus's routes at the root of your application.
   # This means, any requests to URLs such as /products, will go to Spree::ProductsController.
