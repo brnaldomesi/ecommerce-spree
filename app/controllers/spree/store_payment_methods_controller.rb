@@ -22,7 +22,7 @@ module Spree
     private
 
     def collection
-      @collection = ::Spree::StorePaymentMethod.where(store_id: spree_current_user.store.id).all
+      @collection = ::Spree::StorePaymentMethod.where(store_id: spree_current_user.fetch_store.id).all
       instance_variable_set("@#{controller_name}", @collection)
     end
 
