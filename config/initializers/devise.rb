@@ -5,7 +5,7 @@ Devise.secret_key = 'e3be8a6b145e70b46d0fb476ebac0d2a4cd38eb877c6fe694f5d91d7ab2
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = 'news@tbdmarket.com'
+  config.mailer_sender = 'news@shoppn.com'
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'Spree::UserMailer'

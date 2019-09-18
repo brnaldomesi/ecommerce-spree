@@ -40,6 +40,10 @@ Spree::Core::Engine.routes.draw do
   end
 
   ##
+  # Admins
+  match '/admin/products/:id/erase', to: 'admin/products#erase', as: 'admin_erase_product', via: [:delete]
+
+  ##
   # Seller
   resources :store_payment_methods
   get '/accepted_payments', to: 'store_payment_methods#index', as: 'accepted_payments'
@@ -55,7 +59,7 @@ Spree::Core::Engine.routes.draw do
 end
 
 Rails.application.routes.draw do
-  default_url_options :host => (Rails.env.production? ? 'tbdmarket.com' : 'localhost')
+  default_url_options :host => (Rails.env.production? ? 'shoppn.com' : 'localhost')
 
   # This line mounts Solidus's routes at the root of your application.
   # This means, any requests to URLs such as /products, will go to Spree::ProductsController.

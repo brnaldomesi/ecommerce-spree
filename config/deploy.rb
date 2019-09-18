@@ -7,8 +7,8 @@ set :rvm_ruby_string, 'ruby-2.5.3'
 set :stages, %w(production staging development)
 set :default_stage, 'staging'
 
-domain = 'tbdmarket.com'
-set :application, 'tbdmarket'
+domain = 'shoppn.com'
+set :application, 'shoppn'
 set :repo_url, 'git@github.com:briangan/solidus_market.git'
 
 # Default branch is :master

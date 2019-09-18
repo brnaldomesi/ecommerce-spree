@@ -24,6 +24,7 @@ module Spree
 
         # Cannot's
         cannot :manage, Spree::StockLocation
+        cannot :erase, Spree::Product
 
         # exceptions that don't have actual model class as reference
         cannot :admin, :reports
