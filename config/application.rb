@@ -8,7 +8,7 @@ require_relative 'initializers/redis'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-APP_HOST = ENV['HOST'] || (Rails.env.production? ? 'tbdmarket.com' : 'localhost' )
+APP_HOST = ENV['HOST'] || (Rails.env.production? ? 'shoppn.com' : 'localhost' )
 
 module SolidusMarket
   class Application < Rails::Application
