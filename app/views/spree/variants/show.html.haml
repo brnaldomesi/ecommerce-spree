@@ -23,8 +23,11 @@
     .container.mb-12
     #content.main-content-wrapper
       .page-content-inner.enable-full-width
+        %ul.breadcrumbs
+          - @variant.product.taxons.each do |taxon|
+            = link_to taxon.name, seo_url(taxon)
         #wrapper.row(data-hook="product_left_part_wrap")
-          .content-section.col-5
+          .content-section.col-7
             / ############## GALLERY SECTIONS ############
             .product-main-image
               .product-image(data-hook="product_images")
@@ -33,7 +36,7 @@
                     %figure.product-gallery__image
                       = render partial: 'variant_gallery', locals: { variant: @variant }
           / ############## END GALLERY SECTION ############
-          .col-7
+          .col-5
             .make-me-sticky
               / ############## SIDEBAR SECTIONS ############
               .product-summary.mt--40.mt-md--10.mt-sm--30
