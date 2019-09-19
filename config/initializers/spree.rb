@@ -8,7 +8,7 @@ Spree.config do |config|
   config.currency = 'USD'
 
   # from address for transactional emails
-  config.mails_from ='site@tbdmarket.com'
+  config.mails_from ='site@shoppn.com'
 
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false

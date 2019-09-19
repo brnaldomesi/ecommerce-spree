@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'site@tbdmarket.com'
+  default from: 'site@shoppn.com'
   layout 'mailer'
 end
