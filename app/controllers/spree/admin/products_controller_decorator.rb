@@ -25,6 +25,15 @@ module Spree
         super
       end
 
+      def erase
+        logger.debug "| Erasing product #{@product.id}"
+        @product.really_destroy!
+        respond_to do|format|
+          format.js
+          format.html { redirect_to params[:return_url] || request.referer || admin_products_path }
+        end
+      end
+
       protected
 
       def location_after_save
@@ -104,7 +113,11 @@ module Spree
             includes(product_includes).
             page(params[:page]).
             per(Spree::Config[:admin_products_per_page])
-        @collection = @collection.where(user_id: spree_current_user.try(:id) ) if spree_current_user && !spree_current_user.admin?
+        if spree_current_user
+          params[:user_id] = spree_current_user.id unless spree_current_user.admin?
+        end
+        @collection = @collection.where(user_id: params[:user_id] ) if params[:user_id]
+
         @collection
       end
 
