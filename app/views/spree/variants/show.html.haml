@@ -24,8 +24,18 @@
     #content.main-content-wrapper
       .page-content-inner.enable-full-width
         %ul.breadcrumbs
-          - @variant.product.taxons.each do |taxon|
-            = link_to taxon.name, seo_url(taxon)
+          - @variant.product.categories.each do|category_list|
+            - category_list.each_with_index do|category, category_index|
+              %li
+                = link_to(category.name, seo_url(category))
+        .padding-top-2x.mt-2.hidden-sm-up.product-info-basic
+          .col-9.product-title
+            .product-taxon
+              %span= @product.taxons.last ? @product.taxons.last.name : ''
+            .product-title
+              %h6= @product.name
+          .col-3.text-right.product-price
+            %h2= @product.price
         #wrapper.row(data-hook="product_left_part_wrap")
           .content-section.col-7
             / ############## GALLERY SECTIONS ############
@@ -40,27 +50,25 @@
             .make-me-sticky
               / ############## SIDEBAR SECTIONS ############
               .product-summary.mt--40.mt-md--10.mt-sm--30
-                - @variant.product.categories.each do|category_list|
-                  .padding-top-2x.mt-2.hidden-md-up
-                  .sp-categories.pb-3
-                    %i.icon-tag
-                    - category_list.each_with_index do|category, category_index|
-                      = link_to(category.name + (category_index < category_list.size - 1 ? ', ' : ''), seo_url(category))
-                %h2.mb-3= @variant.name
-                %span.h3.d-block
-                  %del.text-muted= @variant.price
-                  = @variant.price
+                .product-info-basic
+                  .col-9.product-title
+                    .product-taxon
+                      %span= @product.taxons.last ? @product.taxons.last.name : ''
+                    .product-title
+                      %h6= @product.name
+                  .col-3.text-right.product-price
+                    %h2
+                      = '$' + @product.price.to_s
                 - if show_debug && @variant.product.user
-                  %h4
+                  %h4.hidden
                     %strong Seller:
                     #{@variant.product.user.username}
                 -# %p.text-muted
                   -# = product_description(@variant) rescue t('spree.product_has_no_description')
                   -# %a.scroll-to{:href => "#details"} More info
                 .row.margin-top-1x
-              %hr.mb-2
-                #cart-form(data-hook="cart_form")
-                  = render partial: 'spree/products/cart_form_extended'
+              #cart-form(data-hook="cart_form")
+                = render partial: 'spree/products/cart_form_extended'
 
   / ############## END SIDEBAR SECTION ############
   / ############## Anything after the sidebar --- description etc. ############

@@ -15,8 +15,12 @@
         <div class="page-content-inner enable-full-width">
           <div id="wrapper" class="row" data-hook="product_left_part_wrap">
             <ul class="breadcrumbs">
-            <% @product.taxons.each do |taxon| %>
-              <li><%= link_to taxon.name, seo_url(taxon) %></li>
+            <% 
+              @product.categories.each do|category_list|
+                category_list.each_with_index do|category, category_index|
+            %>
+                <li><%= link_to(category.name, seo_url(category)) %></li>
+              <% end %>
             <% end %>
             </ul>
             <div class="padding-top-2x mt-2 hidden-sm-up product-info-basic">

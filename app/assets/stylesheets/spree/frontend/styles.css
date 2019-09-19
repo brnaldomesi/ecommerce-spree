@@ -8159,6 +8159,10 @@ ul.variant-thumbnails li a {
   width: 100%;
 }
 
+#search-bar form #keywords {
+  margin-left: -3px;
+}
+
 @media (max-width: 1160px) {
   .product-gallery .gallery-wrapper {
     width: 100%!important;
