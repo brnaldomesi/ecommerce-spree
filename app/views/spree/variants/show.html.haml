@@ -54,9 +54,9 @@
                   %h4
                     %strong Seller:
                     #{@variant.product.user.username}
-                %p.text-muted
-                  = product_description(@variant) rescue t('spree.product_has_no_description')
-                  %a.scroll-to{:href => "#details"} More info
+                -# %p.text-muted
+                  -# = product_description(@variant) rescue t('spree.product_has_no_description')
+                  -# %a.scroll-to{:href => "#details"} More info
                 .row.margin-top-1x
               %hr.mb-2
                 #cart-form(data-hook="cart_form")

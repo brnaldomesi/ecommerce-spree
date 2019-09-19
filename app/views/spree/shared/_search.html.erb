@@ -20,7 +20,7 @@ content_for :footer_extra do -%>
             <%= select_tag :taxon,
                            options_for_select([[t('spree.categories'), '']] + @taxons.map { |t| [t.name, t.id] },
                            @taxon ? @taxon.id : params[:taxon]), 'aria-label'=>'Taxon', id:'search_bar_taxon_select', class:'' -%>
-            <div class="dropdown">
+            <div class="dropdown hidden">
             <button type="button" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'
                            class='btn dropdown-toggle' id='search_bar_taxon_dropdown' ></button>
             <div class="dropdown-menu mega-dropdown" aria-labelledby="search_bar_taxon_dropdown" id="search_bar_taxon_dropdown_menu">
@@ -46,7 +46,7 @@ content_for :footer_extra do -%>
           </div>
           &nbsp;&nbsp;
           <%= search_field_tag :keywords, params[:keywords], placeholder: t('spree.search_placeholder'), class:'form-control' %>
-          <button type="submit"><i class="icon-search"></i></button>
+          <!-- <button type="submit"><i class="icon-search"></i></button> -->
         </div>
       </div>
     </div>

@@ -8155,6 +8155,10 @@ ul.variant-thumbnails li a {
   flex-direction: column;
 }
 
+#search-bar form {
+  width: 100%;
+}
+
 @media (max-width: 1160px) {
   .product-gallery .gallery-wrapper {
     width: 100%!important;
