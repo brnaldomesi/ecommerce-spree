@@ -75,11 +75,41 @@ namespace :sample_data do
       puts "Option Type: #{option_type.name} (#{option_type.id}) ------------------------------------"
       File.open(file_path).readlines.each_with_index do|line, count|
         cols = line.split(',')
-        ov = option_type.option_values.where(presentation: cols[0] ).first
-        ov ||= ::Spree::OptionValue.new(position: count + 1, name: cols[0], presentation: cols[0], option_type_id: option_type.id)
+        name = cols[0].gsub('\\', ' / ')
+        ov = option_type.option_values.where(presentation: name ).first
+        ov ||= ::Spree::OptionValue.new(position: count + 1, name: name, presentation: name, option_type_id: option_type.id)
         ov.extra_value = cols[2].present? ? cols[1] + ',' + cols[2] : cols[1]
         ov.save
         puts '%4d | %30s | %s' % [ov.id, ov.name, ov.extra_value]
+      end
+    end
+  end
+
+  ##
+  # Some color combos might have mising hex values (in extra_value)
+  task :fix_extra_value_of_color_option_values => :environment do
+    ::Spree::OptionType.where("name LIKE '%color'").each do|ot|
+      puts "Option Type: #{ot.name} (#{ot.id}) ------------------------------------"
+      ot.option_values.where('name LIKE \'%/%\' OR name LIKE \'%\%\'').each do|ov|
+        next if ov.extra_value.present? && ov.extra_value.index(',')
+        single_colors = ov.name.split(/(\/|\\)/ )
+        hex_values = single_colors.collect do|color_name|
+          ot.option_values.where(name: color_name.strip).first.try(:extra_value)
+        end.compact
+        if hex_values.find{|v| v.blank? }
+          puts '%4d | %30s | %16s | %s *** DELETE' % [ov.id, ov.name, ov.extra_value.to_s, hex_values.to_s]
+          ov.destroy
+        else
+          puts '%4d | %30s | %16s | %s' % [ov.id, ov.name, ov.extra_value.to_s, hex_values.to_s]
+          ov.update(extra_value: hex_values.join(',') )
+        end
+      end
+
+      # Clean duplicates
+      Spree::OptionValue.where(option_type_id: ot.id).group('name').count.each_pair do|name,count|
+        if count > 1
+
+        end
       end
     end
   end
