@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_09_172452) do
+ActiveRecord::Schema.define(version: 2019_09_20_154342) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -998,6 +998,8 @@ ActiveRecord::Schema.define(version: 2019_09_09_172452) do
     t.integer "payment_method_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "account_parameters", default: ""
+    t.string "account_label", default: ""
     t.index ["payment_method_id"], name: "index_spree_store_payment_methods_on_payment_method_id"
     t.index ["store_id"], name: "index_spree_store_payment_methods_on_store_id"
   end
