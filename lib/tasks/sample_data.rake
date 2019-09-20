@@ -1,3 +1,7 @@
+require File.join(Rails.root, 'lib/spree/option_type_service')
+
+include Spree::OptionTypeService
+
 namespace :sample_data do
 
   task :generate => :environment do
@@ -37,29 +41,10 @@ namespace :sample_data do
     ARGV.shift
     file_path = ARGV.shift
     file_path ||= File.join(Rails.root, 'doc/option_values/color_names.html')
+    puts '********* Deprecated task name.  Use option_values:import_color_names instead.'
     puts "File #{file_path} ===================================\n"
 
-    doc = File.open( file_path ) { |f| Nokogiri::HTML(f) }
-    count = 0
-    doc.xpath("//tr[@class='color']").each do|color_tr|
-      h = {}
-      color_tr.children.each do|td|
-        if td['class'] =~ /\bcolor-name\b/i
-          h[:name] = td.text.strip
-        elsif td['class'] =~ /\bcolor-hex\b/i
-          h[:hex] = td.text.strip
-        end
-      end
-      count += 1
-      ::Spree::OptionType.where("name LIKE '%color'").each do|option_type|
-        ov = option_type.option_values.where(presentation: h[:name]).first
-        ov ||= ::Spree::OptionValue.new(position: count, name: h[:name], presentation: h[:name], option_type_id: option_type.id)
-        ov.extra_value = h[:hex]
-        ov.save
-      end
-      puts '%16s | %s' % [ h[:name], h[:hex] ]
-    end
-    puts "| Total of #{count} colors found"
+    import_color_names_from_file(file_path)
   end
 
   ##
@@ -69,49 +54,18 @@ namespace :sample_data do
     ARGV.shift
     file_path = ARGV.shift
     file_path ||= File.join(Rails.root, 'doc/option_values/color_values_by_neil.csv')
+    puts '********* Deprecated task name.  Use option_values:import_colors_from_csv instead.'
     puts "File #{file_path} ===================================\n"
 
-    ::Spree::OptionType.where("name LIKE '%color'").each do|option_type|
-      puts "Option Type: #{option_type.name} (#{option_type.id}) ------------------------------------"
-      File.open(file_path).readlines.each_with_index do|line, count|
-        cols = line.split(',')
-        name = cols[0].gsub('\\', ' / ')
-        ov = option_type.option_values.where(presentation: name ).first
-        ov ||= ::Spree::OptionValue.new(position: count + 1, name: name, presentation: name, option_type_id: option_type.id)
-        ov.extra_value = cols[2].present? ? cols[1] + ',' + cols[2] : cols[1]
-        ov.save
-        puts '%4d | %30s | %s' % [ov.id, ov.name, ov.extra_value]
-      end
-    end
+    import_colors_from_csv(file_path)
   end
 
   ##
-  # Some color combos might have mising hex values (in extra_value)
+  # Some color combos might have missing hex values (in extra_value).
+  # Also fixes position values of single color to be top of multiple.
   task :fix_extra_value_of_color_option_values => :environment do
-    ::Spree::OptionType.where("name LIKE '%color'").each do|ot|
-      puts "Option Type: #{ot.name} (#{ot.id}) ------------------------------------"
-      ot.option_values.where('name LIKE \'%/%\' OR name LIKE \'%\%\'').each do|ov|
-        next if ov.extra_value.present? && ov.extra_value.index(',')
-        single_colors = ov.name.split(/(\/|\\)/ )
-        hex_values = single_colors.collect do|color_name|
-          ot.option_values.where(name: color_name.strip).first.try(:extra_value)
-        end.compact
-        if hex_values.find{|v| v.blank? }
-          puts '%4d | %30s | %16s | %s *** DELETE' % [ov.id, ov.name, ov.extra_value.to_s, hex_values.to_s]
-          ov.destroy
-        else
-          puts '%4d | %30s | %16s | %s' % [ov.id, ov.name, ov.extra_value.to_s, hex_values.to_s]
-          ov.update(extra_value: hex_values.join(',') )
-        end
-      end
-
-      # Clean duplicates
-      Spree::OptionValue.where(option_type_id: ot.id).group('name').count.each_pair do|name,count|
-        if count > 1
-
-        end
-      end
-    end
+    puts '********* Deprecated task name.  Use option_values:fix_color_option_values instead.'
+    fix_color_option_values
   end
 
   ################################
