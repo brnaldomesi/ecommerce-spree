@@ -33,6 +33,57 @@ namespace :sample_data do
     filter_variants_of_products(users)
   end
 
+  task :import_color_names => :environment do
+    ARGV.shift
+    file_path = ARGV.shift
+    file_path ||= File.join(Rails.root, 'doc/option_values/color_names.html')
+    puts "File #{file_path} ===================================\n"
+
+    doc = File.open( file_path ) { |f| Nokogiri::HTML(f) }
+    count = 0
+    doc.xpath("//tr[@class='color']").each do|color_tr|
+      h = {}
+      color_tr.children.each do|td|
+        if td['class'] =~ /\bcolor-name\b/i
+          h[:name] = td.text.strip
+        elsif td['class'] =~ /\bcolor-hex\b/i
+          h[:hex] = td.text.strip
+        end
+      end
+      count += 1
+      ::Spree::OptionType.where("name LIKE '%color'").each do|option_type|
+        ov = option_type.option_values.where(presentation: h[:name]).first
+        ov ||= ::Spree::OptionValue.new(position: count, name: h[:name], presentation: h[:name], option_type_id: option_type.id)
+        ov.extra_value = h[:hex]
+        ov.save
+      end
+      puts '%16s | %s' % [ h[:name], h[:hex] ]
+    end
+    puts "| Total of #{count} colors found"
+  end
+
+  ##
+  # Expected format:
+  # color_name,value,extra_value
+  task :import_colors_from_csv => :environment do
+    ARGV.shift
+    file_path = ARGV.shift
+    file_path ||= File.join(Rails.root, 'doc/option_values/color_values_by_neil.csv')
+    puts "File #{file_path} ===================================\n"
+
+    ::Spree::OptionType.where("name LIKE '%color'").each do|option_type|
+      puts "Option Type: #{option_type.name} (#{option_type.id}) ------------------------------------"
+      File.open(file_path).readlines.each_with_index do|line, count|
+        cols = line.split(',')
+        ov = option_type.option_values.where(presentation: cols[0] ).first
+        ov ||= ::Spree::OptionValue.new(position: count + 1, name: cols[0], presentation: cols[0], option_type_id: option_type.id)
+        ov.extra_value = cols[2].present? ? cols[1] + ',' + cols[2] : cols[1]
+        ov.save
+        puts '%4d | %30s | %s' % [ov.id, ov.name, ov.extra_value]
+      end
+    end
+  end
+
   ################################
 
   def common_names
