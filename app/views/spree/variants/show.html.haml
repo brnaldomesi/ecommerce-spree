@@ -43,7 +43,7 @@
               .product-image(data-hook="product_images")
                 .product-gallery__large-image
                   %figure.product-gallery__image
-                    = render partial: 'variant_gallery', locals: { variant: @variant }
+                    = render partial: 'variant_gallery', locals: { variant: @variant, is_prod: false }
           / ############## END GALLERY SECTION ############
           .col-lg-5.col-md-5.col-sm-5
             .make-me-sticky

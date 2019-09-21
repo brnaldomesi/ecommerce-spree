@@ -28,6 +28,7 @@
     - if cnt > 0
       = link_to(content_tag(:h5, "+ #{cnt} more photos"), '#', class: 'btn show-more')
 .product-carousel.owl-carousel.gallery-wrapper
+  - images = is_prod ? variant.product.gallery.images : images
   - images.each_with_index do|image, index|
     .gallery-item(dash-hash="Image #{index}")
       = render partial: 'spree/shared/image', locals: { image: image, size: :large }
