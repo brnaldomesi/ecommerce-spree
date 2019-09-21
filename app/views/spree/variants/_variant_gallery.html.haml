@@ -5,18 +5,29 @@
       $("input[name='variant_id']").change(activateVariant);
       $(".product-thumbnails a[href]").click(loadImageOfThumbnail);
     });
+
+- if variant.images.present?
+  - images = variant.gallery.images
+- else
+  - images = variant.product.master.images
+
 .product-gallery
   #thumbnails.thumbnails
     .make-me-sticky
       = render partial: 'spree/products/thumbnails', locals: { product: variant.product }
   .gallery-wrapper
-    - if variant.images.present?
-      - variant.images.to_a.each_with_index do|image, index|
-        = render partial: 'spree/shared/image', locals: { image: image, size: :large }
-    - else
-      - variant.product.master.images.to_a.each_with_index do |image, index|
-        = render partial: 'spree/shared/image', locals: { image: image, size: :large }
+    - cnt = 0
+    - images.each_with_index do|image, index|
+      - if index < 3
+        .gallery-image
+          = render partial: 'spree/shared/image', locals: { image: image, size: :large }
+      - else
+        .gallery-image.hidden
+          = render partial: 'spree/shared/image', locals: { image: image, size: :large }
+        - cnt += 1
+    - if cnt > 0
+      = link_to(content_tag(:h5, "+ #{cnt} more photos"), '#', class: 'btn show-more')
 .product-carousel.owl-carousel.gallery-wrapper
-  - variant.product.gallery.images.to_a.each_with_index do|image, index|
+  - images.each_with_index do|image, index|
     .gallery-item(dash-hash="Image #{index}")
       = render partial: 'spree/shared/image', locals: { image: image, size: :large }
