@@ -22,11 +22,13 @@
         - @product.hash_of_option_type_ids_and_values.each_pair do|option_type_id, option_values|
           - option_type_index += 1
           %div(class="option-type-row#{option_type_index>1 ? ' secondary-option-type-row' : ''}" id='option_type_row_#{option_type_index}')
-            %h6=option_values.first.option_type.presentation
+            %h6
+              =option_values.first.option_type.presentation
+              %span.selected-value
             - option_values.each do|option_value|
               - is_current_variant = @variant ? option_value.variant_ids.include?(@variant.id) : false
               - if option_values.first.option_type.presentation == 'Color'
-                = render partial: 'spree/shared/color_box', locals: { color_values: option_value.extra_value, var_ids: option_value.variant_ids.collect(&:to_s).join(' ') }
+                = render partial: 'spree/shared/color_box', locals: { color_names: option_value.presentation, color_values: option_value.extra_value, var_ids: option_value.variant_ids.collect(&:to_s).join(' ') }
               - else
                 %button(type='button' class="btn btn-sm #{is_current_variant ? 'btn-current' : ''} option-value-button" data="#{option_value.variant_ids.collect(&:to_s).join(' ')}")=option_value.presentation
           .clear

@@ -56,7 +56,6 @@ function loadImageOfThumbnail(e) {
   $(".product-gallery > img").attr("src", $(this).attr('href') );
 }
 
-
 $(document).ready(function(){
 	$(".owl-carousel").owlCarousel({ 
 	    navigation : true,
@@ -67,6 +66,8 @@ $(document).ready(function(){
 	$('.color-box').click(function(){
 		$('.color-box').removeClass('selected');
 		$(this).addClass('selected');
+		name = $(this).attr('data-name');
+		$(this).parent().find('.selected-value').html(': ' + name);
 		str = $(this).attr('data');
 		var_ids = str.split(' ');
 		$('.product-thumbnails .tmb-all').addClass('unavailable');
@@ -79,6 +80,11 @@ $(document).ready(function(){
 		parent = $(this).parent();
 		parent.children().removeClass('selected');
 		$(this).addClass('selected');
+	});
+
+	$('.btn.show-more').click(function() {
+		$('.gallery-image.hidden').removeClass('hidden');
+		$(this).hide();
 	})
 
 	$('#option_type_row_1 .option-value-button').click(selectOptionValue);
