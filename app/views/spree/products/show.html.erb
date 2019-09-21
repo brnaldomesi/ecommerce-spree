@@ -47,7 +47,7 @@
                           <div class="product-gallery__large-image">
                               <figure class="product-gallery__image">
                                   <% if @product.variants.first %>
-                                    <%= render partial: 'spree/variants/variant_gallery', locals: { variant: @product.variants.first } %>
+                                    <%= render partial: 'spree/variants/variant_gallery', locals: { variant: @product.variants.first, is_prod: true } %>
                                   <% end %>
                               </figure>
                               <!--<div class="product-gallery__actions">
