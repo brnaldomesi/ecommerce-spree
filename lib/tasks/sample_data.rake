@@ -1,3 +1,7 @@
+require File.join(Rails.root, 'lib/spree/option_type_service')
+
+include Spree::OptionTypeService
+
 namespace :sample_data do
 
   task :generate => :environment do
@@ -31,6 +35,37 @@ namespace :sample_data do
     puts "  These users have #{products_query.count} products"
 
     filter_variants_of_products(users)
+  end
+
+  task :import_color_names => :environment do
+    ARGV.shift
+    file_path = ARGV.shift
+    file_path ||= File.join(Rails.root, 'doc/option_values/color_names.html')
+    puts '********* Deprecated task name.  Use option_values:import_color_names instead.'
+    puts "File #{file_path} ===================================\n"
+
+    import_color_names_from_file(file_path)
+  end
+
+  ##
+  # Expected format:
+  # color_name,value,extra_value
+  task :import_colors_from_csv => :environment do
+    ARGV.shift
+    file_path = ARGV.shift
+    file_path ||= File.join(Rails.root, 'doc/option_values/color_values_by_neil.csv')
+    puts '********* Deprecated task name.  Use option_values:import_colors_from_csv instead.'
+    puts "File #{file_path} ===================================\n"
+
+    import_colors_from_csv(file_path)
+  end
+
+  ##
+  # Some color combos might have missing hex values (in extra_value).
+  # Also fixes position values of single color to be top of multiple.
+  task :fix_extra_value_of_color_option_values => :environment do
+    puts '********* Deprecated task name.  Use option_values:fix_color_option_values instead.'
+    fix_color_option_values
   end
 
   ################################
