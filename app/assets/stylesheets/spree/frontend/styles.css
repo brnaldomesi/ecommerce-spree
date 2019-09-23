@@ -620,7 +620,7 @@ figure figcaption {
 }
 
 .box-shadow {
-  box-shadow: 0 7px 22px -5px rgba(25, 25, 25, 0.2);
+  box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
 .overflow-hidden {
@@ -8187,6 +8187,219 @@ ul.variant-thumbnails li a {
   margin-left: -3px;
 }
 
+.box-body {
+  padding: 2rem 3rem;
+}
+
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+
+.cart-heading {
+  display: flex;
+  border-bottom: 2px solid;
+  border-bottom-color: #dee2e6;
+}
+
+.cart-heading .change-seller {
+  text-align: right;
+  margin: 10px;
+  text-decoration: none;
+}
+
+.cart-heading .change-seller a {
+  text-decoration: none;
+  color: black;
+}
+
+.cart-content .line-item{
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid;
+  border-bottom-color: #dee2e6;
+}
+
+.cart-content .line-item:nth-last-child(2) {
+  border: none;
+}
+
+.cart-content .line-item .cart-item-image {
+  width: 100px;
+  height: 120px;
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.cart-content .line-item .cart-item-image a {
+  width: 100px;
+  height: 120px;
+  display: flex;
+  background: #fff;
+  opacity: .8;
+}
+
+.cart-content .line-item .cart-item-image img {
+  margin: auto;
+  width: 100px;
+}
+
+.cart-content .line-item .cart-item-description {
+  flex-grow: 3;
+}
+
+.cart-content .line-item .cart-item-description a{
+  text-decoration: none;
+  color: black;
+}
+
+.cart-content .line-item .line-item-quantity{
+  border:none;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.cart-content .line-item .item-field{
+  margin-left: 1em;
+}
+
+.cart-content .line-item .item-field:last{
+  margin-right: 1em;
+}
+
+.cart-content .line-item .cart-item-price {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.cart-total h5 {
+  border-top: 2px solid;
+  border-top-color: #dee2e6;
+}
+
+.cart-summary-content .entry {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.cart-summary-content .entry .entry-thumb {
+  width: 64px;
+  height: 72px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.cart-summary-content .entry .entry-thumb a {
+  width: 64;
+  height: 72px;
+  background-color: #fff;
+  opacity: .8;
+  display: flex;
+}
+
+.cart-summary-content .entry .entry-thumb img {
+  width: 100%;
+  margin: auto;
+}
+
+.cart-summary-content .entry-content {
+  width: 200px;
+  padding-left: 1em;
+}
+
+.cart-summary-content .entry-content h4{
+  font-size: 14px;
+}
+
+.cart-summary-content .entry-content h4 a{
+  text-decoration: none;
+  color: black;
+}
+
+.content-plus {
+  content: '+'
+}
+
+.content-minus {
+  content: '-'
+}
+
+.payment-other a {
+  color: black;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.btn-circle {
+  margin-right: 0;
+  border-radius: 32px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0;
+}
+
+.btn-bg-gray {
+  background: #ebebeb;
+}
+
+.align-right {
+  text-align: right;
+}
 @media (max-width: 1160px) {
   .product-gallery .gallery-wrapper {
     width: 100%!important;

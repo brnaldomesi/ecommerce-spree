@@ -4,42 +4,39 @@
 
 = render 'spree/shared/error_messages', target: orders.try(:first) if orders.try(:first)
 - orders.each do|order|
-  - next if order.store_id.nil? || order.store.nil?
-  = form_for order, url: order_path(id: order.id), html: {id: 'update-cart'} do |order_form|
-    - seller_id = order.store.user_id
-    = hidden_field_tag(:user_id, seller_id)
-    .card
-      .card-body
-        -# Order ##{order.id} w/ #{order.line_items.size} items, store #{order.store_id}, user_id #{seller_id}
-        %table(id="cart-detail" data-hook="cart-detail" class="table table-hover")
-          %thead
-            %tr(data-hook="cart_items_headers")
-              %th.cart-item-description-header(scope="col" colspan="2")
-                %h5
-                  = t('spree.items')
-                  - if seller_id && (user = order.store.user )
-                    from seller #{ link_to(user.display_name, user_path(user), title: seller_id ) }
-              %th(scope="col" class="cart-item-price-header")= t('spree.price')
-              %th(scope="col" class="cart-item-quantity-header")= t('spree.qty')
-              %th(scope="col" class="cart-item-total-header")= t('spree.total')
-              %th(scope="col" class="cart-item-delete-header")
-          %tbody(id="line_items" data-hook)
+  .box-shadow
+    - next if order.store_id.nil? || order.store.nil?
+    = form_for order, url: order_path(id: order.id), html: {id: 'update-cart'} do |order_form|
+      - seller_id = order.store.user_id
+      = hidden_field_tag(:user_id, seller_id)
+      .card.mt-4
+        .box-body
+          -# Order ##{order.id} w/ #{order.line_items.size} items, store #{order.store_id}, user_id #{seller_id}
+          .cart-heading
+            .checkbox.col-md-9
+              %label
+                %input{:type => "checkbox"}
+                %span{:class => "cr"}
+                  %i{:class => "cr-icon fa fa-check"}
+                - if seller_id && (user = order.store.user )
+                  = user.display_name
+            .change-seller.col-md-3
+              = link_to('Change seller', '#')
+          .cart-content
             = render partial: 'spree/orders/line_item', collection: order.line_items, locals: { order_form: order_form }
-          - if order.adjustments.nonzero.exists? || order.line_item_adjustments.nonzero.exists? || order.shipment_adjustments.nonzero.exists? || order.shipments.any?
-            %tr.cart-subtotal
-              %td(colspan="4" align='right')
-                %h5= t('spree.cart_subtotal', count: order.line_items.sum(:quantity))
-              %td
-                %h5= order.display_item_total
-              %td
+          .cart-adjust
             = render 'spree/orders/adjustments'
-          %tr.cart-total
-            %td(colspan="3" data-hook="cart_buttons")
-              = button_tag t('spree.update'), class: 'primary btn btn-primary', id: 'update-button'
-              = link_to checkout_state_path(state:'address', order_id: order.id), class: 'checkout primary btn btn-success', id: 'checkout-link', name: 'checkout' do
-                = t('spree.checkout')
-            %td(colspan="3" align='right')
+          .cart-total.align-right
+            - if order.line_items.length > 1
               %h5
+                Sub 
                 = t('spree.total')
                 = order.display_total
-  %br/
+            .payment-paypal
+              = link_to checkout_state_path(state:'address', order_id: order.id), class: 'checkout primary btn btn-bg-black', id: 'checkout-link', name: 'checkout' do
+                Checkout with 
+                %strong
+                  Paypal
+            .payment-other
+              = link_to('Other ways to pay', '#')
+              -#= t('spree.checkout')
