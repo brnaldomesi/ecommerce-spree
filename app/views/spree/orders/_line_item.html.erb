@@ -1,0 +1,35 @@
+<% variant = line_item.variant -%>
+<%= order_form.fields_for :line_items, line_item do |item_form| -%>
+  <div class="line-item">
+    <div class="cart-item-image item-field" data-hook="cart_item_image">
+      <%= link_to(render('spree/shared/image',
+                         image: (variant.gallery.images.first || variant.product.gallery.images.first),
+                         size: :small), variant.product) %>
+    </div>
+    <div class="cart-item-description item-field" data-hook="cart_item_description">
+      <h6><%= link_to line_item.name, product_path(variant.product) %></h6>
+      <span class="option-text"><%= variant.options_text %></span>
+      <% if line_item.insufficient_stock? %>
+        <span class="out-of-stock">
+          <%= t('spree.out_of_stock') %>&nbsp;&nbsp;<br />
+        </span>
+      <% end %>
+
+      <div class="cart-item-quantity" data-hook="cart_item_quantity">
+        <a class="btn btn-circle btn-bg-gray content-minus">
+          <i class="fa fa-minus"></i>
+        </a>
+        <%= item_form.text_field :quantity, class: "line-item-quantity", size: 5 %>
+        <a class="btn btn-circle btn-bg-gray content-plus">
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div class="cart-item-price item-field" data-hook="cart_item_price">
+      <h4>
+        <%= line_item.quantity.to_s + ' X' unless line_item.quantity < 2 %>
+        <%= line_item.single_money.to_html %>
+      </h4>
+    </div>
+  </div>
+<% end -%>

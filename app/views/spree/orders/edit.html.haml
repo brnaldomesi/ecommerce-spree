@@ -1,20 +1,42 @@
 :ruby
   @body_id = 'cart'
+- content_for :footer_extra do
+  = stylesheet_link_tag 'font-awesome.min.css'
 %div(data-hook="cart_container" class="container")
-  %h1= t('spree.shopping_cart')
-  - if cart_items.blank?
-    %div(data-hook="empty_cart")
-      %p= t('spree.your_cart_is_empty')
-      %p= link_to t('spree.continue_shopping'), products_path, class: 'button continue'
-  - else
-    %div(data-hook="outside_cart_form")
-      %div(data-hook="inside_cart_form")
-        %div(data-hook="cart_items")
-          = render partial: 'spree/orders/form_in_seller_groups', locals: { orders: orders_in_cart }
-    #empty-cart(data-hook="")
-      = form_tag empty_cart_path, method: :put do
-        %p#clear_cart_link(data-hook="")
-          = submit_tag t('spree.empty_cart'), class: 'button gray'
-          = t('spree.or')
-          = link_to t('spree.continue_shopping'), cookies[:recent_shopping_path] || products_path, class: 'continue button gray'
+  .col-md-8.col-lg-8
+    .cart-header.box-shadow
+      .box-body
+        %h6
+          Shopping Cart (
+          = content_tag(:span, '', class: 'cart-total-lines')
+          ) items
+        .checkbox
+          %label
+            %input{:type => "checkbox"}
+            %span{:class => "cr"}
+              %i{:class => "cr-icon fa fa-check"}
+            Select All
+    - if cart_items.blank?
+      %div(data-hook="empty_cart")
+        %p= t('spree.your_cart_is_empty')
+        %p= link_to t('spree.continue_shopping'), products_path, class: 'button continue'
+    - else
+      %div(data-hook="outside_cart_form")
+        %div(data-hook="inside_cart_form")
+          %div(data-hook="cart_items")
+            = render partial: 'spree/orders/form_in_seller_groups', locals: { orders: orders_in_cart }
+  .col-md-4.col-lg-4
+    .box-shadow.box-body
+      %h6
+        Order Summary
+      - if cart_items && cart_items.count > 0
+        .cart-summary-content
+          = render partial: 'spree/orders/order_line_item_dropdown_entry', collection: cart_items, as: :line_item
+          .d-flex.v-flex
+            .mb-2.w-100
+              = link_to 'Checkout Now', '/checkout', class: 'full-width-btn btn-bg-black brnd-4'
+        %h5
+          Sub 
+          = t('spree.total')
+          
       -#= render template: 'spree/coupon_codes/new'
