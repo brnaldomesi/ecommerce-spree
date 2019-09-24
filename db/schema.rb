@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(version: 2019_09_20_162356) do
     t.integer "option_type_id"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
-    t.string "extra_value"
+    t.string "extra_value", limit: 255
     t.index ["option_type_id"], name: "index_spree_option_values_on_option_type_id"
     t.index ["position"], name: "index_spree_option_values_on_position"
   end
@@ -998,8 +998,8 @@ ActiveRecord::Schema.define(version: 2019_09_20_162356) do
     t.integer "payment_method_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "account_parameters", default: ""
-    t.string "account_label", default: ""
+    t.string "account_parameters", limit: 255, default: ""
+    t.string "account_label", limit: 255, default: ""
     t.index ["payment_method_id"], name: "index_spree_store_payment_methods_on_payment_method_id"
     t.index ["store_id"], name: "index_spree_store_payment_methods_on_store_id"
   end

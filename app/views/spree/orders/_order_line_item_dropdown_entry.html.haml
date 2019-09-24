@@ -9,7 +9,7 @@
       = link_to(render('spree/shared/image', image: (variant.gallery.images.first || variant.product.gallery.images.first), size: :small), variant.product)
     .entry-content
       %h4.entry-title
-        = link_to(line_item.name, variant.product)
+        = link_to(line_item.name.truncate(36), variant.product)
       %span.entry-meta.entry-var
         - variant.option_values.each do | value, idx |
           #{value.presentation}

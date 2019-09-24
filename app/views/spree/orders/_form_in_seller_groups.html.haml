@@ -13,14 +13,14 @@
         .box-body
           -# Order ##{order.id} w/ #{order.line_items.size} items, store #{order.store_id}, user_id #{seller_id}
           .cart-heading
-            .checkbox.col-md-9
+            .checkbox.col-md-9.m-pd-l-0
               %label
                 %input{:type => "checkbox"}
                 %span{:class => "cr"}
                   %i{:class => "cr-icon fa fa-check"}
                 - if seller_id && (user = order.store.user )
                   = user.display_name
-            .change-seller.col-md-3
+            .change-seller.col-md-3.m-pd-r-0
               = link_to('Change seller', '#')
           .cart-content
             = render partial: 'spree/orders/line_item', collection: order.line_items, locals: { order_form: order_form }

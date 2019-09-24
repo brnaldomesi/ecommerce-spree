@@ -7,7 +7,7 @@
                          size: :small), variant.product) %>
     </div>
     <div class="cart-item-description item-field" data-hook="cart_item_description">
-      <h6><%= link_to line_item.name, product_path(variant.product) %></h6>
+      <h6><%= link_to line_item.name.truncate(40), product_path(variant.product) %></h6>
       <span class="option-text"><%= variant.options_text %></span>
       <% if line_item.insufficient_stock? %>
         <span class="out-of-stock">
@@ -19,7 +19,7 @@
         <a class="btn btn-circle btn-bg-gray content-minus">
           <i class="fa fa-minus"></i>
         </a>
-        <%= item_form.text_field :quantity, class: "line-item-quantity", size: 5 %>
+        <%= item_form.text_field :quantity, class: "line-item-quantity", size: 3 %>
         <a class="btn btn-circle btn-bg-gray content-plus">
           <i class="fa fa-plus"></i>
         </a>

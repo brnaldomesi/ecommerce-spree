@@ -2,8 +2,8 @@
   @body_id = 'cart'
 - content_for :footer_extra do
   = stylesheet_link_tag 'font-awesome.min.css'
-%div(data-hook="cart_container" class="container")
-  .col-md-8.col-lg-8
+%div(data-hook="cart_container" class="container cart-container")
+  .col-md-8.col-lg-8.pd-m-0
     .cart-header.box-shadow
       .box-body
         %h6
@@ -21,22 +21,24 @@
         %p= t('spree.your_cart_is_empty')
         %p= link_to t('spree.continue_shopping'), products_path, class: 'button continue'
     - else
-      %div(data-hook="outside_cart_form")
+      %div(data-hook="outside_cart_form" class="cart-body")
         %div(data-hook="inside_cart_form")
           %div(data-hook="cart_items")
             = render partial: 'spree/orders/form_in_seller_groups', locals: { orders: orders_in_cart }
-  .col-md-4.col-lg-4
-    .box-shadow.box-body
-      %h6
-        Order Summary
+  .col-md-4.col-lg-4.pd-m-0
+    .cart-summary.box-shadow.box-body
+      .cart-summary-header
+        %h6
+          Order Summary
       - if cart_items && cart_items.count > 0
         .cart-summary-content
           = render partial: 'spree/orders/order_line_item_dropdown_entry', collection: cart_items, as: :line_item
-          .d-flex.v-flex
-            .mb-2.w-100
-              = link_to 'Checkout Now', '/checkout', class: 'full-width-btn btn-bg-black brnd-4'
-        %h5
-          Sub 
-          = t('spree.total')
+          %hr
+        .cart-summary-footer
+          %span.cart-total
+            Sub 
+            = t('spree.total')
+          .mb-2.w-100.checkout
+            = link_to 'Checkout Now', '/checkout', class: 'full-width-btn btn-bg-black brnd-4'
           
       -#= render template: 'spree/coupon_codes/new'
