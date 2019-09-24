@@ -1,7 +1,13 @@
 <div data-hook="homepage_products">
-    <%= render partial: 'spree/variants/variants_wrapper', locals: { variants: @variants } -%>
+  <%= render partial: 'spree/variants/variants_wrapper', locals: { variants: @variants } -%>
+  <div class="text-center pt-1 mb-4">
+    <% if @variants.respond_to?(:total_pages) %>
+      <%= paginate @variants -%>
+    <% end -%>
+  </div>
 </div>
-
+<br/>
+<br/>
 <%#<% content_for :sidebar do %>
   <%#<div data-hook="homepage_sidebar_navigation">
     <%#<%= render partial: 'spree/shared/taxonomies' %>
