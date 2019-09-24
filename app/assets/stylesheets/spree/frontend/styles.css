@@ -8332,6 +8332,15 @@ ul.variant-thumbnails li a {
   border-top-color: #dee2e6;
 }
 
+.cart-summary {
+  background: #fff;
+}
+
+.cart-summary hr{
+  border-top: 2px solid #e5e5e5;
+  margin-bottom: .4em;
+}
+
 .cart-summary-content .entry {
   display: flex;
   margin-bottom: 1em;
@@ -8370,6 +8379,15 @@ ul.variant-thumbnails li a {
   color: black;
 }
 
+.cart-summary-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-summary-footer .cart-total{
+  line-height: 46px;
+}
+
 .content-plus {
   content: '+'
 }
@@ -8400,9 +8418,64 @@ ul.variant-thumbnails li a {
 .align-right {
   text-align: right;
 }
+
 @media (max-width: 1160px) {
   .product-gallery .gallery-wrapper {
     width: 100%!important;
+  }
+
+  .cart-container {
+    padding: 0;
+    margin-top: 0.5em;
+  }
+
+  .box-body {
+    padding: 2em 1em;
+  }
+}
+
+@media (min-width: 768px) {
+  .cart-container.container {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-header {
+    display: none;
+  }
+
+  .cart-body {
+    margin-bottom: 60px;
+  }
+
+  .cart-summary {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 0.5em!important;
+  }
+
+  .cart-summary .cart-summary-header {
+    display: none;
+  }
+
+  .cart-summary .cart-summary-content {
+    display: none;
+  }
+
+  .cart-summary-footer {
+    flex-direction: row;
+  }
+
+  .cart-summary-footer .cart-total {
+    text-align: center;
+    flex: 0 0 50%;
+  }
+
+  .cart-summary-footer .checkout {
+    flex: 0 0 50%;
   }
 }
 
@@ -8437,4 +8510,39 @@ ul.variant-thumbnails li a {
       /*height: 100%;*/
       margin: auto;
   }
+
+  .cart-container.container {
+    padding: 0;
+  }
+
+  .cart-container.container .pd-m-0 {
+    padding: 0;
+  }
+
+  .cart-header {
+    display: none;
+  }
+
+  .cart-content .line-item .cart-item-image a {
+    width: 75px;
+    height: 90px;
+  }
+
+  .cart-content .line-item .cart-item-image {
+    width: 75px;
+    height: 90px;
+  }
+
+  .box-body {
+    padding: 2rem 1rem;
+  }
+
+  .cart-heading .m-pd-l-0 {
+    padding-left: 0;
+  }
+
+  .cart-heading .m-pd-r-0 {
+    padding-right: 0;
+  }
+
 }
