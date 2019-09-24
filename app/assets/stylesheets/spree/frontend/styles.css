@@ -8441,6 +8441,10 @@ ul.variant-thumbnails li a {
 }
 
 @media (max-width: 768px) {
+  .cart-container.container {
+    background: #e9e9e9;
+  }
+
   .cart-header {
     display: none;
   }
