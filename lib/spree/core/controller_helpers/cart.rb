@@ -11,7 +11,6 @@ module Spree
         #
         # From spree/orders_controller.rb#edit
         def load_orders
-          logger.info "| load_cart: request=#{request.method}"
           if %w|GET PATCH|.include?(request.method)
             unless @orders
               @orders = Spree::Order.includes(:store).incomplete.where(guest_token: cookies.signed[:guest_token])

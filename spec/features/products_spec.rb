@@ -87,38 +87,11 @@ RSpec.describe ::Spree::Product do
     end
 
     context 'Create Product Via Page Request' do
-      let :user_attr do
-        attributes_for(:basic_user)
-      end
-      let :product_attr do
-        attributes_for(:basic_product)
-      end
 
       it 'Create Product with Images' do
-        user = sign_up_with(user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name] )
-        confirm_email(user)
-        visit logout_path
-        sign_in(user)
+        user = signup_sample_user(:basic_user)
 
-        visit new_admin_product_path(form:'form_in_one')
-        expect(page.driver.status_code).to eq 200
-
-        fill_into_product_form(product_attr)
-        find_all(:xpath, "//input[@name='product[uploaded_images][][attachment]']").last.attach_file(sample_image_path)
-        click_on('Create')
-
-        product = ::Spree::Product.where(user_id: user.id).last
-        expect(product).not_to be_nil
-        expect(product.master).not_to be_nil
-        if product_attr[:taxon_ids].present?
-          current_taxon_ids = product.taxons.collect(&:id)
-          product_attr[:taxon_ids].split(',').each do|_tid|
-            expect(current_taxon_ids).to include(_tid.to_i )
-          end
-        end
-        expect(product.gallery.images.size).to eq(1)
-        expect(product.name).to eq(product_attr[:name])
-        expect(product.description[0,20] ).to eq(product_attr[:description][0,20] )
+        product = post_product_via_pages(user, :basic_product, sample_image_path)
       end
     end
 
