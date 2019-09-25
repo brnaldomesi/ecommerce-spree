@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   include ControllerHelpers::PageFlow
+
   include Spree::Core::ControllerHelpers::Auth
   include Spree::Core::ControllerHelpers::Order
+  include ::ControllerHelpers::Order # override some of methods in Spree's original
 
   require File.join(Rails.root, 'lib/spree/core/controller_helpers/cart') # somehow the config/application.rb cannot load lib/*
   include Spree::Core::ControllerHelpers::Cart

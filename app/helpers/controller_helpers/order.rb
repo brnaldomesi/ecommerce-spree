@@ -1,7 +1,7 @@
 ##
 # Need to set current seller of the order.
 
-Spree::Core::ControllerHelpers::Order.module_eval do
+module ControllerHelpers::Order
 
   def current_order_params
     { currency: current_pricing_options.currency, guest_token: cookies.signed[:guest_token], store_id: params[:store_id] || current_store.id, user_id: try_spree_current_user.try(:id) }
