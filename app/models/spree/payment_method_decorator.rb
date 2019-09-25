@@ -32,4 +32,8 @@ Spree::PaymentMethod.class_eval do
   def account_reference_label
     I18n.t('spree.account_id')
   end
+
+  def forward_payment_url
+    nil
+  end
 end

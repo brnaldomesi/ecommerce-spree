@@ -6,6 +6,7 @@ module Spree
 
     before_action :load_collection, only: [:index]
     before_action :set_params, only: [:create, :update]
+    before_action :set_new_data, only: [:new]
     after_action :clear_notice, except: [:index]
     # before_action :load_resource, except: [:index, :create]
 
@@ -30,6 +31,12 @@ module Spree
       end
     end
 
+    protected
+
+    def resource_params
+      params.require(:store_payment_method).permit(:payment_method_id, :account_parameters, :account_label)
+    end
+
     private
 
     def set_params
@@ -39,6 +46,12 @@ module Spree
         params[:store_payment_method][:account_parameters] = account_parameters.to_json
       end
       params.permit! # let inherited_resources handle attribute permits
+    end
+
+    def set_new_data
+      # that inherited_resources just cannot build this correctly
+      @store_payment_method = ::Spree::StorePaymentMethod.new(resource_params)
+      @payment_method = ::Spree::PaymentMethod.find( params[:store_payment_method].try(:[], :payment_method_id) )
     end
 
     def clear_notice
