@@ -3,7 +3,7 @@
 - content_for :footer_extra do
   = stylesheet_link_tag 'font-awesome.min.css'
 
-#checkout-container.container(data-hook)
+#checkout-container.container.d-flex(data-hook)
   = render partial: 'spree/shared/error_messages', locals: { target: @order }
   .col-md-8.col-lg-8.pd-m-0
     .row(data-hook="checkout_header")
@@ -99,7 +99,7 @@
           -#= render @order.state, form: form
   .col-md-4.col-lg-4.pd-m-0
     - if @order.state != 'confirm'
-      #checkout-summary(data-hook="checkout_summary_box" class="columns omega four make-me-sticky")
+      #checkout-summary(data-hook="checkout_summary_box" class="cart-summary box-shadow box-body make-me-sticky")
         = render partial: 'summary', locals: { order: @order }
 
 :javascript
