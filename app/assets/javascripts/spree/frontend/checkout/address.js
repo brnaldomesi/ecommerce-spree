@@ -125,3 +125,14 @@ Spree.ready(function($) {
     update_shipping_form_state(order_use_billing);
   }
 });
+
+
+
+$(document).ready(function(){
+  $('#same_billing').change(function(){
+    if ($('#same_billing')[0].checked == true)
+      $('#billing').slideUp();
+    else
+      $('#billing').slideDown();
+  })
+})
