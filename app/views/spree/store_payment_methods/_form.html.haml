@@ -1,0 +1,11 @@
+= form_for(resource) do|f|
+  = f.hidden_field(:payment_method_id)
+  %table.table.table-no-border
+    %tbody
+      %tr
+        %td.text-right
+          = f.label(:account_parameters) { resource.payment_method.account_reference_label }
+        %td=f.text_field(:account_parameters, class:'form-control')
+      %tr
+        %td(colspan="2" class="text-right")
+          = f.submit(t('spree.update'), class:'btn btn-primary' )

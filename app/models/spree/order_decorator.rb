@@ -15,4 +15,11 @@
     payments.checkout.last.try(:payment_method)
   end
 
+  private
+
+  def allow_cancel?
+    return false unless (state == 'payment' || state == 'confirm' || completed? ) && state != 'canceled'
+    shipment_state.nil? || %w{ready backorder pending}.include?(shipment_state)
+  end
+
 end
