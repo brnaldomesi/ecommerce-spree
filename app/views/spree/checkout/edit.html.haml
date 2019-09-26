@@ -58,11 +58,11 @@
                   .col-md-5.pdl-0.mt-1
                     .checkbox.mt-4
                       %label
-                        %input#same_billing{:type => "checkbox"}
+                        %input#same_billing{:type => "checkbox", :checked => "checked"}
                           %span.cr
                             %i.cr-icon.fa.fa-check
                         Same as billing address
-          #billing.box-shadow.mt-4
+          #billing.box-shadow.mt-4{:style => "display:none;"}
             .box-body
               %h6='Billing Information'
               .contact
