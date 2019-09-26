@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2019_09_20_162356) do
+ActiveRecord::Schema.define(version: 2019_09_25_172644) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -45,6 +44,17 @@ ActiveRecord::Schema.define(version: 2019_09_20_162356) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "payment_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.text "params"
+    t.string "status", limit: 64
+    t.integer "order_id"
+    t.string "transaction_code"
+    t.string "ip", limit: 64
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payment_notifications_on_order_id"
   end
 
   create_table "retail_product_to_spree_product", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -348,6 +358,7 @@ ActiveRecord::Schema.define(version: 2019_09_20_162356) do
     t.integer "store_id"
     t.string "approver_name"
     t.boolean "frontend_viewable", default: true, null: false
+    t.string "transaction_code"
     t.index ["approver_id"], name: "index_spree_orders_on_approver_id"
     t.index ["bill_address_id"], name: "index_spree_orders_on_bill_address_id"
     t.index ["completed_at"], name: "index_spree_orders_on_completed_at"

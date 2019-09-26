@@ -1,0 +1,20 @@
+:ruby
+  # Required locals
+  #   order <Spree::Order>
+  domain = Rails.env.development? ? 'www.sandbox.paypal.com' : 'www.paypal.com'
+
+%form(action="https://#{domain}/cgi-bin/webscr" method="post")
+  %input(type="hidden" name="cmd" value="_cart")
+  %input(type="hidden" name="upload" value="1")
+  %input(type="hidden" name="business" value="#{store_payment_account_id(order) }")
+  - order.line_items.to_a.each_with_index do|line_item, index|
+    = hidden_field_tag "item_name_#{index + 1}", line_item.product.name
+    = hidden_field_tag "amount_#{index + 1}", line_item.price
+    - if index == 0
+      = hidden_field_tag "shipping_#{index + 1}", order.shipment_total
+  = hidden_field_tag 'tax', order.additional_tax_total
+  -#= hidden_field_tag 'notify_url', log_payment_notification_path(host: domain, order_id: order.id, transaction_code: order.transaction_code) # somehow the _path method still undefined
+  = hidden_field_tag 'notify_url', "http://#{SystemSetting.settings['api_domain']}/payment_notifications/log?order_id=#{order.id}&code=#{order.transaction_code}"
+  = hidden_field_tag 'return', "http://#{SystemSetting.settings['api_domain']}/orders/#{order.number}?order_id=#{order.id}&code=#{order.transaction_code}"
+  = hidden_field_tag 'cancel_return', "http://#{Rails.env.development? ? 'localhost' : SystemSetting.settings['api_domain']}/orders/#{order.id}/cancel?transaction_code=#{order.transaction_code}"
+  %input(type="submit" value="#{t('spree.place_order')}")

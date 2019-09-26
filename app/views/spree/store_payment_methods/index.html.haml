@@ -35,13 +35,11 @@
               %strong Add More
           .card-body.p-5
             - if show_paypal
-              = form_for(user_paypal || Spree::StorePaymentMethod.new) do|f|
-                = f.hidden_field(:payment_method_id, value: first_payment_method.id)
-                .text-center
-                  %h4=t('payment.best_payment_method')
-                  = f.button(type:'submit', class:'btn btn-primary rounded-pill') do
-                    = image_tag('/assets/icon/payments/paypal_white_icon_only_22.png')
-                    = t('payment.connect_with_paypal')
+              .text-center
+                %h4=t('payment.best_payment_method')
+                = link_to(new_store_payment_method_path(store_payment_method: { payment_method_id: first_payment_method.id} ), class:'btn btn-primary rounded-pill') do
+                  = image_tag('/assets/icon/payments/paypal_white_icon_only_22.png')
+                  = t('payment.connect_with_paypal')
             - else
               = form_for(Spree::StorePaymentMethod.new) do|f|
                 %p

@@ -53,6 +53,9 @@ Spree::Core::Engine.routes.draw do
 
   resources :variants
 
+  # Trading
+  get '/orders/:id/cancel', to: 'orders#cancel', as: 'order_cancel'
+
 
   get '/cart_link_dropdown', to: 'orders#cart_link_dropdown', as: 'cart_link_dropdown'
 
@@ -88,6 +91,10 @@ Rails.application.routes.draw do
   # Buyers
 
   get '/sellers/:id', to: 'sellers#show', as: :seller
+
+  # Payments
+  match '/payment_notifications/log' => 'payment_notifications#log', via: [:get, :put, :post], as: 'log_payment_notification'
+  resources :payment_notifications
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
