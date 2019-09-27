@@ -11,6 +11,53 @@
 
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700");
 
+.almost-full-height-boder-right:hover {
+  cursor: pointer;
+}
+
+.almost-full-height-boder-right:after {
+  content : "";
+  position: absolute;
+  right    : 0;
+  z-index: 100;
+  top  : 10%;
+  width  : 1px;
+  height   : 80%;  /* or 100px */
+  background: #e0e0e0;
+}
+
+.vertical-seperator {
+  border: #E0E0E0 1px solid;
+  height: 100%;
+
+}
+
+.grey-border {
+  border: #E0E0E0 1px solid;
+}
+
+.black-border {
+  border: black 1px solid;
+}
+
+.radious-number {
+  width: 34px;
+  height: 31px;
+  line-height: 29px;
+  border-radius: 50%;
+  border: 1px solid rgb(23,113,236);
+  color: rgb(23,113,236);
+  text-align: center;
+}
+
+.dark-blue-font {
+  color: rgb(15,43,76);
+}
+
+.font-italic {
+  font-style: italic;
+}
+
 .toolbar-dropdown, .site-header .site-menu > ul > li .sub-menu {
   display: none;
   position: absolute;

@@ -64,33 +64,66 @@
                         Same as billing address
           #billing.box-shadow.mt-4{:style => "display:none;"}
             .box-body
-              %h6='Billing Information'
+              %h6='Billing Address'
               .contact
-                %label{:for => "full_name"}='Full Name'
+                %label{:for => "contact_full_name"}='Contact'
                 .d-flex
                   .col-md-6.pdl-0
-                    %input.form-control{:id => "full_name", :placeholder => "Full Name"}
+                    %input.form-control{:id => "contact_full_name", :placeholder => "Full Name"}
                   .phone.d-flex.col-md-6.pdr-0.pdl-0
                     %input.form-control.col-md-2{:id => "prefix", :value => "+1", :size => "4"}
-                    %input.form-control{:id => "mobile", :placeholder => "Mobile", :size => "12"}
+                    %input.form-control{:id => "billing_mobile", :placeholder => "Mobile", :size => "12"}
               .address
                 %label{:for => "address"}='Address'
                 .d-flex
                   .col-md-6.pdl-0
-                    %input.form-control{:id => "street", :placeholder => "Street"}
+                    %input.form-control{:id => "billing_street", :placeholder => "Street"}
                   .col-md-6.pdr-0.pdl-0
-                    %input.form-control{:id => "apartment", :placeholder => "Apartment Or Unit"}
+                    %input.form-control{:id => "billing_apartment", :placeholder => "Apartment Or Unit"}
                 .d-flex
                   .col-md-4.pdl-0
-                    %input.form-control{:id => "country", :placeholder => "Street"}
+                    %input.form-control{:id => "billing_country", :placeholder => "Street"}
                   .col-md-4.pdl-0
-                    %input.form-control{:id => "state", :placeholder => "Apartment Or Unit"}
+                    %input.form-control{:id => "billing_state", :placeholder => "Apartment Or Unit"}
                   .col-md-4.pdr-0.pdl-0
-                    %input.form-control{:id => "city", :placeholder => "Apartment Or Unit"}
+                    %input.form-control{:id => "billing_city", :placeholder => "Apartment Or Unit"}
                 .d-flex
                   .col-md-3.pdl-0
-                    %input.form-control{:id => "zipcode", :placeholder => "Zipcode"}
+                    %input.form-control{:id => "billing_zipcode", :placeholder => "Zipcode"}
 
+          #payment.box-shadow.mt-4
+            .box-body
+              %h6='Payment Method'
+              .contact
+                .d-flex
+                  .radious-number.mr-4
+                    1
+                  %div.w-100
+                    %div
+                      %h6.mb-0.dark-blue-font="Choose how you want to make today's payment of $179.00"
+                      .font-italic='For AMEX or savings accounts consider PayPal.'
+                    .address.mt-4
+                      .d-flex.rounded.grey-border
+                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "paypal"}
+                          %img{:src => "/img/shop/payment/paypal.png"}
+                          %div.mt-1
+                            PayPal
+                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "credit"}
+                          %img.rounded.black-border{:src => "/img/shop/payment/card.png"}
+                          %div.mt-1
+                            Credit/Debit
+                        .col.pt-3.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "alipay"}
+                          %img{:src => "/img/shop/payment/Alipay.png"}
+                          %div.mt-1
+                            AliPay
+                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "googlepay"}
+                          %img.rounded.black-border{:src => "/img/shop/payment/googlePay.png"}
+                          %div.mt-1
+                            Google Pay
+                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "applepay"}
+                          %img.rounded.black-border{:src => "/img/shop/payment/applePay.png"}
+                          %div.mt-1
+                            Apple Pay
           -# if @order.state == 'address' || !@order.email?
             -#%div(class="field field-required" style='clear: both')
               -#= form.label :email

@@ -135,4 +135,9 @@ $(document).ready(function(){
     else
       $('#billing').slideDown();
   })
+
+  $('.almost-full-height-boder-right').on('click', function() {
+    $('.almost-full-height-boder-right').css("border", "none")
+    $(this).css("border", "2px solid black")
+  })
 })
