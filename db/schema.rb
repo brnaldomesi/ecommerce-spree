@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 2019_09_27_150611) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-  create_table "payment_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "payment_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "params"
     t.string "status", limit: 64
     t.integer "order_id"
-    t.string "transaction_code"
+    t.string "transaction_code", limit: 255
     t.string "ip", limit: 64
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -360,7 +360,7 @@ ActiveRecord::Schema.define(version: 2019_09_27_150611) do
     t.integer "store_id"
     t.string "approver_name", limit: 255
     t.boolean "frontend_viewable", default: true, null: false
-    t.string "transaction_code"
+    t.string "transaction_code", limit: 255
     t.index ["approver_id"], name: "index_spree_orders_on_approver_id"
     t.index ["bill_address_id"], name: "index_spree_orders_on_bill_address_id"
     t.index ["completed_at"], name: "index_spree_orders_on_completed_at"
