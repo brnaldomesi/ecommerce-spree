@@ -28,6 +28,18 @@ module UsersSpecHelper
     user
   end
 
+  ##
+  # Sign up, confirm email, and sign in.
+  # @return <Spree::User>
+  def signup_sample_user(user_factory_key)
+    user_attr = attributes_for(user_factory_key)
+    user = sign_up_with user_attr[:email], 'test1234', user_attr[:username], user_attr[:display_name]
+    confirm_email(user)
+    visit logout_path
+    sign_in(user)
+    user
+  end
+
   def sign_in(user, password = 'test1234', which_login_attribute = 'username')
     visit login_path
     fill_in 'Email or Username', with: (which_login_attribute.to_s == 'email' ? user.email : user.username || user.email)

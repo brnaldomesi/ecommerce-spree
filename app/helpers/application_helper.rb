@@ -17,6 +17,6 @@ module ApplicationHelper
   end
 
   def cart_items
-    @cart_items ||= @orders.collect(&:line_items).flatten unless @orders == nil
+    @cart_items ||= @orders.to_a.collect(&:line_items).flatten
   end
 end

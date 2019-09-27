@@ -1,0 +1,7 @@
+.container
+  .card
+    .card-header
+      %h5 #{@payment_method.name}
+    .card-body
+      %br/
+      = render partial: 'form'

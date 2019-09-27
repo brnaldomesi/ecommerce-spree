@@ -1,6 +1,6 @@
 ::Spree::CheckoutController.class_eval do
 
-  protected
+  helper Spree::CheckoutHelperExtension
 
   ##
   # This replaces app's own routes method, and auto adds order_id: @order.id,
@@ -9,7 +9,7 @@
     spree.checkout_state_path(order_state, order_id: @order.try(:id) || params[:order_id] )
   end
 
-  # The actions with left over without call root path like spree.checkout_state_path
-  #   insufficient_stock_error
+  private
+
 
 end

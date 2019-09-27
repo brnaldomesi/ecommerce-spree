@@ -1,1 +1,2 @@
 Spree::PermittedAttributes.class_variable_set('@@user_attributes', [:username, :display_name, :login, :password, :password_confirmation] )
+Spree::PermittedAttributes.class_variable_set('@@store_payment_method_attributes', [:payment_method_id, :account_parameters, :account_label] )

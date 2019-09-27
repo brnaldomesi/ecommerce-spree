@@ -145,7 +145,7 @@ class Retail::Product < ::RetailScraperRecord
 
   ##
   # @return <Spree::Product>
-  def create_as_spree_product(force_recreate = false, other_attributes = {})
+  def create_as_spree_product(force_recreate = false, other_attributes = {}, &block)
     product = force_recreate ? nil : ::Retail::ProductToSpreeProduct.where(retail_product_id: id).first.try(:spree_product)
     unless product
       product = self.class.make_spree_product(self)
@@ -156,6 +156,7 @@ class Retail::Product < ::RetailScraperRecord
       product.create_categories_taxon!(self)
       product.copy_product_specs_from_retail_product!(self)
     end
+    yield product if block_given?
     product
   end
 

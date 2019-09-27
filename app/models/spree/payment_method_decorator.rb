@@ -25,4 +25,15 @@ Spree::PaymentMethod.class_eval do
       pm.available_to_users = true
     end
   end
+
+  ##
+  # Depending on payment method type, the attribute name that payer can refer to during payments;
+  # for example, credit card needs 'card number' while PayPal simply needs 'Account ID'.
+  def account_reference_label
+    I18n.t('spree.account_id')
+  end
+
+  def forward_payment_url
+    nil
+  end
 end

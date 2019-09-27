@@ -246,5 +246,10 @@ module Spree
       total_count
     end
 
+    def recalculate_gms!
+
+    end
+    alias_method :recalculate_gross_merchandise_sales!, :recalculate_gms!
+
   end # class_eval
 end

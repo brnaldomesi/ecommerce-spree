@@ -12,7 +12,7 @@ module Spree
       # @return [Spree::Store]
       def store
         _store_id = store_id
-        ::Spree::User.logger.info "| ByParameters: store_id #{_store_id}"
+        ::Spree::User.logger.debug "| ByParameters: store_id #{_store_id}"
         store = _store_id ? ::Spree::Store.where(id: _store_id).first : nil
         store || Spree::Store.new
       end
