@@ -2,7 +2,7 @@
   include Spree::Core::ControllerHelpers::Cart
 
   skip_before_action :verify_authenticity_token, only: :cancel
-  before_action :assign_order, only: [:cancel]
+  before_action :load_order_for_cancel, only: [:cancel]
 
   def cancel
     # authorize! :update, @order, cookies.signed[:guest_token]
@@ -71,11 +71,18 @@
 
   private
 
+  def load_order_for_cancel
+    assign_order
+  end
+
   def assign_order
+    logger.info "| order_id: #{params[:id]}"
     @order = params[:id] ? Spree::Order.find(params[:id]) : current_order
+    logger.info "  -> @order #{@order}"
     unless @order
       flash[:error] = t('spree.order_not_found')
       redirect_to(root_path) && return
     end
+    @order
   end
 end
