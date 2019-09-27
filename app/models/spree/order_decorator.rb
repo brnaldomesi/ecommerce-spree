@@ -2,6 +2,17 @@
 
   before_save :generate_transaction_code
 
+  ###############################
+  # Overrides
+
+  def finalize!
+    ::Jobs::OrderJob.perform_async(id)
+    super
+  end
+
+  ###############################
+  # New methods
+
   ##
   # If +which_payment+ not given, would be latest payment w/ checkout state.
   def forward_to_process_payment?(which_payment = nil)
