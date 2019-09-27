@@ -1,6 +1,20 @@
 ::Spree::OrdersController.class_eval do
   include Spree::Core::ControllerHelpers::Cart
 
+  skip_before_action :verify_authenticity_token, only: :cancel
+  before_action :load_order_for_cancel, only: [:cancel]
+
+  def cancel
+    # authorize! :update, @order, cookies.signed[:guest_token]
+    if can?(:update, @order) && @order.transaction_code.blank? || (params[:transaction_code] || params[:code] ) == @order.transaction_code
+      logger.info "| Order #{@order.id}: state=#{@order.state}"
+      @order.canceled_by(spree_current_user || @order.user)
+
+      redirect_to order_path(number: @order.number)
+    else
+      unauthorized
+    end
+  end
 
   ##
   # Sets @current_store ahead based on variant. After that same as original method.
@@ -45,13 +59,30 @@
     end
   end
 
+  def accurate_title
+    if @order && @order.canceled?
+      s = t('activerecord.attributes.spree/order.canceled_at') + " #{@order.canceled_at.to_s(:short)}"
+      s << " by #{@order.canceler.display_name}" if @order.canceler
+      s
+    else
+      super
+    end
+  end
+
   private
 
+  def load_order_for_cancel
+    assign_order
+  end
+
   def assign_order
+    logger.info "| order_id: #{params[:id]}"
     @order = params[:id] ? Spree::Order.find(params[:id]) : current_order
+    logger.info "  -> @order #{@order}"
     unless @order
       flash[:error] = t('spree.order_not_found')
       redirect_to(root_path) && return
     end
+    @order
   end
 end

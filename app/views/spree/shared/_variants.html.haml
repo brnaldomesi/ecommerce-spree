@@ -1,7 +1,6 @@
 :ruby
   paginated_variants = @searcher.retrieve_variants if params.key?(:keywords)
   paginated_variants ||= variants
-  logger.info "| variants: #{variants}"
   show_debug = %w|development staging|.include?(Rails.env)
 
 - content_for :head do

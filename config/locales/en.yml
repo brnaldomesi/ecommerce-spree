@@ -753,6 +753,7 @@ en:
     acceptance_status: Acceptance status
     accepted: Accepted
     account: Account
+    account_id: Account ID
     account_updated: Account updated
     action: Action
     actions:

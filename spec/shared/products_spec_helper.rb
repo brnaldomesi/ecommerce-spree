@@ -1,4 +1,6 @@
 module ProductsSpecHelper
+
+
   def create_retail_product(product_factory_key, image_urls = [], properties = {})
     product = create(product_factory_key)
     product.product_photos = image_urls.collect do|url|
@@ -81,5 +83,56 @@ module ProductsSpecHelper
         end
       end
     end
+  end
+
+  ##
+  # @options
+  #   :auto_ensure_available <Boolean> default true; somehow form submission has product created but
+  #     available_on stays nil.  Never see such behavior in real run.
+  #   :auto_ensure_user_id <Boolean> default true; somehow product create cannot set user_id
+  # @return <Spree::Product>
+  def post_product_via_pages(user, product_key, sample_image_path = nil, options = {})
+    auto_ensure_available = options[:auto_ensure_available]
+    auto_ensure_available ||= true
+    auto_ensure_user_id = options[:auto_ensure_available]
+    auto_ensure_user_id ||= true
+
+
+    product_attr = attributes_for(product_key)
+    visit new_admin_product_path(form:'form_in_one')
+    expect(page.driver.status_code).to eq 200
+
+    fill_into_product_form(product_attr)
+    if sample_image_path
+      find_all(:xpath, "//input[@name='product[uploaded_images][][attachment]']").last.attach_file(sample_image_path)
+    end
+    click_on('Create')
+
+    product = ::Spree::Product.where(user_id: user.id).last
+    expect(product).not_to be_nil
+    expect(product.master).not_to be_nil
+    if product_attr[:taxon_ids].present?
+      current_taxon_ids = product.taxons.collect(&:id)
+      product_attr[:taxon_ids].split(',').each do|_tid|
+        expect(current_taxon_ids).to include(_tid.to_i )
+      end
+    end
+    expect(product.gallery.images.size).to eq(1) if sample_image_path
+    expect(product.name).to eq(product_attr[:name])
+    expect(product.description[0,20] ).to eq(product_attr[:description][0,20] )
+
+    product.available_on = Time.now if auto_ensure_available && product.available_on.nil?
+    if auto_ensure_user_id
+      product.user_id = user.id
+      product.save
+
+      product.master.user ||= product.user
+      product.master.save
+    end
+
+    visit product_path(product)
+    expect(page.driver.status_code).to eq 200
+
+    product
   end
 end

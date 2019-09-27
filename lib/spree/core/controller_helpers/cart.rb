@@ -4,10 +4,14 @@ module Spree
       module Cart
         extend ActiveSupport::Concern
 
+        def cart_items
+          @cart_items ||= load_orders.to_a.collect(&:line_items).flatten
+        end
+
         #
         # From spree/orders_controller.rb#edit
-        def load_cart
-          if request.method == 'GET'
+        def load_orders
+          if %w|GET PATCH|.include?(request.method)
             unless @orders
               @orders = Spree::Order.includes(:store).incomplete.where(guest_token: cookies.signed[:guest_token])
               authorize! :read, @orders.first, cookies.signed[:guest_token] if @orders.first
@@ -16,6 +20,7 @@ module Spree
               end
             end
           end
+          @orders
         end
       end
     end

@@ -16,7 +16,7 @@ module Spree
       end
 
       @variants = @searcher.retrieve_variants
-      logger.info "| variants#index: searcher #{@searcher}"
+      logger.debug "| variants#index: searcher #{@searcher}"
       @taxonomies = Spree::Taxonomy.includes(root: :children)
     end
 

@@ -39,6 +39,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def load_cart
+    if %w|GET PATCH|.include?(request.method)
+      load_orders
+    end
+  end
+
   protected
 
   def site_wall_authentication
