@@ -73,6 +73,7 @@ Rails.application.routes.draw do
 
   #########################
   # Filtering bots
+  get '/:a/:b.php', to: 'errors#not_found'
   get '/:a.php', to: 'errors#not_found'
 
   ####################################################
