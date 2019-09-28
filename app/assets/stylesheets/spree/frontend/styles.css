@@ -11,6 +11,19 @@
 
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700");
 
+.btn-custom-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-custom-secondary:hover {
+  color: #fff;
+  background-color: #5a6268;
+  border-color: #545b62;
+  cursor: pointer;
+}
+
 .almost-full-height-boder-right:hover {
   cursor: pointer;
 }
