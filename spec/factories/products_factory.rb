@@ -12,8 +12,8 @@ FactoryBot.define do
       depth {'2 in'}
       weight {'2 lbs'}
       shipping_category_id { (Spree::ShippingCategory.default || create(:shipping_category)).id }
-      tax_category_id { (Spree::TaxCategory.default || create(:tax_category)).id }
-      taxon_ids { create(:home_taxon).id.to_s }
+      tax_category_id { (Spree::TaxCategory.default || find_or_create(:tax_category,:name)).id }
+      taxon_ids { find_or_create(:home_taxon,:name).id.to_s }
       option_type_ids {  }
       meta_title {'Cast Iron Skillet'}
       meta_keywords {'cast iron skillet'}
@@ -35,6 +35,10 @@ FactoryBot.define do
 
   factory :tax_category, class: Spree::TaxCategory do
     name {'Default'}
+  end
+
+  factory :shipping_method, class: Spree::ShippingMethod do
+
   end
 
 end
