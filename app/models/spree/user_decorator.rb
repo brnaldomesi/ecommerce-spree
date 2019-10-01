@@ -57,6 +57,27 @@ module Spree
       ::Spree::User.logger.warn "Problem in fetching location of #{current_sign_in_ip}: #{e}"
     end
 
+    ###################################
+    # Attributes
+
+    ##
+    # Ensures always have some value.  Precedence of attributes to check: display_name, username
+    def try_display_name
+      [display_name, username].find(&:present?)
+    end
+
+    FIRSTNAME_LASTNAME_REGEXP = /(.+)\s+(\S+)\Z/i
+
+    def firstname
+      n = try_display_name
+      n.index(' ').nil? ? n : n.match(FIRSTNAME_LASTNAME_REGEXP)[1]
+    end
+
+    def lastname
+      n = try_display_name
+      n.index(' ').nil? ? '' : n.match(FIRSTNAME_LASTNAME_REGEXP)[2]
+    end
+
     def acceptable_ip?(ip)
       ip.present? && ip != '127.0.0.1'
     end

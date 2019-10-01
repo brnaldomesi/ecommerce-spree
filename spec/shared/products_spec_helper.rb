@@ -85,11 +85,7 @@ module ProductsSpecHelper
     end
   end
 
-  ##
-  # @options
-  #   :auto_ensure_available <Boolean> default true; somehow form submission has product created but
-  #     available_on stays nil.  Never see such behavior in real run.
-  #   :auto_ensure_user_id <Boolean> default true; somehow product create cannot set user_id
+  # @options The options that's passed onto check_product_against.
   # @return <Spree::Product>
   def post_product_via_pages(user, product_key, sample_image_path = nil, options = {})
     auto_ensure_available = options[:auto_ensure_available]
@@ -111,6 +107,68 @@ module ProductsSpecHelper
     product = ::Spree::Product.where(user_id: user.id).last
     expect(product).not_to be_nil
     expect(product.master).not_to be_nil
+    if product_attr[:taxon_ids].present?
+      current_taxon_ids = product.taxons.collect(&:id)
+      product_attr[:taxon_ids].split(',').each do|_tid|
+        expect(current_taxon_ids).to include(_tid.to_i )
+      end
+    end
+    expect(product.gallery.images.size).to eq(1) if sample_image_path
+    expect(product.name).to eq(product_attr[:name])
+    expect(product.description[0,20] ).to eq(product_attr[:description][0,20] )
+
+    product.available_on = Time.now if auto_ensure_available && product.available_on.nil?
+    if auto_ensure_user_id
+      product.user_id = user.id
+      product.save
+
+      product.master.user ||= product.user
+      product.master.save
+    end
+
+    visit product_path(product)
+    expect(page.driver.status_code).to eq 200
+
+    product
+  end
+
+  # @options The options that's passed onto check_product_against.
+  def post_product_via_requests(user, product_key, sample_image_path = nil, options = {})
+    product_attr = attributes_for(product_key)
+    if sample_image_path.present?
+      mime_type = "image/#{sample_image_path.match(/\.([a-z]{2,3})\Z/).try(:[], 1) || 'jpg'}"
+      image_file = fixture_file_upload(sample_image_path, mime_type)
+        # ActionDispatch::Http::UploadedFile.new(
+        # filename: sample_image_path.split('/').last, content_type: mime_type,
+        # tempfile: File.open(sample_image_path) )
+      product_attr.merge!(uploaded_images:[ {attachment: image_file } ] )
+    end
+    post admin_products_path(product: product_attr)
+
+    product = check_product_against(user, product_key, sample_image_path, options)
+
+    product
+  end
+
+  private
+
+  ##
+  # @options
+  #   :auto_ensure_available <Boolean> default true; somehow form submission has product created but
+  #     available_on stays nil.  Never see such behavior in real run.
+  #   :auto_ensure_user_id <Boolean> default true; somehow product create cannot set user_id
+  #
+  def check_product_against(user, product_key, sample_image_path = nil, options = {})
+    auto_ensure_available = options[:auto_ensure_available]
+    auto_ensure_available ||= true
+    auto_ensure_user_id = options[:auto_ensure_available]
+    auto_ensure_user_id ||= true
+
+    product_attr = attributes_for(product_key)
+    product = ::Spree::Product.where(user_id: user.id).last
+    expect(product).not_to be_nil
+    expect(product.master).not_to be_nil
+
     if product_attr[:taxon_ids].present?
       current_taxon_ids = product.taxons.collect(&:id)
       product_attr[:taxon_ids].split(',').each do|_tid|
