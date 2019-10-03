@@ -1,6 +1,11 @@
 <!-- Topbar-->
 <div class="topbar d-flex justify-content-between">
   <!-- Logo-->
+  <div class="toolbar d-flex d-sm-none">
+    <div class="toolbar-item visible-on-mobile mobile-menu-toggle"><a href="#">
+      <div><i class="icon-menu"></i></div>
+    </a></div>
+  </div>  
   <div class="site-branding d-flex"><%= logo img_options: {class: 'img-responsive', width: '140'} %></a></div>
   <!-- Search / Categories-->
   <div id="search-bar" class="search-box-wrap d-flex">
@@ -8,8 +13,8 @@
   </div>
   <!-- Toolbar-->
   <div class="toolbar d-flex">
-    <div class="toolbar-item visible-on-mobile mobile-menu-toggle"><a href="#">
-      <div><i class="icon-menu"></i><span class="text-label">Menu</span></div>
+    <div class="toolbar-item visible-on-mobile mobile-menu-toggle d-none d-sm-block"><a href="#">
+      <div><i class="icon-menu"></i><span class="text-label d-none d-sm-block">Menu</span></div>
     </a></div>
     <div class="toolbar-item hidden-on-mobile"><a href="#">
       <div><i class="flag-icon"><img src="/img/flags/EN.png" alt="English"></i><span class="text-label">Eng / Usd</span>
