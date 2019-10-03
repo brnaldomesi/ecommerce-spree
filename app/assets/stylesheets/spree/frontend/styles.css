@@ -17,6 +17,27 @@
   }
 }
 
+@media (max-width: 576px) {
+  .below {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 624px);
+  }
+}
+
+.shipping-info-content {
+  white-space: pre;
+}
+
+.box-thin-shadow {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.margin-x-plus-1 {
+  margin:0 -1rem;
+}
+
 .sum-label {
   line-height: 62px;
 }
@@ -8704,7 +8725,7 @@ form .form-control:focus {
   }
 
   .box-body {
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
   }
 
   .cart-heading .m-pd-l-0 {

@@ -144,9 +144,33 @@ $(document).ready(function(){
 })
 
 function shippingInfo() {
-  $('#breadcrumbLabel').text('Shipping Information')
-  $('#breadcrumbIcon').removeClass('d-none')
+  $('#goHomeIcon').removeClass('d-none')
   $('#shippingBody').removeClass('d-none')
   $('#shippingInfo').attr('style', 'display: none !important')
+  $('#breadcrumbLabel').attr('style', 'display: none')
+  $('.dropdown-divider').removeClass('d-none')
+  $('#billing').addClass('d-none')
+  $('#payment').addClass('d-none')
+  $('#confirm').addClass('d-none')
+  $('#mobileSummary').attr('style', 'display: none !important')
+  $('#full_name').focus()
+}
 
+function goHome() {
+  var str = $('#full_name').val() ? $('#full_name').val() + '\n' : ''
+  str += $('#street').val() ? $('#street').val() + '\n' : ''
+  str += $('#apartment').val() ? $('#apartment').val() + '\n' : ''
+  str += $('#city').val() ? $('#city').val() + '\n' : ''
+  if(str !== '')
+    $('.shipping-info-content').text(str)
+
+  $('#goHomeIcon').addClass('d-none')
+  $('#shippingBody').addClass('d-none')
+  $('#shippingInfo').attr('style', 'display: flex !important')
+  $('#breadcrumbLabel').attr('style', 'display: block')
+  $('.dropdown-divider').addClass('d-none')
+  $('#billing').removeClass('d-none')
+  $('#payment').removeClass('d-none')
+  $('#confirm').removeClass('d-none')
+  $('#mobileSummary').attr('style', 'display: flex !important')
 }

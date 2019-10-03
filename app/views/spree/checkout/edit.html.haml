@@ -23,53 +23,59 @@
       %div(class="checkout-form-wrapper w-100 columns #{@order.state != 'confirm' ? 'alpha twelve' : 'alpha omega sixteen'}" data-hook="checkout_form_wrapper")
         = form_for @order, url: update_checkout_path(@order.state), html: { id: "checkout_form_#{@order.state}" } do |form|
           = hidden_field_tag(:order_id, @order.id)
-          .d-flex.my-3
-            %i.cr-icon.fa.fa-angle-left.fa-2x.pl-3.d-none{ id: "breadcrumbIcon"}
-            %h6.my-1.d-sm-none.pl-3{ id: "breadcrumbLabel"}='Order Confirmation'
+          %h6.my-3.d-sm-none.pl-3{ id: "breadcrumbLabel"}='Order Confirmation'
           #shipping.box-shadow
             .box-body
-              %h6='Shipping Information'
+              .d-flex.my-3
+                %i.cr-icon.fa.fa-angle-left.fa-2x.pr-3.d-none{ id: "goHomeIcon"}(onclick="goHome()")
+                %h6.mb-0.mt-1='Shipping Information'
               #shippingInfo.d-flex.justify-content-between.d-sm-none
                 .shipping-info-group
                   .shipping-info-content='Select address'
                 %i.cr-icon.fa.fa-angle-right.fa-2x(onclick="shippingInfo()")
-              #shippingBody.d-none.d-sm-block
+              %div.dropdown-divider.margin-x-plus-1.box-thin-shadow.d-none
+              #shippingBody.d-none.d-sm-block.bg-white.mt-3
                 .contact
                   %label{:for => "full_name"}='Contact'
-                  .d-flex
-                    .col-md-6.pdl-0
+                  %div.row.mx-0
+                    .col-sm-6.col-12.pdl-0.pr-0.pr-sm-3
                       %input.form-control{:id => "full_name", :placeholder => "Full Name"}
-                    .phone.d-flex.col-md-6.pdr-0.pdl-0
-                      %input.form-control.col-md-2{:id => "prefix", :value => "+1", :size => "4"}
+                    .phone.d-flex.col-sm-6.col-12.pdl-0.pr-0
+                      %input.form-control.col-2.px-0.text-center{:id => "prefix", :value => "+1", :size => "4"}
                       %input.form-control{:id => "mobile", :placeholder => "Mobile", :size => "12"}
                 .address
                   %label{:for => "address"}='Address'
-                  .d-flex
-                    .col-md-6.pdl-0
+                  %div.row.mx-0
+                    .col-sm-6.col-12.pdl-0.pr-0.pr-sm-3
                       %input.form-control{:id => "street", :placeholder => "Street"}
-                    .col-md-6.pdr-0.pdl-0
+                    .col-sm-6.col-12.pdl-0.pr-0
                       %input.form-control{:id => "apartment", :placeholder => "Apartment Or Unit"}
-                  .d-flex
-                    .col-md-4.pdl-0
-                      %input.form-control{:id => "country", :placeholder => "Street"}
-                    .col-md-4.pdl-0
-                      %input.form-control{:id => "state", :placeholder => "Apartment Or Unit"}
-                    .col-md-4.pdr-0.pdl-0
-                      %input.form-control{:id => "city", :placeholder => "Apartment Or Unit"}
-                  .d-flex
-                    .col-md-3.pdl-0
+                  %div.row.mx-0
+                    .col-sm-4.col-6.pdl-0
+                      %input.form-control{:id => "country", :placeholder => "Country"}
+                    .col-sm-4.col-6.pdl-0.pr-0.pr-sm-3
+                      %input.form-control{:id => "state", :placeholder => "State/Province/Region"}
+                    .col-sm-4.col-8.pdl-0.pr-0
+                      %input.form-control{:id => "city", :placeholder => "City"}
+                  %div.row.mx-0
+                    .col-md-3.col-4.pdl-0
                       %input.form-control{:id => "zipcode", :placeholder => "Zipcode"}
-                .submit
-                  .d-flex
-                    .col-md-4.pdl-0
-                      %a#confirm_address.btn.btn-bg-black{:href => "#"}='Confirm Address'
-                    .col-md-5.pdl-0.mt-1
-                      .checkbox.mt-4
-                        %label
-                          %input#same_billing{:type => "checkbox", :checked => "checked"}
-                            %span.cr
-                              %i.cr-icon.fa.fa-check
-                          Same as billing address
+
+                .below
+                  %div
+                  %div
+                    %div.dropdown-divider.margin-x-plus-1.box-thin-shadow
+                    .submit
+                      .d-flex
+                        .col-md-4.col-12.pdl-0.pr-0.pr-sm-3
+                          %a#confirm_address.btn.btn-bg-black.w-100{:href => "#"}='Confirm Address'
+                        .col-md-5.pdl-0.mt-1.d-none.d-sm-block
+                          .checkbox.mt-4
+                            %label
+                              %input#same_billing{:type => "checkbox", :checked => "checked"}
+                                %span.cr
+                                  %i.cr-icon.fa.fa-check
+                              Same as billing address
           #billing.box-shadow.mt-4{:style => "display:none;"}
             .box-body
               %h6='Billing Address'
@@ -190,7 +196,7 @@
 
                 %a#confirm_address.btn.btn-bg-black.mt-5{:href => "#"}='Confirm Address'
 
-          .d-sm-none.d-flex
+          #mobileSummary.d-sm-none.d-flex
             %label.text-center.sum-label.col='Total $577.46'
             %button.col(type='button' class='btn btn-custom-secondary' disabled='disabled')='Place Order'
 
