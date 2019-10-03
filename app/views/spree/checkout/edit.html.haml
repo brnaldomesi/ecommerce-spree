@@ -27,14 +27,14 @@
           #shipping.box-shadow
             .box-body
               .d-flex.my-3
-                %i.cr-icon.fa.fa-angle-left.fa-2x.pr-3.d-none{ id: "goHomeIcon"}(onclick="goHome()")
+                %i.cr-icon.fa.fa-angle-left.fa-2x.pr-3.d-none.go-home(onclick="goHomeFromShipping()")
                 %h6.mb-0.mt-1='Shipping Information'
               #shippingInfo.d-flex.justify-content-between.d-sm-none
                 .shipping-info-group
                   .shipping-info-content='Select address'
                 %i.cr-icon.fa.fa-angle-right.fa-2x(onclick="shippingInfo()")
               %div.dropdown-divider.margin-x-plus-1.box-thin-shadow.d-none
-              #shippingBody.d-none.d-sm-block.bg-white.mt-3
+              #shippingBody.d-none.d-sm-block.mt-3
                 .contact
                   %label{:for => "full_name"}='Contact'
                   %div.row.mx-0
@@ -44,7 +44,7 @@
                       %input.form-control.col-2.px-0.text-center{:id => "prefix", :value => "+1", :size => "4"}
                       %input.form-control{:id => "mobile", :placeholder => "Mobile", :size => "12"}
                 .address
-                  %label{:for => "address"}='Address'
+                  %label{:for => "street"}='Address'
                   %div.row.mx-0
                     .col-sm-6.col-12.pdl-0.pr-0.pr-sm-3
                       %input.form-control{:id => "street", :placeholder => "Street"}
@@ -76,6 +76,7 @@
                                 %span.cr
                                   %i.cr-icon.fa.fa-check
                               Same as billing address
+
           #billing.box-shadow.mt-4{:style => "display:none;"}
             .box-body
               %h6='Billing Address'
@@ -88,7 +89,7 @@
                     %input.form-control.col-md-2{:id => "prefix", :value => "+1", :size => "4"}
                     %input.form-control{:id => "billing_mobile", :placeholder => "Mobile", :size => "12"}
               .address
-                %label{:for => "address"}='Address'
+                %label{:for => "billing_street"}='Address'
                 .d-flex
                   .col-md-6.pdl-0
                     %input.form-control{:id => "billing_street", :placeholder => "Street"}
@@ -107,18 +108,22 @@
 
           #payment.box-shadow.mt-4
             .box-body
+              .d-flex.my-3
+                %i.cr-icon.fa.fa-angle-left.fa-2x.pr-3.d-none.go-home(onclick="goHomeFromPayment()")
+                %h6.mb-0.mt-1='Payment Information'
               %h6.d-none.d-sm-block='Payment Method'
-              %h6.d-sm-none='Payment Information'
-              #payment-info.d-flex.justify-content-between.d-sm-none
-                .payment-info.d-flex
-                  %img.mx-2{:src => "/img/shop/payment/paypal.png"}
-                  %img.mx-2.rounded.black-border{:src => "/img/shop/payment/card.png"}
-                  %img.mx-2{:src => "/img/shop/payment/Alipay.png"}
-                  %img.mx-2.rounded.black-border{:src => "/img/shop/payment/googlePay.png"}
-                  %img.mx-2.rounded.black-border{:src => "/img/shop/payment/applePay.png"}
-                .selected-payment-info.d-none
-                %i.cr-icon.fa.fa-angle-right.fa-2x
-              #payment-body.d-none.d-sm-block
+              #paymentInfo.d-flex.justify-content-between.d-sm-none
+                .payment-info-group
+                  .payment-info-content.d-flex
+                    %img.mx-2{:src => "/img/shop/payment/paypal.png"}
+                    %img.mx-2.rounded.black-border{:src => "/img/shop/payment/card.png"}
+                    %img.mx-2{:src => "/img/shop/payment/Alipay.png"}
+                    %img.mx-2.rounded.black-border{:src => "/img/shop/payment/googlePay.png"}
+                    %img.mx-2.rounded.black-border{:src => "/img/shop/payment/applePay.png"}
+                  .selected-payment-info.d-none
+                %i.cr-icon.fa.fa-angle-right.fa-2x(onclick="paymentInfo()")
+              %div.dropdown-divider.margin-x-plus-1.box-thin-shadow.d-none
+              #paymentBody.d-none.d-sm-block.mt-3
                 .contact
                   .d-flex
                     .radious-number.mr-4
@@ -149,6 +154,40 @@
                             %img.rounded.black-border{:src => "/img/shop/payment/applePay.png"}
                             %div.mt-1
                               Apple Pay
+              #paymentMBody.d-none.mt-3
+                %a.btn.btn-bg-black.w-100{:href => "#"}='Checkout with PayPal'
+                %div.row.mx-0.py-5
+                  .col-5.mt-3
+                    %hr.border-dark
+                  .col-2.text-center=' OR '
+                  .col-5.mt-3
+                    %hr.border-dark
+                %button.col(type='button' class='btn btn-outline-dark' onclick="payByCredit()")='Pay by credit card'
+                %button.col(type='button' class='btn btn-outline-dark')='Pay with Apple Pay'
+                #card_info.d-none
+                  .contact.mt-5
+                    %label{:for => "card_number"}='Card Info'
+                    %input.form-control{:id => "card_number", :placeholder => "Card Number"}
+                    .d-flex
+                      %input.form-control.col-3.mr-2{:id => "cvv", :placeholder => "CVV", :size => "4"}
+                      %input.form-control.col-5{:id => "expiration_date", :placeholder => "Exp.Date(MM/DD/YYYY)", :size => "8"}
+                  .address
+                    %label{:for => "street"}='Address'
+                    %div.row.mx-0
+                      .col-sm-6.col-12.pdl-0.pr-0.pr-sm-3
+                        %input.form-control{:id => "street", :placeholder => "Street"}
+                      .col-sm-6.col-12.pdl-0.pr-0
+                        %input.form-control{:id => "apartment", :placeholder => "Apartment Or Unit"}
+                    %div.row.mx-0
+                      .col-sm-4.col-6.pdl-0
+                        %input.form-control{:id => "country", :placeholder => "Country"}
+                      .col-sm-4.col-6.pdl-0.pr-0.pr-sm-3
+                        %input.form-control{:id => "state", :placeholder => "State/Province/Region"}
+                      .col-sm-4.col-8.pdl-0.pr-0
+                        %input.form-control{:id => "city", :placeholder => "City"}
+                    %div.row.mx-0
+                      .col-md-3.col-4.pdl-0
+                        %input.form-control{:id => "zipcode", :placeholder => "Zipcode"}
 
           #confirm.box-shadow.mt-4
             .box-body
@@ -194,7 +233,7 @@
                       %label.large-font='$160'
                     .text-right='+ $4.35 shipping'
 
-                %a#confirm_address.btn.btn-bg-black.mt-5{:href => "#"}='Confirm Address'
+                %a#confirm_order.btn.btn-bg-black.mt-5{:href => "#"}='Confirm Order'
 
           #mobileSummary.d-sm-none.d-flex
             %label.text-center.sum-label.col='Total $577.46'
