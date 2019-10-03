@@ -140,4 +140,13 @@ $(document).ready(function(){
     $('.almost-full-height-boder-right').css("border", "none")
     $(this).css("border", "2px solid black")
   })
+
 })
+
+function shippingInfo() {
+  $('#breadcrumbLabel').text('Shipping Information')
+  $('#breadcrumbIcon').removeClass('d-none')
+  $('#shippingBody').removeClass('d-none')
+  $('#shippingInfo').attr('style', 'display: none !important')
+
+}

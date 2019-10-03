@@ -6,7 +6,7 @@
 #checkout-container.container.d-flex(data-hook)
   = render partial: 'spree/shared/error_messages', locals: { target: @order }
   .col-md-8.col-lg-8.pd-m-0
-    .row(data-hook="checkout_header")
+    .row.d-none.d-sm-block(data-hook="checkout_header")
       -# %h1(class="columns three alpha" data-hook="checkout_title")= t('spree.checkout')
       -#%div(class="columns thirteen omega checkout-header" data-hook="checkout_progress")= checkout_progress
       .columns.thirteen.omega.checkout-header
@@ -23,45 +23,53 @@
       %div(class="checkout-form-wrapper w-100 columns #{@order.state != 'confirm' ? 'alpha twelve' : 'alpha omega sixteen'}" data-hook="checkout_form_wrapper")
         = form_for @order, url: update_checkout_path(@order.state), html: { id: "checkout_form_#{@order.state}" } do |form|
           = hidden_field_tag(:order_id, @order.id)
+          .d-flex.my-3
+            %i.cr-icon.fa.fa-angle-left.fa-2x.pl-3.d-none{ id: "breadcrumbIcon"}
+            %h6.my-1.d-sm-none.pl-3{ id: "breadcrumbLabel"}='Order Confirmation'
           #shipping.box-shadow
             .box-body
               %h6='Shipping Information'
-              .contact
-                %label{:for => "full_name"}='Full Name'
-                .d-flex
-                  .col-md-6.pdl-0
-                    %input.form-control{:id => "full_name", :placeholder => "Full Name"}
-                  .phone.d-flex.col-md-6.pdr-0.pdl-0
-                    %input.form-control.col-md-2{:id => "prefix", :value => "+1", :size => "4"}
-                    %input.form-control{:id => "mobile", :placeholder => "Mobile", :size => "12"}
-              .address
-                %label{:for => "address"}='Address'
-                .d-flex
-                  .col-md-6.pdl-0
-                    %input.form-control{:id => "street", :placeholder => "Street"}
-                  .col-md-6.pdr-0.pdl-0
-                    %input.form-control{:id => "apartment", :placeholder => "Apartment Or Unit"}
-                .d-flex
-                  .col-md-4.pdl-0
-                    %input.form-control{:id => "country", :placeholder => "Street"}
-                  .col-md-4.pdl-0
-                    %input.form-control{:id => "state", :placeholder => "Apartment Or Unit"}
-                  .col-md-4.pdr-0.pdl-0
-                    %input.form-control{:id => "city", :placeholder => "Apartment Or Unit"}
-                .d-flex
-                  .col-md-3.pdl-0
-                    %input.form-control{:id => "zipcode", :placeholder => "Zipcode"}
-              .submit
-                .d-flex
-                  .col-md-4.pdl-0
-                    %a#confirm_address.btn.btn-bg-black{:href => "#"}='Confirm Address'
-                  .col-md-5.pdl-0.mt-1
-                    .checkbox.mt-4
-                      %label
-                        %input#same_billing{:type => "checkbox", :checked => "checked"}
-                          %span.cr
-                            %i.cr-icon.fa.fa-check
-                        Same as billing address
+              #shippingInfo.d-flex.justify-content-between.d-sm-none
+                .shipping-info-group
+                  .shipping-info-content='Select address'
+                %i.cr-icon.fa.fa-angle-right.fa-2x(onclick="shippingInfo()")
+              #shippingBody.d-none.d-sm-block
+                .contact
+                  %label{:for => "full_name"}='Contact'
+                  .d-flex
+                    .col-md-6.pdl-0
+                      %input.form-control{:id => "full_name", :placeholder => "Full Name"}
+                    .phone.d-flex.col-md-6.pdr-0.pdl-0
+                      %input.form-control.col-md-2{:id => "prefix", :value => "+1", :size => "4"}
+                      %input.form-control{:id => "mobile", :placeholder => "Mobile", :size => "12"}
+                .address
+                  %label{:for => "address"}='Address'
+                  .d-flex
+                    .col-md-6.pdl-0
+                      %input.form-control{:id => "street", :placeholder => "Street"}
+                    .col-md-6.pdr-0.pdl-0
+                      %input.form-control{:id => "apartment", :placeholder => "Apartment Or Unit"}
+                  .d-flex
+                    .col-md-4.pdl-0
+                      %input.form-control{:id => "country", :placeholder => "Street"}
+                    .col-md-4.pdl-0
+                      %input.form-control{:id => "state", :placeholder => "Apartment Or Unit"}
+                    .col-md-4.pdr-0.pdl-0
+                      %input.form-control{:id => "city", :placeholder => "Apartment Or Unit"}
+                  .d-flex
+                    .col-md-3.pdl-0
+                      %input.form-control{:id => "zipcode", :placeholder => "Zipcode"}
+                .submit
+                  .d-flex
+                    .col-md-4.pdl-0
+                      %a#confirm_address.btn.btn-bg-black{:href => "#"}='Confirm Address'
+                    .col-md-5.pdl-0.mt-1
+                      .checkbox.mt-4
+                        %label
+                          %input#same_billing{:type => "checkbox", :checked => "checked"}
+                            %span.cr
+                              %i.cr-icon.fa.fa-check
+                          Same as billing address
           #billing.box-shadow.mt-4{:style => "display:none;"}
             .box-body
               %h6='Billing Address'
@@ -93,92 +101,98 @@
 
           #payment.box-shadow.mt-4
             .box-body
-              %h6='Payment Method'
-              .contact
-                .d-flex
-                  .radious-number.mr-4
-                    1
-                  %div.w-100
-                    %div
-                      %h6.mb-0.dark-blue-font="Choose how you want to make today's payment of $179.00"
-                      .font-italic='For AMEX or savings accounts consider PayPal.'
-                    .address.mt-4
-                      .d-flex.rounded.grey-border
-                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "paypal"}
-                          %img{:src => "/img/shop/payment/paypal.png"}
-                          %div.mt-1
-                            PayPal
-                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "credit"}
-                          %img.rounded.black-border{:src => "/img/shop/payment/card.png"}
-                          %div.mt-1
-                            Credit/Debit
-                        .col.pt-3.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "alipay"}
-                          %img{:src => "/img/shop/payment/Alipay.png"}
-                          %div.mt-1
-                            AliPay
-                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "googlepay"}
-                          %img.rounded.black-border{:src => "/img/shop/payment/googlePay.png"}
-                          %div.mt-1
-                            Google Pay
-                        .col.pt-4.pb-4.text-center.position-relative.almost-full-height-boder-right{:id => "applepay"}
-                          %img.rounded.black-border{:src => "/img/shop/payment/applePay.png"}
-                          %div.mt-1
-                            Apple Pay
+              %h6.d-none.d-sm-block='Payment Method'
+              %h6.d-sm-none='Payment Information'
+              #payment-info.d-flex.justify-content-between.d-sm-none
+                .payment-info.d-flex
+                  %img.mx-2{:src => "/img/shop/payment/paypal.png"}
+                  %img.mx-2.rounded.black-border{:src => "/img/shop/payment/card.png"}
+                  %img.mx-2{:src => "/img/shop/payment/Alipay.png"}
+                  %img.mx-2.rounded.black-border{:src => "/img/shop/payment/googlePay.png"}
+                  %img.mx-2.rounded.black-border{:src => "/img/shop/payment/applePay.png"}
+                .selected-payment-info.d-none
+                %i.cr-icon.fa.fa-angle-right.fa-2x
+              #payment-body.d-none.d-sm-block
+                .contact
+                  .d-flex
+                    .radious-number.mr-4
+                      1
+                    %div.w-100
+                      %div
+                        %h6.mb-0.dark-blue-font="Choose how you want to make today's payment of $179.00"
+                        .font-italic='For AMEX or savings accounts consider PayPal.'
+                      .address.mt-4
+                        .d-flex.rounded.grey-border
+                          .col.pt-4.pb-4.text-center.position-relative.cursor-pointer.almost-full-height-boder-right{:id => "paypal"}
+                            %img{:src => "/img/shop/payment/paypal.png"}
+                            %div.mt-1
+                              PayPal
+                          .col.pt-4.pb-4.text-center.position-relative.cursor-pointer.almost-full-height-boder-right{:id => "credit"}
+                            %img.rounded.black-border{:src => "/img/shop/payment/card.png"}
+                            %div.mt-1
+                              Credit/Debit
+                          .col.pt-3.pb-4.text-center.position-relative.cursor-pointer.almost-full-height-boder-right{:id => "alipay"}
+                            %img{:src => "/img/shop/payment/Alipay.png"}
+                            %div.mt-1
+                              AliPay
+                          .col.pt-4.pb-4.text-center.position-relative.cursor-pointer.almost-full-height-boder-right{:id => "googlepay"}
+                            %img.rounded.black-border{:src => "/img/shop/payment/googlePay.png"}
+                            %div.mt-1
+                              Google Pay
+                          .col.pt-4.pb-4.text-center.position-relative.cursor-pointer{:id => "applepay"}
+                            %img.rounded.black-border{:src => "/img/shop/payment/applePay.png"}
+                            %div.mt-1
+                              Apple Pay
 
           #confirm.box-shadow.mt-4
             .box-body
-              %h6='Confirm Order'
-              .contact
+              %h6.d-none.d-sm-block='Confirm Order'
+              .d-flex.justify-content-between
+                %h6.d-sm-none='Order details'
+                .d-sm-none='Edit cart'
+              .contact.mt-4
                 .d-flex
-                  .col-2
+                  .col-2.px-0
                     %img.image_preview{:src => "/spree/products/8949/small/tote-bag.leather-brown.jpg?1565287827"}
-                  .col-10.d-flex
-                    .col-8
-                      %h6.mb-0
-                        Nike Aire Max
-                      Op Art - Size 9.0
-                    .col-4.text-right
-                      %h4.mb-0
-                        $160
-                      + $4.35 shipping
+                  .col-10
+                    %h6.mb-0='Nike Air Max'
+                    .d-flex.justify-content-between
+                      %label='Op Art - Size 9.0'
+                      %label.large-font='$160'
+                    .text-right='+ $4.35 shipping'
                 .d-flex.mt-5
-                  .col-2
+                  .col-2.px-0
                     %img.image_preview{:src => "/spree/products/8949/small/tote-bag.leather-brown.jpg?1565287827"}
-                  .col-10.d-flex
-                    .col-8
-                      %h6.mb-0
-                        Nike Aire Max
-                      Op Art - Size 9.0
-                    .col-4.text-right
-                      %h4.mb-0
-                        $160
-                      + $4.35 shipping
+                  .col-10
+                    %h6.mb-0='Nike Air Max'
+                    .d-flex.justify-content-between
+                      %label='Op Art - Size 9.0'
+                      %label.large-font='$160'
+                    .text-right='+ $4.35 shipping'
                 .d-flex.mt-5
-                  .col-2
+                  .col-2.px-0
                     %img.image_preview{:src => "/spree/products/8949/small/tote-bag.leather-brown.jpg?1565287827"}
-                  .col-10.d-flex
-                    .col-8
-                      %h6.mb-0
-                        Nike Aire Max
-                      Op Art - Size 9.0
-                    .col-4.text-right
-                      %h4.mb-0
-                        $160
-                      + $4.35 shipping
+                  .col-10
+                    %h6.mb-0='Nike Air Max'
+                    .d-flex.justify-content-between
+                      %label='Op Art - Size 9.0'
+                      %label.large-font='$160'
+                    .text-right='+ $4.35 shipping'
                 .d-flex.mt-5
-                  .col-2
+                  .col-2.px-0
                     %img.image_preview{:src => "/spree/products/8949/small/tote-bag.leather-brown.jpg?1565287827"}
-                  .col-10.d-flex
-                    .col-8
-                      %h6.mb-0
-                        Nike Aire Max
-                      Op Art - Size 9.0
-                    .col-4.text-right
-                      %h4.mb-0
-                        $160
-                      + $4.35 shipping
+                  .col-10
+                    %h6.mb-0='Nike Air Max'
+                    .d-flex.justify-content-between
+                      %label='Op Art - Size 9.0'
+                      %label.large-font='$160'
+                    .text-right='+ $4.35 shipping'
 
                 %a#confirm_address.btn.btn-bg-black.mt-5{:href => "#"}='Confirm Address'
+
+          .d-sm-none.d-flex
+            %label.text-center.sum-label.col='Total $577.46'
+            %button.col(type='button' class='btn btn-custom-secondary' disabled='disabled')='Place Order'
 
           -# if @order.state == 'address' || !@order.email?
             -#%div(class="field field-required" style='clear: both')
@@ -188,7 +202,7 @@
           -#= render @order.state, form: form
 
 
-  .col-md-4.col-lg-4.pd-m-0
+  .col-md-4.col-lg-4.pd-m-0.d-none.d-sm-block
     - if @order.state != 'confirm'
       #checkout-summary(data-hook="checkout_summary_box" class="cart-summary box-shadow box-body make-me-sticky")
         = render partial: 'summary', locals: { order: @order }

@@ -3,7 +3,7 @@
     %span.cart-icon
       %i.icon-shopping-cart
       %span.count-label #{ cart_items.try(:count) || 0 }
-    %span.text-label #{t('spree.cart')}
+    %span.text-label.d-none.d-sm-block #{t('spree.cart')}
 - if cart_items && cart_items.count > 0
   %div(class="toolbar-dropdown cart-dropdown widget-cart hidden-on-mobile")
     = render partial: 'spree/orders/order_line_item_dropdown_entry', collection: cart_items, as: :line_item
