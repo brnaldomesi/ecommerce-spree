@@ -26,6 +26,11 @@
   }
 }
 
+.btn.btn-outline-dark {
+  color: #343a40;
+  border-color: #343a40;
+}
+
 .shipping-info-content {
   white-space: pre;
 }

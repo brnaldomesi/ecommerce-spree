@@ -144,7 +144,7 @@ $(document).ready(function(){
 })
 
 function shippingInfo() {
-  $('#goHomeIcon').removeClass('d-none')
+  $('.go-home').removeClass('d-none')
   $('#shippingBody').removeClass('d-none')
   $('#shippingInfo').attr('style', 'display: none !important')
   $('#breadcrumbLabel').attr('style', 'display: none')
@@ -156,7 +156,7 @@ function shippingInfo() {
   $('#full_name').focus()
 }
 
-function goHome() {
+function goHomeFromShipping() {
   var str = $('#full_name').val() ? $('#full_name').val() + '\n' : ''
   str += $('#street').val() ? $('#street').val() + '\n' : ''
   str += $('#apartment').val() ? $('#apartment').val() + '\n' : ''
@@ -164,7 +164,7 @@ function goHome() {
   if(str !== '')
     $('.shipping-info-content').text(str)
 
-  $('#goHomeIcon').addClass('d-none')
+  $('.go-home').addClass('d-none')
   $('#shippingBody').addClass('d-none')
   $('#shippingInfo').attr('style', 'display: flex !important')
   $('#breadcrumbLabel').attr('style', 'display: block')
@@ -173,4 +173,34 @@ function goHome() {
   $('#payment').removeClass('d-none')
   $('#confirm').removeClass('d-none')
   $('#mobileSummary').attr('style', 'display: flex !important')
+}
+
+function paymentInfo() {
+  $('.go-home').removeClass('d-none')
+  $('#paymentMBody').removeClass('d-none')
+  $('#paymentInfo').attr('style', 'display: none !important')
+  $('#breadcrumbLabel').attr('style', 'display: none')
+  $('.dropdown-divider').removeClass('d-none')
+  $('#shipping').addClass('d-none')
+  $('#billing').addClass('d-none')
+  $('#confirm').addClass('d-none')
+  $('#card_info').addClass('d-none')
+  $('#mobileSummary').attr('style', 'display: none !important')
+  $('#payment').attr('style', 'margin-top: 0 !important')
+}
+
+function goHomeFromPayment() {
+  $('.go-home').addClass('d-none')
+  $('#paymentMBody').addClass('d-none')
+  $('#paymentInfo').attr('style', 'display: flex !important')
+  $('#breadcrumbLabel').attr('style', 'display: block')
+  $('.dropdown-divider').addClass('d-none')
+  $('#shipping').removeClass('d-none')
+  $('#billing').removeClass('d-none')
+  $('#confirm').removeClass('d-none')
+  $('#mobileSummary').attr('style', 'display: flex !important')
+}
+
+function payByCredit() {
+  $('#card_info').removeClass('d-none')
 }
