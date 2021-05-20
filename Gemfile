@@ -55,7 +55,7 @@ gem 'carrierwave_direct'
 # Scraping
 
 gem 'mechanize'
-gem 'nokogiri', '~> 1.10'
+gem 'nokogiri', '~> 1.11'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
