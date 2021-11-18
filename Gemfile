@@ -122,7 +122,7 @@ gem 'geo_ip'
 # Shopping
 
 gem 'solidus', '~> 2.8.4'
-gem 'solidus_auth_devise', '~> 2.2.0'
+gem 'solidus_auth_devise', '~> 2.5.4'
 gem 'solidus_reports', github: 'solidusio-contrib/solidus_reports'
 gem 'solidus_marketplace'
 gem 'solidus_gateway', '~> 1.3.0'
